@@ -1,0 +1,399 @@
+/* =====================================================
+   FILTER CONTROL
+   ===================================================== */
+
+.filter-control {
+    width: 100%;
+}
+
+
+/* =====================================================
+   DROPDOWN
+   ===================================================== */
+
+.filter-control.k-dropdownlist {
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+
+    background-color: #f8f9fc;
+
+    border: 1px solid #e2e5eb;
+    border-bottom: 2px solid #4263eb;
+
+    border-radius: 6px 6px 3px 3px;
+
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        box-shadow 0.15s ease;
+
+    box-sizing: border-box;
+}
+
+
+/* Dropdown text */
+
+.filter-control.k-dropdownlist .k-input-inner {
+    height: 38px;
+
+    padding: 0 12px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    color: #273142;
+}
+
+
+/* Arrow area */
+
+.filter-control.k-dropdownlist .k-input-button {
+    width: 38px;
+    height: 38px;
+
+    border: 0;
+    background: transparent;
+}
+
+
+/* Hover */
+
+.filter-control.k-dropdownlist:hover {
+    background-color: #f5f7fb;
+
+    border-color: #cfd4dc;
+    border-bottom-color: #4263eb;
+
+    box-shadow: 0 2px 5px rgba(16, 24, 40, 0.06);
+}
+
+
+/* Focus */
+
+.filter-control.k-dropdownlist.k-focus {
+    background-color: #ffffff;
+
+    border-color: #b9c4ff;
+    border-bottom-color: #4263eb;
+
+    box-shadow:
+        0 0 0 3px rgba(66, 99, 235, 0.10);
+}
+
+
+/* =====================================================
+   DROPDOWN POPUP
+   ===================================================== */
+
+.k-animation-container .k-popup {
+    padding: 6px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 8px 24px rgba(16, 24, 40, 0.12),
+        0 2px 6px rgba(16, 24, 40, 0.06);
+}
+
+
+/* =====================================================
+   DROPDOWN OPTIONS
+   ===================================================== */
+
+.k-animation-container .k-list-item {
+    min-height: 42px;
+
+    padding: 10px 12px;
+
+    border-radius: 6px;
+
+    font-size: 13px;
+    font-weight: 400;
+
+    color: #344054;
+
+    transition:
+        background-color 0.12s ease,
+        color 0.12s ease;
+}
+
+
+/* Hover */
+
+.k-animation-container .k-list-item:hover {
+    background-color: #f4f6ff;
+
+    color: #344054;
+}
+
+
+/* Selected */
+
+.k-animation-container .k-list-item.k-selected {
+    background-color: #eaf0ff;
+
+    border: 1px solid #c9d6ff;
+
+    color: #3155c7;
+
+    font-weight: 500;
+}
+
+
+/* Selected hover */
+
+.k-animation-container .k-list-item.k-selected:hover {
+    background-color: #e1e9ff;
+
+    color: #2949b5;
+}
+
+
+/* =====================================================
+   MULTI SELECT
+   ===================================================== */
+
+.filter-control.k-multiselect {
+    width: 100%;
+
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+
+    padding: 0;
+
+    background-color: #f8f9fc;
+
+    border: 1px solid #e2e5eb;
+    border-bottom: 2px solid #4263eb;
+
+    border-radius: 6px 6px 3px 3px;
+
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+
+    overflow: hidden;
+
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+
+/* Selected values */
+
+.filter-control.k-multiselect .k-input-values {
+    height: 38px;
+    min-height: 38px;
+    max-height: 38px;
+
+    padding: 6px 8px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    box-sizing: border-box;
+
+    scrollbar-width: thin;
+}
+
+
+/* =====================================================
+   MULTI SELECT CHIP
+   ===================================================== */
+
+.filter-control.k-multiselect .k-chip {
+    height: 24px;
+    min-height: 24px;
+    max-height: 24px;
+
+    padding: 0 7px 0 9px;
+
+    border: 1px solid #cbd8ff;
+
+    border-radius: 6px;
+
+    background-color: #edf2ff;
+
+    color: #3155c7;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    box-sizing: border-box;
+
+    flex: 0 0 auto;
+
+    transition:
+        background-color 0.12s ease,
+        border-color 0.12s ease;
+}
+
+
+/* Chip hover */
+
+.filter-control.k-multiselect .k-chip:hover {
+    background-color: #e4ebff;
+
+    border-color: #b8c8ff;
+}
+
+
+/* Chip content */
+
+.filter-control.k-multiselect .k-chip-content {
+    height: 22px;
+
+    padding: 0;
+
+    line-height: 22px;
+
+    color: #3155c7;
+}
+
+
+/* =====================================================
+   CHIP REMOVE
+   ===================================================== */
+
+.filter-control.k-multiselect .k-chip-actions {
+    width: 18px;
+    height: 22px;
+
+    margin-left: 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.filter-control.k-multiselect .k-chip-actions .k-button {
+    width: 18px;
+    height: 18px;
+
+    min-width: 18px;
+    min-height: 18px;
+
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #64748b;
+}
+
+
+/* X icon */
+
+.filter-control.k-multiselect .k-chip-actions svg {
+    width: 11px;
+    height: 11px;
+
+    color: #64748b;
+    fill: #64748b;
+}
+
+
+/* X hover */
+
+.filter-control.k-multiselect .k-chip-actions .k-button:hover {
+    color: #ef4444;
+}
+
+
+/* =====================================================
+   MULTI SELECT HOVER
+   ===================================================== */
+
+.filter-control.k-multiselect:hover {
+    background-color: #f5f7fb;
+
+    border-color: #cfd4dc;
+    border-bottom-color: #4263eb;
+
+    box-shadow: 0 2px 5px rgba(16, 24, 40, 0.06);
+}
+
+
+/* =====================================================
+   MULTI SELECT FOCUS
+   ===================================================== */
+
+.filter-control.k-multiselect.k-focus {
+    background-color: #ffffff;
+
+    border-color: #b9c4ff;
+    border-bottom-color: #4263eb;
+
+    box-shadow:
+        0 0 0 3px rgba(66, 99, 235, 0.10);
+}
+
+/* =====================================================
+   MULTI SELECT CHECKBOX - BLUE THEME
+   ===================================================== */
+
+/* Checkbox wrapper */
+.k-multiselect-popup .k-checkbox {
+    width: 17px;
+    height: 17px;
+
+    border: 2px solid #94a3b8;
+    border-radius: 4px;
+
+    background-color: #ffffff;
+}
+
+
+/* Unchecked hover */
+.k-multiselect-popup .k-checkbox:hover {
+    border-color: #4263eb;
+}
+
+
+/* Checked */
+.k-multiselect-popup .k-checkbox:checked {
+    background-color: #4263eb;
+    border-color: #4263eb;
+}
+
+
+/* Checked hover */
+.k-multiselect-popup .k-checkbox:checked:hover {
+    background-color: #3155c7;
+    border-color: #3155c7;
+}
+
+
+/* Checkbox check mark */
+.k-multiselect-popup .k-checkbox:checked::after {
+    border-color: #ffffff;
+}
+
+
+/* Indeterminate / Select All state */
+.k-multiselect-popup .k-checkbox:indeterminate {
+    background-color: #4263eb;
+    border-color: #4263eb;
+}
+
+
+/* Indeterminate mark */
+.k-multiselect-popup .k-checkbox:indeterminate::after {
+    border-color: #ffffff;
+}

@@ -1,0 +1,420 @@
+/* =========================================================
+   FILTER CONTROL
+   ========================================================= */
+
+.filter-control {
+    width: 12.4em;
+}
+
+
+/* =========================================================
+   DROPDOWN
+   ========================================================= */
+
+.k-dropdownlist.k-picker {
+    width: 12.4em;
+    height: 32px;
+    min-height: 32px;
+    max-height: 32px;
+display: inline-flex
+;
+    padding: 0;
+
+    border: 1px solid #ced4da;
+    border-bottom: 2px solid #1084c5;
+
+    border-radius: 0 0 6px 6px;
+
+    background-color: #ffffff;
+
+    box-sizing: border-box;
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+/* Dropdown text */
+
+.k-dropdownlist.k-picker .k-input-inner {
+    height: 30px;
+    min-height: 30px;
+
+    padding: 0 8px;
+
+    border: 0;
+
+    font-size: 13px;
+    line-height: 30px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   DROPDOWN ARROW
+   ========================================================= */
+
+/*
+   Kendo arrow ko hide nahi kar rahe.
+   Button ke andar custom small blue arrow bana rahe hain.
+*/
+
+.k-dropdownlist.k-picker .k-input-button {
+        width: 30px;
+    min-width: 30px;
+    height: 30px;
+    min-height: 30px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    position: absolute;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    left: 168px;
+}
+
+
+/* Hide Kendo icon visually */
+
+.k-dropdownlist.k-picker .k-input-button svg {
+    display: none;
+}
+
+
+/* Our arrow */
+
+.k-dropdownlist.k-picker .k-input-button::after {
+    content: "";
+
+    width: 0;
+    height: 0;
+
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid #1084c5;
+
+    display: block;
+}
+
+
+/* =========================================================
+   DROPDOWN HOVER
+   ========================================================= */
+
+.k-dropdownlist.k-picker:hover {
+    border-color: #adb5bd;
+    border-bottom-color: #1084c5;
+}
+
+
+/* =========================================================
+   DROPDOWN FOCUS
+   ========================================================= */
+
+.k-dropdownlist.k-picker.k-focus {
+    border-color: #ced4da;
+    border-bottom-color: #1084c5;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   MULTI SELECT
+   ========================================================= */
+
+.k-multiselect.k-input {
+    width: 12.4em;
+
+    height: 32px;
+    min-height: 32px;
+    max-height: 32px;
+
+    padding: 0;
+
+    border: 1px solid #ced4da;
+    border-bottom: 2px solid #1084c5;
+
+    border-radius: 0 0 6px 6px;
+
+    background-color: #ffffff;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   MULTI SELECT SELECTED VALUES AREA
+   ========================================================= */
+
+.k-multiselect.k-input .k-input-values {
+    width: 100%;
+
+    height: 30px;
+    min-height: 30px;
+    max-height: 30px;
+
+    padding: 3px 4px;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    /*
+       Selected values ek hi line mein rahengi.
+       Zyada values hone par isi 32px control ke andar
+       horizontal scroll aayega.
+    */
+
+    /* flex-wrap: nowrap; */
+
+    /* gap: 3px; */
+
+    overflow-x: auto;
+    overflow-y: auto;
+
+    white-space: nowrap;
+
+    scrollbar-width: thin;
+}
+
+.k-multiselect.k-input .k-chip-list{
+
+    display: inline-flex;
+    gap: 0.3em;
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   MULTI SELECT SCROLLBAR
+   ========================================================= */
+
+/* .k-multiselect.k-input .k-input-values::-webkit-scrollbar {
+    height: 4px;
+}
+
+.k-multiselect.k-input .k-input-values::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.k-multiselect.k-input .k-input-values::-webkit-scrollbar-thumb {
+    background: #adb5bd;
+    border-radius: 4px;
+} */
+
+
+/* =========================================================
+   SELECTED VALUE / CHIP
+   ========================================================= */
+
+.k-multiselect.k-input .k-chip {
+    height: 22px;
+    min-height: 22px;
+    max-height: 22px;
+
+    margin: 0;
+    padding: 0 4px 0 7px;
+
+    border: 1px solid #d6dbe0;
+    border-radius: 3px;
+
+    background-color: #f3f5f7;
+
+    font-size: 12px;
+    line-height: 20px;
+
+    box-sizing: border-box;
+
+    flex: 0 0 auto;
+}
+
+
+/* =========================================================
+   CHIP TEXT
+   ========================================================= */
+
+.k-multiselect.k-input .k-chip-content {
+    height: 20px;
+
+    padding: 0;
+
+    line-height: 20px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CHIP REMOVE AREA
+   ========================================================= */
+
+.k-multiselect.k-input .k-chip-actions {
+    width: 16px;
+    height: 20px;
+
+    min-width: 16px;
+    min-height: 20px;
+
+    margin-left: 3px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Remove button */
+
+.k-multiselect.k-input .k-chip-actions button {
+    width: 16px;
+    height: 18px;
+
+    min-width: 16px;
+    min-height: 18px;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    position: relative;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   CHIP CROSS MARK
+   ========================================================= */
+
+/*
+   Kendo ka icon visually hide karke
+   clean custom X bana rahe hain.
+*/
+
+.k-multiselect.k-input .k-chip-actions svg {
+    display: none;
+}
+
+
+/* X */
+
+.k-multiselect.k-input .k-chip-actions button::before,
+.k-multiselect.k-input .k-chip-actions button::after {
+    content: "";
+
+    position: absolute;
+
+    width: 9px;
+    height: 1px;
+
+    background-color: #6c757d;
+
+    left: 50%;
+    top: 50%;
+}
+
+
+/* First line */
+
+.k-multiselect.k-input .k-chip-actions button::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+
+/* Second line */
+
+.k-multiselect.k-input .k-chip-actions button::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+
+/* X hover */
+
+.k-multiselect.k-input .k-chip-actions button:hover::before,
+.k-multiselect.k-input .k-chip-actions button:hover::after {
+    background-color: #dc3545;
+}
+
+
+/* =========================================================
+   MULTI SELECT INPUT
+   ========================================================= */
+
+.k-multiselect.k-input .k-input-inner {
+    /* height: 20px;
+    min-height: 20px;
+
+    padding: 0 3px;
+
+    border: 0;
+
+    font-size: 12px;
+    line-height: 20px;
+
+    box-sizing: border-box; */
+    width: 0px;
+}
+
+
+/* =========================================================
+   MULTI SELECT HOVER
+   ========================================================= */
+
+.k-multiselect.k-input:hover {
+    border-color: #adb5bd;
+    border-bottom-color: #1084c5;
+}
+
+
+/* =========================================================
+   MULTI SELECT FOCUS
+   ========================================================= */
+
+.k-multiselect.k-input.k-focus {
+    border-color: #ced4da;
+    border-bottom-color: #1084c5;
+
+    box-shadow: none;
+}
+
+
+
+
+.k-animation-container .k-popup {
+
+        box-shadow: 0px 2px 1px 0px rgb(0 0 0 / 8%), 0 3px 9px 0 #6161618f;
+
+
+}
+
+.k-popup {
+
+        background-color: #f5f5f5;
+        color: #656565;
+        border-color: rgba(0, 0, 0, .08);
+
+        
+}
+
+
+.k-list-item.k-selected.k-focus, .k-list-item.k-selected{
+
+    background-color: #1084c5;
+    color: #ffffff;
+}
+
+
+.k-list-item{
+    padding: 1px 5px 1px 5px;
+}

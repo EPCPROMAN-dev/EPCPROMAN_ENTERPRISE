@@ -1,0 +1,333 @@
+.graph_wrapper {
+    position: relative;
+    height: fit-content;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.graph_wrapper.shadow {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.graph_header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 5px;
+}
+
+.graph_title {
+    font-size: 15px;
+    padding-left: 5px;
+    color: #333;
+}
+
+.graph_title p,
+.graph_fullscreen_modal_title,
+.graph_detail_modal_title {
+    margin: 0;
+}
+
+.graph_icon_list {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.graph_icon_cont,
+.outlined_btn,
+.inner_icon_cont {
+    height: 28px;
+    width: 31px;
+    font-size: 14px;
+    background: #fff;
+    color: var(--GridHeaderlvl, #555);
+    border: 1px solid var(--GridHeaderlvl, #aaa);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+.graph_icon_cont:hover,
+.outlined_btn:hover {
+    background: var(--GridHeaderlvl, #555) !important;
+    color: #fff !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.graph_body {
+    width: 100%;
+}
+
+.chart_element {
+    width: 100%;
+    height: 100%;
+    min-height: 1px;
+}
+
+.chart_element > div {
+    width: 100%;
+    height: 100%;
+    min-height: 1px;
+}
+
+.graph_change_cont {
+    --top: 20%;
+    --right: 20%;
+    position: absolute;
+    top: var(--top);
+    right: var(--right);
+    transform: translate(30%, -10%);
+    gap: 5px;
+    padding: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background: #fff;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 20;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out, right 0s;
+}
+
+.graph_change_cont.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(30%, 0%);
+}
+
+.chart_type_img_cont {
+    min-width: 37px;
+    max-width: 37px;
+    width: 37px;
+    height: 37px;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid transparent;
+    background: transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.chart_type_img_cont img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: all 0.2s ease-in-out;
+}
+
+.chart_type_img_cont:hover,
+.chart_type_img_cont.active {
+    background: var(--ThemeVersion2Selected, #eaf5ff);
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.chart_type_img_cont:hover img {
+    transform: scale(1.05);
+}
+
+.graph_fullscreen_modal_holder,
+.graph_detail_modal_holder {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00000040;
+}
+
+.graph_fullscreen_modal_holder {
+    z-index: 1031;
+}
+
+.graph_detail_modal_holder {
+    z-index: 1030;
+}
+
+.graph_fullscreen_modal,
+.graph_detail_modal {
+    background-color: #fff;
+    border-radius: 10px 10px 4px 4px;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.4s all ease-in-out;
+}
+
+.graph_fullscreen_modal {
+    width: 80%;
+}
+
+.graph_detail_modal {
+    width: 90%;
+}
+
+.graph_fullscreen_modal_header,
+.graph_detail_modal_header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px 15px;
+}
+
+.graph_fullscreen_modal_title_cont,
+.graph_detail_modal_title_cont {
+    font-size: 17px;
+    color: #555;
+}
+
+.graph_modal_icon_cont {
+    display: flex;
+    align-items: center;
+}
+
+.inner_icon_cont {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: #7f7f7f;
+    line-height: 1;
+    height: 30px;
+    width: 30px;
+}
+
+.inner_icon_cont:hover {
+    background: transparent !important;
+    color: #333 !important;
+}
+
+.graph_fullscreen_modal_body {
+    width: 100%;
+    height: 80vh;
+    padding: 15px;
+}
+
+.graph_detail_modal_body {
+    width: 100%;
+    height: 82vh;
+    padding: 15px;
+}
+
+.chart_modal_chart_area {
+    width: 100%;
+    height: 100%;
+}
+
+.chart_modal_chart_area > .chart_element,
+.chart_modal_chart_area .chart_element > div {
+    width: 100%;
+    height: 100%;
+}
+
+.detail_content_wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail_top_row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.detail_tabs {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.detail_tab {
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    padding: 8px 15px;
+    color: #555;
+    cursor: pointer;
+}
+
+.detail_tab.active {
+    color: var(--GridHeaderlvl, #555);
+    border-bottom-color: var(--GridHeaderlvl, #555);
+}
+
+.graph_detail_nav_btn_cont {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.chart_detail_grid {
+    flex: 1;
+    min-height: 0;
+    margin-top: 5px;
+}
+
+.chart_detail_grid_scroll {
+    height: 100%;
+    min-height: 0;
+    overflow: auto;
+}
+
+.chart_detail_grid table {
+    width: 100%;
+    border-collapse: collapse;
+    color: rgba(0, 32, 96, 1);
+    font-size: var(--GridFont, 14px);
+    background: #fff;
+}
+
+.chart_detail_grid th {
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+}
+
+.chart_detail_grid td {
+    border: 1px solid rgba(37, 36, 36, 0.15);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background-color: #fff;
+    overflow: hidden;
+    padding: 6px 8px;
+    text-align: left;
+}
+
+.chart_detail_grid tbody tr:hover td {
+    background-color: #eaf5ff;
+    color: #2d49e1;
+}
+
+.graph_detail_modal_footer {
+    padding: 6px 5px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #f6faff;
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+
+.graph_detail_modal_row_count {
+    width: fit-content;
+    background-color: var(--NavBarlvl, #555);
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 3px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
