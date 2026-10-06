@@ -13,7 +13,7 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
-import DataTable from "../../Common/DataTable/DataTable";
+import DataTable from "../Common/DataTable/DataTable";
 
 import {
     prepareChartData,

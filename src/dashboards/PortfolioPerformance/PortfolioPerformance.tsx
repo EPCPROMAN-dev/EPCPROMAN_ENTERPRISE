@@ -1,5 +1,5 @@
 import FilterBar from "../../components/Common/FilterBar/FilterBar";
-import Chart from "../../components/Charts/Chart/Chart";
+import Chart from "../../components/Charts/Chart";
 import DataTable from "../../components/Common/DataTable/DataTable";
 import GlobalProjectDashboard from "./components/GlobalProjectDashboard/GlobalProjectDashboard";
 

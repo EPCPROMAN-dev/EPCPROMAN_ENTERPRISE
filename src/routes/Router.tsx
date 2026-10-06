@@ -6,7 +6,7 @@ import Apps from "../pages/Apps/Apps";;
 // import Calendar from "../pages/Calendar/Calendar";
 
 import AppDetails from "../pages/Apps/AppDetails";
-import PortfolioPerformance from "../pages/PortfolioPerformance/PortfolioPerformance";
+import PortfolioPerformance from "../dashboards/PortfolioPerformance/PortfolioPerformance";
 import ProjectPerformance from "../pages/ProjectPerformance/ProjectPerformance";
 import CommercialPerformance from "../pages/CommercialPerformance/CommercialPerformance";
 import OperationalAnalysis from "../pages/OperationalAnalysis/OperationalAnalysis";
