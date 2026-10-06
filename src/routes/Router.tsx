@@ -83,7 +83,13 @@ const router = createBrowserRouter([
             },
         ],
     },
+    {
+        path: "/da",
+        element:<PortfolioPerformance />,
+    }
 
 ]);
+
+
 
 export default router;
