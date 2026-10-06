@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@import "@progress/kendo-theme-material/dist/all.css";
+
 html,
 body,
 #root {
