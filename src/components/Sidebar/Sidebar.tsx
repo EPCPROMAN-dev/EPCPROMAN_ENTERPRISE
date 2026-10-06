@@ -1,5 +1,6 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
+import type { Theme } from "@mui/material/styles";
 import { useNavigate, useLocation } from "react-router-dom";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -32,26 +33,22 @@ interface MenuItem {
     path: string;
 }
 
-const openedMixin = (theme: any) => ({
+const openedMixin = (theme: Theme) => ({
     width: drawerWidth,
-
     transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
     }),
-
-    overflowX: "hidden",
+    overflowX: "hidden" as const,
 });
 
-const closedMixin = (theme: any) => ({
+const closedMixin = (theme: Theme) => ({
     width: closedDrawerWidth,
-
     transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-
-    overflowX: "hidden",
+    overflowX: "hidden" as const,
 });
 
 const StyledDrawer = styled(Drawer, {
@@ -245,6 +242,115 @@ export default function Sidebar({ open }: SidebarProps) {
                 ))}
             </List>
 
+             {/* WORKSPACE MENU */}
+
+            <List
+                sx={{
+                    pt: 0,
+                }}
+            >
+                {workspaceMenu.map((item) => {
+                    const selected =
+                        item.path === "/apps"
+                            ? location.pathname.startsWith(
+                                  "/apps"
+                              )
+                            : location.pathname ===
+                              item.path;
+
+                    return (
+                        <ListItem
+                            key={item.name}
+                            disablePadding
+                            sx={{
+                                display: "block",
+                            }}
+                        >
+                            <ListItemButton
+                                onClick={() =>
+                                    navigate(item.path)
+                                }
+                                selected={selected}
+                                sx={{
+                                    minHeight: 42,
+
+                                    px: open ? 2 : 0,
+
+                                    mx: open ? 1 : 0,
+
+                                    borderRadius: "7px",
+
+                                    justifyContent: open
+                                        ? "initial"
+                                        : "center",
+
+                                    "&:hover": {
+                                        backgroundColor:
+                                            "#f3f7fc",
+                                    },
+
+                                    "&.Mui-selected": {
+                                        backgroundColor:
+                                            "#e5effc",
+                                    },
+
+                                    "&.Mui-selected:hover": {
+                                        backgroundColor:
+                                            "#dceafb",
+                                    },
+                                }}
+                            >
+                                <ListItemIcon
+                                    sx={{
+                                        minWidth: 24,
+                                        width: 24,
+                                        height: 24,
+                                        mr: open ? 2 : 0,
+                                        flexShrink: 0,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent:
+                                            "center",
+
+                                        color: selected
+                                            ? "#1769d2"
+                                            : "#526b86",
+
+                                        "& svg": {
+                                            fontSize: 17,
+                                        },
+                                    }}
+                                >
+                                    {item.icon}
+                                </ListItemIcon>
+
+                                <ListItemText
+                                    primary={item.name}
+                                    sx={{
+                                        display: open
+                                            ? "block"
+                                            : "none",
+
+                                        "& .MuiTypography-root": {
+                                            fontSize: "13px",
+
+                                            fontWeight:
+                                                selected
+                                                    ? 700
+                                                    : 400,
+
+                                            color: selected
+                                                ? "#1769d2"
+                                                : "#294b70",
+                                        },
+                                    }}
+                                />
+                            </ListItemButton>
+                        </ListItem>
+                    );
+                })}
+            </List>
+
             {/* MY APPS */}
 
             {open && myApps.length > 0 && (
@@ -259,7 +365,7 @@ export default function Sidebar({ open }: SidebarProps) {
                         color: "#8a9bad",
                     }}
                 >
-                    MY APPS
+                    MY WORKSPACE
                 </Typography>
             )}
 
@@ -382,7 +488,7 @@ export default function Sidebar({ open }: SidebarProps) {
 
             {/* WORKSPACES TITLE */}
 
-            {open && (
+            {/* {open && (
                 <Typography
                     sx={{
                         px: 2.5,
@@ -396,116 +502,9 @@ export default function Sidebar({ open }: SidebarProps) {
                 >
                     MY WORKSPACE
                 </Typography>
-            )}
+            )} */}
 
-            {/* WORKSPACE MENU */}
-
-            <List
-                sx={{
-                    pt: 0,
-                }}
-            >
-                {workspaceMenu.map((item) => {
-                    const selected =
-                        item.path === "/apps"
-                            ? location.pathname.startsWith(
-                                  "/apps"
-                              )
-                            : location.pathname ===
-                              item.path;
-
-                    return (
-                        <ListItem
-                            key={item.name}
-                            disablePadding
-                            sx={{
-                                display: "block",
-                            }}
-                        >
-                            <ListItemButton
-                                onClick={() =>
-                                    navigate(item.path)
-                                }
-                                selected={selected}
-                                sx={{
-                                    minHeight: 42,
-
-                                    px: open ? 2 : 0,
-
-                                    mx: open ? 1 : 0,
-
-                                    borderRadius: "7px",
-
-                                    justifyContent: open
-                                        ? "initial"
-                                        : "center",
-
-                                    "&:hover": {
-                                        backgroundColor:
-                                            "#f3f7fc",
-                                    },
-
-                                    "&.Mui-selected": {
-                                        backgroundColor:
-                                            "#e5effc",
-                                    },
-
-                                    "&.Mui-selected:hover": {
-                                        backgroundColor:
-                                            "#dceafb",
-                                    },
-                                }}
-                            >
-                                <ListItemIcon
-                                    sx={{
-                                        minWidth: 24,
-                                        width: 24,
-                                        height: 24,
-                                        mr: open ? 2 : 0,
-                                        flexShrink: 0,
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent:
-                                            "center",
-
-                                        color: selected
-                                            ? "#1769d2"
-                                            : "#526b86",
-
-                                        "& svg": {
-                                            fontSize: 17,
-                                        },
-                                    }}
-                                >
-                                    {item.icon}
-                                </ListItemIcon>
-
-                                <ListItemText
-                                    primary={item.name}
-                                    sx={{
-                                        display: open
-                                            ? "block"
-                                            : "none",
-
-                                        "& .MuiTypography-root": {
-                                            fontSize: "13px",
-
-                                            fontWeight:
-                                                selected
-                                                    ? 700
-                                                    : 400,
-
-                                            color: selected
-                                                ? "#1769d2"
-                                                : "#294b70",
-                                        },
-                                    }}
-                                />
-                            </ListItemButton>
-                        </ListItem>
-                    );
-                })}
-            </List>
+           
         </StyledDrawer>
     );
 }
