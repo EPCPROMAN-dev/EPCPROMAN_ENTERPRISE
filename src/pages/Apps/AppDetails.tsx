@@ -3,12 +3,12 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { appsData } from "../../data/appsData";
 
 export default function AppDetails() {
     const { appCode } = useParams();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const app = appsData
         .flatMap((section) => section.apps)
