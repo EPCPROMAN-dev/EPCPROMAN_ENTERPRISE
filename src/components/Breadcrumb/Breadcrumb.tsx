@@ -54,8 +54,8 @@ export default function Breadcrumb() {
 
         if (app) {
             breadcrumbs.push({
-                label: app.code,
-                path: `/apps/${app.code}`,
+                label: app.productCode,
+                path: `/apps/${app.productCode}`,
             });
         }
 
@@ -77,7 +77,7 @@ export default function Breadcrumb() {
     return (
         <Box
             sx={{
-                height: 20,
+                height: 40,
                 display: "flex",
                 alignItems: "center",
                 px: 3,

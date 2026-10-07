@@ -103,7 +103,7 @@ export default function AppDetails() {
                                 color: "#17385f",
                             }}
                         >
-                            {app.code}
+                            {app.productCode}
                         </Typography>
 
                         <Typography
