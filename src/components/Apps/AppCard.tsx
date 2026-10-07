@@ -8,10 +8,14 @@ import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
 import { useNavigate } from "react-router-dom";
 
 interface AppCardProps {
-    number: number;
+        number: number;
     code: string;
+    productCode: string;
     name: string;
     status: string;
+    available: boolean;
+    licenseRequired: boolean;
+    onLicenseRequired: () => void;
 }
 
 interface ContextMenuPosition {
@@ -22,8 +26,12 @@ interface ContextMenuPosition {
 export default function AppCard({
     number,
     code,
+    productCode,
     name,
     status,
+    available,
+    licenseRequired,
+    onLicenseRequired,
 }: AppCardProps) {
     const navigate = useNavigate();
 
@@ -185,17 +193,21 @@ export default function AppCard({
     return (
         <>
             <Box
-                onClick={() =>
-                    navigate(`/apps/${code}`)
-                }
+               onClick={() => {
+                    if (licenseRequired || !available) {
+                        onLicenseRequired();
+                        return;
+                    }
+                    navigate(`/apps/${code}`);
+                }}
                 onContextMenu={handleContextMenu}
                 sx={{
-                    minHeight: 132,
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #dfe6ee",
+                    minHeight: 110,
+                   backgroundColor: available ? "#ffffff" : "#f7f9fb",
+                   border: available ? "1px solid #dfe6ee" : "1px solid #e5e9ee",
                     borderRadius: 2,
-                    px: 2,
-                    py: 1.75,
+                   px: 1.5,
+                    py: 1.25,
                     boxSizing: "border-box",
                     position: "relative",
                     transition: "all 0.2s ease",
@@ -217,14 +229,14 @@ export default function AppCard({
                     }}
                 >
                     <Typography
-                        sx={{
-                            fontSize: 9,
-                            fontWeight: 700,
-                            color: "#8192a7",
-                            letterSpacing: 0.4,
-                        }}
+                         sx={{
+                             fontSize: 9,
+                             fontWeight: 700,
+                             color: available ? "#8192a7" : "#aeb7c2",
+                             letterSpacing: 0.4,
+                         }}
                     >
-                        {String(number).padStart(2, "0")}
+                        {code}
                     </Typography>
 
                     <Box
@@ -237,16 +249,16 @@ export default function AppCard({
                                 "1px solid #d7e7fb",
                         }}
                     >
-                        <Typography
-                            sx={{
-                                fontSize: 9,
-                                fontWeight: 700,
-                                color: "#1769d2",
-                                letterSpacing: 0.3,
-                            }}
-                        >
-                            {code}
-                        </Typography>
+                       <Typography
+                        sx={{
+                            fontSize: 9,
+                            fontWeight: 800,
+                            color: available ? "#1769d2" : "#aeb7c2",
+                            letterSpacing: 0.3,
+                        }}
+            >
+                {productCode}
+            </Typography>
                     </Box>
                 </Box>
 
@@ -292,7 +304,7 @@ export default function AppCard({
                         pr: 3,
                         fontSize: 12,
                         fontWeight: 700,
-                        color: "#17385f",
+                        color: "#123565",
                         lineHeight: 1.45,
                     }}
                 >
@@ -300,14 +312,25 @@ export default function AppCard({
                 </Typography>
 
                 <Typography
-                    sx={{
-                        mt: 1.25,
-                        fontSize: 9,
-                        color: "#8795a7",
-                    }}
-                >
-                    {status}
-                </Typography>
+    sx={{
+        mt: 1,
+        fontSize: 9,
+        color: available ? "#8795a7" : "#aeb7c2",
+    }}
+>
+    {status}
+</Typography>
+
+<Typography
+    sx={{
+        mt: 0.5,
+        fontSize: 9,
+        fontWeight: 600,
+        color: available ? "#16834b" : "#b58a52",
+    }}
+>
+    {available ? "✓ Available" : "🔒 Add-on license required"}
+</Typography>
             </Box>
 
             {contextMenu && (

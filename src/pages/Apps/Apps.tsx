@@ -2,12 +2,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import AppCard from "../../components/Apps/AppCard";
 import { appsData } from "../../data/appsData";
-
-const coreProjectApps = appsData[0].apps;
-const businessApps = appsData[1].apps;
-const digitalizationApps = appsData[2].apps;
+import { useState } from "react";
 
 export default function Apps() {
+    const [selectedApp, setSelectedApp] = useState<any>(null);
+
     return (
         <Box
             sx={{
@@ -33,7 +32,9 @@ export default function Apps() {
                         backgroundColor: "#ffffff",
                         border: "1px solid #dce3eb",
                         borderRadius: 2,
-                        p: 3,
+                        px: 3,
+                        py: 2,
+                        
                     }}
                 >
                     <Box>
@@ -47,6 +48,7 @@ export default function Apps() {
                         >
                             ENTERPRISE PORTFOLIO
                         </Typography>
+
                         <Typography
                             sx={{
                                 mt: 1,
@@ -57,6 +59,7 @@ export default function Apps() {
                         >
                             Apps
                         </Typography>
+
                         <Typography
                             sx={{
                                 mt: 0.5,
@@ -69,203 +72,162 @@ export default function Apps() {
                         </Typography>
                     </Box>
 
+                    {/* Current Plan */}
                     <Box
                         sx={{
-                            width: 120,
-                            height: 76,
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
+                           width: 260,
+                            height: 65,                                 
+                            flexDirection: "column",                         
                             justifyContent: "center",
                             border: "1px solid #cbdcf2",
                             borderRadius: 2,
                             flexShrink: 0,
+                            display: "grid",
+gridTemplateColumns: "1fr auto",
+columnGap: 2,
+alignItems: "center",
+px: 1.5,
                         }}
                     >
-                        <Typography
+                        <Box> 
+                            <Typography
                             sx={{
-                                fontSize: 26,
+                                fontSize: 10,
                                 fontWeight: 700,
-                                lineHeight: 1,
-                                color: "#1769d2",
+                                color: "#7b8ba1",
                             }}
                         >
-                            21
+                            CURRENT PLAN
                         </Typography>
+
                         <Typography
                             sx={{
-                                mt: 1,
+                               
+                                fontSize: 15,
+                                fontWeight: 800,
+                                color: "#172f66",
+                            }}
+                        >
+                            ENTERPRISE
+                        </Typography>
+                         <Typography
+                            sx={{
+                                mt: 0.5,
                                 fontSize: 8,
                                 color: "#7b8ba1",
                             }}
                         >
-                            Portfolio Apps
+                            No-adds on active
                         </Typography>
-                    </Box>
-                </Box>
-
-                {/* Core Project Apps */}
-                <Box>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            mb: 1.5,
-                        }}
-                    >
-                        <Typography
+                        </Box>
+                       
+                    <Box>
+                         <Typography
                             sx={{
-                                fontSize: 18,
-                                fontWeight: 700,
-                                color: "#123565",
+                                mt: 0.5,
+                                fontSize: 14,
+                                color: "#1769d2",
+                                   fontWeight: 800,
                             }}
                         >
-                            Core Project Apps
+                            23/25 
+                       
                         </Typography>
+                        
                         <Typography
                             sx={{
-                                fontSize: 9,
+                                mt: 0.5,
+                                fontSize: 8,
                                 color: "#7b8ba1",
                             }}
                         >
-                            01–09 · Core EPC lifecycle applications
+                            Apps enabled
                         </Typography>
                     </Box>
+                       
 
-                    <Box
-                        sx={{
-                            display: "grid",
-                            gridTemplateColumns: {
-                                xs: "1fr",
-                                sm: "repeat(2, 1fr)",
-                                lg: "repeat(3, 1fr)",
-                            },
-                            gap: 1.5,
-                        }}
-                    >
-                        {coreProjectApps.map((app, index) => (
-                            <AppCard
-                                key={app.code}
-                                number={index + 1}
-                                code={app.code}
-                                name={app.name}
-                                status={app.status}
-                            />
-                        ))}
                     </Box>
+
                 </Box>
 
-                {/* Business Apps */}
-                <Box>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            mb: 1.5,
-                        }}
-                    >
-                        <Typography
+                {/* Plan Sections */}
+                {appsData.map((plan) => (
+                    <Box key={plan.plan}>
+                        {/* Plan Header */}
+                        <Box
                             sx={{
-                                fontSize: 18,
-                                fontWeight: 700,
-                                color: "#123565",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                mb: 1.5,
                             }}
                         >
-                            Business Apps
-                        </Typography>
-                        <Typography
-                            sx={{
-                                fontSize: 9,
-                                color: "#7b8ba1",
-                            }}
-                        >
-                            10 applications
-                        </Typography>
-                    </Box>
+                            <Box>
+                                <Typography
+                                    sx={{
+                                        fontSize: 18,
+                                        fontWeight: 700,
+                                        color: "#123565",
+                                    }}
+                                >
+                                    {plan.plan}
+                                </Typography>
 
-                    <Box
-                        sx={{
-                            display: "grid",
-                            gridTemplateColumns: {
-                                xs: "1fr",
-                                sm: "repeat(2, 1fr)",
-                                lg: "repeat(3, 1fr)",
-                            },
-                            gap: 1.5,
-                        }}
-                    >
-                        {businessApps.map((app, index) => (
-                            <AppCard
-                                key={app.code}
-                                number={
-                                    coreProjectApps.length + index + 1
-                                }
-                                code={app.code}
-                                name={app.name}
-                                status={app.status}
-                            />
-                        ))}
-                    </Box>
-                </Box>
+                                <Typography
+                                    sx={{
+                                        mt: 0.3,
+                                        fontSize: 10,
+                                        color: "#7b8ba1",
+                                    }}
+                                >
+                                    {plan.description}
+                                </Typography>
+                            </Box>
 
-                {/* Digitalization */}
-                <Box>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            mb: 1.5,
-                        }}
-                    >
-                        <Typography
+                            <Typography
+                                sx={{
+                                    fontSize: 9,
+                                    color: "#7b8ba1",
+                                }}
+                            >
+                                {plan.range} · {plan.moduleCount} modules
+                            </Typography>
+                        </Box>
+
+                        {/* Apps Grid */}
+                        <Box
                             sx={{
-                                fontSize: 18,
-                                fontWeight: 700,
-                                color: "#123565",
+                                display: "grid",
+                                gridTemplateColumns: {
+                                    xs: "1fr",
+                                    sm: "repeat(2, 1fr)",
+                                    lg: "repeat(3, 1fr)",
+                                },
+                                gap: 1.5,
                             }}
                         >
-                            Digitalization
-                        </Typography>
-                        <Typography
-                            sx={{
-                                fontSize: 9,
-                                color: "#7b8ba1",
-                            }}
-                        >
-                            2 applications
-                        </Typography>
+                            {plan.apps.map((app, index) => (
+                               <AppCard
+                                    key={app.code}
+                                    number={index + 1}
+                                    code={app.code}
+                                    productCode={app.productCode}
+                                    name={app.name}
+                                    status={
+                                        app.licenseRequired
+                                            ? "Add-on license required"
+                                            : app.status
+                                    }
+                                    available={app.available}
+                                    licenseRequired={app.licenseRequired}
+                                    onLicenseRequired={() =>
+                                        setSelectedApp(app)
+                                    }
+                                />
+                            ))}
+                        </Box>
                     </Box>
-
-                    <Box
-                        sx={{
-                            display: "grid",
-                            gridTemplateColumns: {
-                                xs: "1fr",
-                                sm: "repeat(2, 1fr)",
-                                lg: "repeat(3, 1fr)",
-                            },
-                            gap: 1.5,
-                        }}
-                    >
-                        {digitalizationApps.map((app, index) => (
-                            <AppCard
-                                key={app.code}
-                                number={
-                                    coreProjectApps.length +
-                                    businessApps.length +
-                                    index +
-                                    1
-                                }
-                                code={app.code}
-                                name={app.name}
-                                status={app.status}
-                            />
-                        ))}
-                    </Box>
-                </Box>
+                ))}
             </Box>
         </Box>
     );
