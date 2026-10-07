@@ -206,11 +206,14 @@ export default function AppDetails() {
                             return (
                                 <Box
                                     key={area.code}
-                                    onClick={() =>
-                                        navigate(
-                                            `/apps/${app.code}/${area.code}`
-                                        )
-                                    }
+                                    onClick={() => {
+                                        window.open(area.url, "_blank");
+                                    }}
+                                    // onClick={() =>
+                                    //     navigate(
+                                    //         `/apps/${app.code}/${area.code}`
+                                    //     )
+                                    // }
                                     sx={{
                                         minHeight: 88,
                                         backgroundColor: "#ffffff",
