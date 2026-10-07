@@ -24,6 +24,7 @@ export const appsData = [
                         code: "COST_ESTIMATION",
                         name: "Cost Estimation",
                         description: "Open functional workspace",
+                        url:"http://test-procost.epcproman.com/TenderManagement/TenderList/TenderList",
                     },
                     {
                         code: "VALUE_ENGINEERING",
