@@ -12,11 +12,13 @@ export const appsData = [
                         code: "FEASIBILITY",
                         name: "Feasibility Study",
                         description: "Open functional workspace",
+                        url:"http://test-procost.epcproman.com/Dashboard/Dashboard/Dashboard",
                     },
                     {
                         code: "BOQ",
                         name: "BOQ & Quantity Take-Off",
                         description: "Open functional workspace",
+                        url:"http://test-procost.epcproman.com/BOQ/BOQ/BOQ",
                     },
                     {
                         code: "COST_ESTIMATION",
