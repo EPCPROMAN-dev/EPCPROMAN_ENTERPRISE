@@ -204,17 +204,18 @@ export default function AppCard({
                 sx={{
                     minHeight: 110,
                    backgroundColor: available ? "#ffffff" : "#f7f9fb",
-                   border: available ? "1px solid #dfe6ee" : "1px solid #e5e9ee",
-                    borderRadius: 2,
+                   border: available ? "1px solid var(--border)" : "1px solid #e5e9ee",
+                    borderRadius: 3,
                    px: 1.5,
                     py: 1.25,
                     boxSizing: "border-box",
                     position: "relative",
                     transition: "all 0.2s ease",
                     cursor: "pointer",
+                    boxShadow:"0 3px 12px rgba(10, 35, 70, .04)",
 
                     "&:hover": {
-                        borderColor: "#b8cce5",
+                        borderColor: available ? "#9fc2ec": "#e5e9ee",
                         boxShadow:
                             "0 4px 14px rgba(31, 78, 121, 0.08)",
                         transform: "translateY(-1px)",
@@ -285,7 +286,7 @@ export default function AppCard({
                         <StarIcon
                             sx={{
                                 fontSize: 19,
-                                color: "#1769d2",
+                                color: "#b6d217",
                             }}
                         />
                     ) : (

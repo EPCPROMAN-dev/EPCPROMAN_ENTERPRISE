@@ -100,7 +100,8 @@ export default function AppDetails() {
                                 mt: 1,
                                 fontSize: 26,
                                 fontWeight: 700,
-                                color: "#17385f",
+                                // color: "var(--navy)",
+                                 color: "var(--navy)",
                             }}
                         >
                             {app.productCode}
@@ -132,6 +133,7 @@ export default function AppDetails() {
                                 fontSize: 10,
                                 fontWeight: 600,
                                 color: "#1769d2",
+                                // color: "var(--navy)",
                             }}
                         >
                             ▪ Dashboard
