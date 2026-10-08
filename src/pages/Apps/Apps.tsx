@@ -10,10 +10,11 @@ export default function Apps() {
     return (
         <Box
             sx={{
-                p: 3,
+                p: 2,
                 backgroundColor: "#f4f7fb",
                 minHeight: "100%",
                 boxSizing: "border-box",
+               
             }}
         >
             <Box
@@ -30,20 +31,23 @@ export default function Apps() {
                         alignItems: "center",
                         justifyContent: "space-between",
                         backgroundColor: "#ffffff",
-                        border: "1px solid #dce3eb",
-                        borderRadius: 2,
+                        border: "1px solid var(--border)",
+                        borderRadius: 3,
                         px: 3,
                         py: 2,
+                        // box-shadow: 0 5px 18px rgba(10, 35, 70, .06);
+                        boxShadow: "0px 5px 18px rgba(10, 35, 70, 0.06)",
                         
                     }}
                 >
                     <Box>
                         <Typography
                             sx={{
-                                fontSize: 11,
-                                fontWeight: 700,
-                                letterSpacing: 1.2,
-                                color: "#1769d2",
+                                fontSize: 12,
+                                fontWeight: 800,
+                                letterSpacing: 1.1,
+                                color: "var(--blue)",
+                             textTransform: "uppercase",
                             }}
                         >
                             ENTERPRISE PORTFOLIO
@@ -54,7 +58,7 @@ export default function Apps() {
                                 mt: 1,
                                 fontSize: 28,
                                 fontWeight: 700,
-                                color: "#123565",
+                                color: "var(--navy)",
                             }}
                         >
                             Apps
@@ -75,18 +79,20 @@ export default function Apps() {
                     {/* Current Plan */}
                     <Box
                         sx={{
-                           width: 260,
-                            height: 65,                                 
+                           width: 350,
+                            height: 75,                                 
                             flexDirection: "column",                         
                             justifyContent: "center",
-                            border: "1px solid #cbdcf2",
-                            borderRadius: 2,
+                            border: "1px solid var(--border)",
+                            borderRadius: 3,
                             flexShrink: 0,
                             display: "grid",
-gridTemplateColumns: "1fr auto",
-columnGap: 2,
-alignItems: "center",
-px: 1.5,
+                            gridTemplateColumns: "1fr auto",
+                            columnGap: 2,
+                            alignItems: "center",
+                            px: 1.5,
+                             backgroundColor: "var(--bluebg)",
+                             boxSizing: "border-box",
                         }}
                     >
                         <Box> 
@@ -94,7 +100,8 @@ px: 1.5,
                             sx={{
                                 fontSize: 10,
                                 fontWeight: 700,
-                                color: "#7b8ba1",
+                                color: "var(--muted)",
+                               LetterSpacing: 1.1,
                             }}
                         >
                             CURRENT PLAN
@@ -105,7 +112,7 @@ px: 1.5,
                                
                                 fontSize: 15,
                                 fontWeight: 800,
-                                color: "#172f66",
+                                color: "var(--navy)",
                             }}
                         >
                             ENTERPRISE
@@ -113,7 +120,7 @@ px: 1.5,
                          <Typography
                             sx={{
                                 mt: 0.5,
-                                fontSize: 8,
+                                fontSize: 10,
                                 color: "#7b8ba1",
                             }}
                         >
@@ -124,10 +131,10 @@ px: 1.5,
                     <Box>
                          <Typography
                             sx={{
-                                mt: 0.5,
-                                fontSize: 14,
-                                color: "#1769d2",
+                                fontSize: 17,
+                                color: "var(--blue)",
                                    fontWeight: 800,
+                        lineHeight: 1.2,
                             }}
                         >
                             23/25 
@@ -162,12 +169,19 @@ px: 1.5,
                                 mb: 1.5,
                             }}
                         >
-                            <Box>
+                            <Box
+                            sx={{
+                               display: "flex",
+                                alignItems: "end",
+                                justifyContent: "space-between",
+                                flexDirection: "row",
+                }}>
                                 <Typography
                                     sx={{
                                         fontSize: 18,
-                                        fontWeight: 700,
-                                        color: "#123565",
+                                        fontWeight: 800,
+                                        color: "var(--navy)", 
+                                        ml: 2,             
                                     }}
                                 >
                                     {plan.plan}
@@ -176,8 +190,9 @@ px: 1.5,
                                 <Typography
                                     sx={{
                                         mt: 0.3,
-                                        fontSize: 10,
-                                        color: "#7b8ba1",
+                                        fontSize: 11,
+                                        color: "#474c52",
+                                     ml:2,
                                     }}
                                 >
                                     {plan.description}

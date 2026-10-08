@@ -98,8 +98,9 @@ export default function Breadcrumb() {
                     {index > 0 && (
                         <Typography
                             sx={{
-                                fontSize: 11,
-                                color: "#9aa8b8",
+                                fontSize: 14,
+                                fontWeight: 700,
+                                color: "var(--gray)",
                             }}
                         >
                             /
@@ -113,21 +114,22 @@ export default function Breadcrumb() {
                             }
                         }}
                         sx={{
-                            fontSize: 11,
+                            fontSize: 14,
                             fontWeight:
                                 index === breadcrumbs.length - 1
-                                    ? 700
+                                    ? 800
                                     : 600,
                             color:
                                 index === breadcrumbs.length - 1
-                                    ? "#123565"
-                                    : "#1769d2",
+                                    ? "var(--navy)"
+                                    : "var(--blue)",
                             cursor: item.path
                                 ? "pointer"
                                 : "default",
                             "&:hover": item.path
                                 ? {
                                       textDecoration: "underline",
+                                      backgroundColor: "#f4f7fb",
                                   }
                                 : {},
                         }}
