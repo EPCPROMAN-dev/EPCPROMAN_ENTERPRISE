@@ -185,54 +185,68 @@ export default function Sidebar({ open }: SidebarProps) {
                     pt: 1,
                 }}
             >
-                {mainMenu.map((item) => (
+                
+                {mainMenu.map((item) => {
+                    const selected =
+                        location.pathname === item.path ||
+                        location.pathname.startsWith(`${item.path}/`) ||
+                        (item.path === "/apps" &&
+                            location.pathname.startsWith("/apps/"));
+                    return (
                     <ListItem
                         key={item.name}
                         disablePadding
                         sx={{
                             display: "block",
-                        }}
-                    >
+                        }}>
                          <Tooltip
-    title={item.name}
-    placement="right"
-    arrow
-    slotProps={{
-        tooltip: {
-            sx: {
-                backgroundColor: "#17385f",
-                color: "#ffffff",
-                fontSize: "11px",
-                fontWeight: 500,
-                padding: "8px 11px",
-                borderRadius: "6px",
-                maxWidth: 240,
-                lineHeight: 1.4,
-                boxShadow:
-                    "0 4px 12px rgba(23, 56, 95, 0.18)",
-            },
-        },
-        arrow: {
-            sx: {
-                color: "#17385f",
-            },
-        },
-    }}
->
+                            title={item.name}
+                            placement="right"
+                            arrow
+                            slotProps={{
+                                tooltip: {
+                                    sx: {
+                                        backgroundColor: "#17385f",
+                                        color: "#ffffff",
+                                        fontSize: "11px",
+                                        fontWeight: 500,
+                                        padding: "8px 11px",
+                                        borderRadius: "6px",
+                                        maxWidth: 240,
+                                        lineHeight: 1.4,
+                                        boxShadow:
+                                            "0 4px 12px rgba(23, 56, 95, 0.18)",
+                                    },
+                                },
+                                arrow: {
+                                    sx: {
+                                        color: "#17385f",
+                                    },
+                                },
+                            }}
+                        >
                         <ListItemButton
                             onClick={() => navigate(item.path)}
+                            selected={selected}
                             sx={{
                                 minHeight: 42,
-                                width: "100%",
                                 px: open ? 2 : 0,
+                                mx: open ? 1 : 0,
+                                borderRadius: "7px",
                                 justifyContent: open
                                     ? "initial"
                                     : "center",
-                                borderRadius: "7px",
-                                mx: open ? 1 : 0,
 
                                 "&:hover": {
                                     backgroundColor: "#f3f7fc",
+                                },
+
+                                "&.Mui-selected": {
+                                    backgroundColor: "#e5effc",
+                                },
+
+                                "&.Mui-selected:hover": {
+                                    backgroundColor: "#dceafb",
                                 },
                             }}
                         >
@@ -263,16 +277,25 @@ export default function Sidebar({ open }: SidebarProps) {
                                         ? "block"
                                         : "none",
 
-                                    "& .MuiTypography-root": {
+                                     "& .MuiTypography-root": {
                                         fontSize: "13px",
-                                        color: "#294b70",
+                                        fontWeight: selected
+                                            ? 800
+                                            : 400,
+                                        color: selected
+                                            ? "#1769d2"
+                                            : "#294b70",
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
                                     },
                                 }}
                             />
                         </ListItemButton>
                         </Tooltip>
                     </ListItem>
-                ))}
+                    )
+            })}
             </List>           
 
             {/* MY APPS */}
@@ -423,7 +446,7 @@ export default function Sidebar({ open }: SidebarProps) {
                                     "& .MuiTypography-root": {
                                         fontSize: "11px",
                                         fontWeight: selected
-                                            ? 700
+                                            ? 800
                                             : 400,
                                         color: selected
                                             ? "#1769d2"

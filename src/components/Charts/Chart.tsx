@@ -15,6 +15,9 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 import DataTable from "../Common/DataTable/DataTable";
 
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import ListItemIcon from "@mui/material/ListItemIcon";
+
 import {
     prepareChartData,
     type PreparedChartData,
@@ -975,6 +978,8 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
                                     onClick={() => setIsChartOptionOpen(!isChartOptionOpen)}
                                 >
                                     <i className="fa-chart-pie fas" />
+
+                                 
                                 </button>
                             )}
 
@@ -997,7 +1002,21 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
                                 title="Expand"
                                 onClick={() => setIsFullScreen(true)}
                             >
-                                <i className="fas fa-expand" />
+                             
+                                   <ListItemIcon
+                                sx={{
+                                    minWidth: 24,
+                                    width: 24,
+                                    height: 24,
+                                    mr: 2,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                   
+                                }}
+                            >
+                                <FullscreenIcon />
+                            </ListItemIcon>
                             </button>
                         </div>
                     </div>

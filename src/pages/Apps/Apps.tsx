@@ -2,10 +2,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import AppCard from "../../components/Apps/AppCard";
 import { appsData } from "../../data/appsData";
-import { useState } from "react";
+// import { useState } from "react";
 
 export default function Apps() {
-    const [selectedApp, setSelectedApp] = useState<any>(null);
+    // const [selectedApp, setSelectedApp] = useState<any>(null);
 
     return (
         <Box
@@ -43,7 +43,7 @@ export default function Apps() {
                     <Box>
                         <Typography
                             sx={{
-                                fontSize: 12,
+                                fontSize: 13,
                                 fontWeight: 800,
                                 letterSpacing: 1.1,
                                 color: "var(--blue)",
@@ -56,7 +56,7 @@ export default function Apps() {
                         <Typography
                             sx={{
                                 mt: 1,
-                                fontSize: 28,
+                                fontSize: 30,
                                 fontWeight: 700,
                                 color: "var(--navy)",
                             }}
@@ -67,7 +67,7 @@ export default function Apps() {
                         <Typography
                             sx={{
                                 mt: 0.5,
-                                fontSize: 13,
+                                fontSize: 14,
                                 color: "#718096",
                             }}
                         >
@@ -98,7 +98,7 @@ export default function Apps() {
                         <Box> 
                             <Typography
                             sx={{
-                                fontSize: 10,
+                                fontSize: 11,
                                 fontWeight: 700,
                                 color: "var(--muted)",
                                LetterSpacing: 1.1,
@@ -110,7 +110,7 @@ export default function Apps() {
                         <Typography
                             sx={{
                                
-                                fontSize: 15,
+                                fontSize: 16,
                                 fontWeight: 800,
                                 color: "var(--navy)",
                             }}
@@ -120,7 +120,7 @@ export default function Apps() {
                          <Typography
                             sx={{
                                 mt: 0.5,
-                                fontSize: 10,
+                                fontSize: 11,
                                 color: "#7b8ba1",
                             }}
                         >
@@ -131,7 +131,7 @@ export default function Apps() {
                     <Box>
                          <Typography
                             sx={{
-                                fontSize: 17,
+                                fontSize: 18,
                                 color: "var(--blue)",
                                    fontWeight: 800,
                         lineHeight: 1.2,
@@ -144,7 +144,7 @@ export default function Apps() {
                         <Typography
                             sx={{
                                 mt: 0.5,
-                                fontSize: 8,
+                                fontSize: 9,
                                 color: "#7b8ba1",
                             }}
                         >
@@ -178,7 +178,7 @@ export default function Apps() {
                 }}>
                                 <Typography
                                     sx={{
-                                        fontSize: 18,
+                                        fontSize: 19,
                                         fontWeight: 800,
                                         color: "var(--navy)", 
                                         ml: 2,             
@@ -190,7 +190,7 @@ export default function Apps() {
                                 <Typography
                                     sx={{
                                         mt: 0.3,
-                                        fontSize: 11,
+                                        fontSize: 12,
                                         color: "#474c52",
                                      ml:2,
                                     }}
@@ -201,7 +201,7 @@ export default function Apps() {
 
                             <Typography
                                 sx={{
-                                    fontSize: 9,
+                                    fontSize: 10,
                                     color: "#7b8ba1",
                                 }}
                             >
@@ -227,6 +227,7 @@ export default function Apps() {
                                     number={index + 1}
                                     code={app.code}
                                     productCode={app.productCode}
+                                    level={app.level}
                                     name={app.name}
                                     status={
                                         app.licenseRequired
@@ -236,7 +237,8 @@ export default function Apps() {
                                     available={app.available}
                                     licenseRequired={app.licenseRequired}
                                     onLicenseRequired={() =>
-                                        setSelectedApp(app)
+                                       null
+                                        // setSelectedApp(app)
                                     }
                                 />
                             ))}
