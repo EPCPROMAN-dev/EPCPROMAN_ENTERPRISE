@@ -9,6 +9,7 @@ export const appsData = [
             {
                 code: "B01",
                 productCode: "ProOFFICE",
+                level: "",
                 name: "Office Productivity & Personal Management",
                 status: "Detail available",
                 available: true,
@@ -18,6 +19,7 @@ export const appsData = [
             {
                 code: "B02",
                 productCode: "ProPROJECT",
+                level: "",
                 name: "Enterprise & Project Setup & Governance",
                 status: "Detail available",
                 available: true,
@@ -27,15 +29,53 @@ export const appsData = [
             {
                 code: "B03",
                 productCode: "ProSTAKE",
+                level: "",
                 name: "Stakeholder Management",
                 status: "Detail available",
                 available: true,
                 licenseRequired: false,
-                functionalAreas: [],
+                functionalAreas: [
+                    {
+                        code: "ONBOARDING",
+                        name: "Onboarding",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "TENDER_MANAGEMENT",
+                        name: "Tender Participation",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "COMMERCIAL_EVALUATION",
+                        name: "Commercial Evaluation",
+                        description: "Open functional workspace",
+                    },
+                    {
+                    code: "EXECUTION",
+                        name: "Execution",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "INVOICE_BILLING",
+                        name: "Invoice & Billing",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PERFORMANCE_EVALUATION",
+                        name: "Performance Evaluation",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "COMPLETION",
+                        name: "Completed / Archived",
+                        description: "Open functional workspace",
+                    },
+                ],
             },
             {
                 code: "B04",
                 productCode: "ProCRM",
+                level: "",
                 name: "Sales & Customer Relationship Management",
                 status: "Detail available",
                 available: true,
@@ -45,11 +85,49 @@ export const appsData = [
             {
                 code: "B05",
                 productCode: "ProADMIN",
+                level: "",
                 name: "Masters, Security & Governance",
                 status: "Detail available",
                 available: true,
                 licenseRequired: false,
-                functionalAreas: [],
+                functionalAreas: [
+                    {
+                        code: "ORGANIZATION_SETUP",
+                        name: "Organization Setup",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "BUSINESS_UNITS_CONFIG",
+                        name: "Business Units Config.",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "USER_REGISTRATION",
+                        name: "User Registration",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "ROLE_PERMISSIONS",
+                        name: "Role & Permissions",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "LICENSE_ALLOCATION",
+                        name: "License Allocation",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "MASTER_DATA_CONFIG",
+                        name: "Master Data Config.",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "SYSTEM_ADMINISTRATION",
+                        name: "System Administration",
+                        description: "Open functional workspace",
+                    },
+                ],
+
             },
         ],
     },
@@ -63,7 +141,8 @@ export const appsData = [
         apps: [
             {
                 code: "E01",
-                productCode: "ProMAN Basic",
+                productCode: "ProMAN ",
+                level: "Basic",
                 name: "Project Planning & Scheduling",
                 status: "Detail available",
                 available: true,
@@ -107,15 +186,60 @@ export const appsData = [
             {
                 code: "E02",
                 productCode: "ProENGG Basic",
+                 level: "Basic",
                 name: "Engineering & Document Control",
                 status: "Detail available",
                 available: true,
                 licenseRequired: false,
-                functionalAreas: [],
+
+            functionalAreas: [
+                {
+                    code: "TENDERING_TQ",
+                    name: "Tendering TQ",
+                    description: "Open functional workspace",
+                },
+                {
+                    code: "JOB_BOQ_ESTIMATION",
+                    name: "Job BOQ Estimation",
+                    description: "Open functional workspace",
+                },
+                {
+                    code: "ENGG_DOC_MGMT",
+                    name: "Engg. Doc. Mgmt., MDR / VDR",
+                    description: "Open functional workspace",
+                },
+                {
+                    code: "MTO_MR_CONTROL",
+                    name: "MTO & MR Control",
+                    description: "Open functional workspace",
+                },
+                {
+                    code: "ISOMEC_PIPING_AUTOROUTING",
+                    name: "ISOMEC — Piping AutoRouting",
+                    description: "Open functional workspace",
+                },
+                {
+                    code: "AUTOSPOOL_PIPING_AUTOSPOOLING",
+                    name: "AUTOSPOOL — Piping AutoSpooling",
+                    description: "Open functional workspace",
+                },
+                {
+                    code: "STAKEHOLDERS",
+                    name: "Stakeholders",
+                    description: "Open functional workspace",
+                },
+                {
+                    code: "SETTINGS_MASTERS",
+                    name: "Settings & Masters",
+                    description: "Open functional workspace",
+                },
+            ],
+
             },
             {
                 code: "E03",
                 productCode: "ProCODE",
+                 level: "",
                 name: "Engineering Data, Item & Service Coding Management",
                 status: "Detail available",
                 available: true,
@@ -125,6 +249,7 @@ export const appsData = [
             {
                 code: "E04",
                 productCode: "ProTRACK",
+                 level: "",
                 name: "RFID & BARCODE enabled Material & Asset Tracking",
                 status: "Detail available",
                 available: true,
@@ -134,15 +259,88 @@ export const appsData = [
             {
                 code: "E05",
                 productCode: "SafeRisk",
+                level: "",
                 name: "HSE & Risk Management",
                 status: "Detail available",
                 available: true,
                 licenseRequired: false,
-                functionalAreas: [],
+                functionalAreas: [
+                    {
+                        code: "PRORISK_RISK_IDENTIFICATION",
+                        name: "PRORISK — Risk Identification",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PRORISK_RISK_ASSESSMENT",
+                        name: "PRORISK — Risk Assessment",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PRORISK_RISK_CLASSIFICATION",
+                        name: "PRORISK — Risk Classification",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PRORISK_MITIGATION_PLANNING",
+                        name: "PRORISK — Mitigation Planning",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PRORISK_RISK_MONITORING",
+                        name: "PRORISK — Risk Monitoring",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PRORISK_REPORTING",
+                        name: "PRORISK — Reporting",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PRORISK_CLOSURE_REVIEW",
+                        name: "PRORISK — Closure & Review",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PROSAFE_INCIDENTS_REPORTING",
+                        name: "PROSAFE — Incidents & Reporting",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PROSAFE_AUDITS_INSPECTIONS",
+                        name: "PROSAFE — Audits & Inspections",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PROSAFE_PERMITS_APPROVALS",
+                        name: "PROSAFE — Permits & Approvals",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PROSAFE_TRAINING_AWARENESS",
+                        name: "PROSAFE — Training & Awareness",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PROSAFE_SAFETY_MONITORING",
+                        name: "PROSAFE — Safety Monitoring",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PROSAFE_CORRECTIVE_ACTIONS",
+                        name: "PROSAFE — Corrective Actions",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "PROSAFE_REVIEW_IMPROVEMENT",
+                        name: "PROSAFE — Review & Improvement",
+                        description: "Open functional workspace",
+                    },
+                ],
             },
             {
                 code: "E06",
                 productCode: "ProASSET",
+                level: "",
                 name: "Asset & Inspection Management",
                 status: "Detail available",
                 available: true,
@@ -152,6 +350,7 @@ export const appsData = [
             {
                 code: "E07",
                 productCode: "ProFIN",
+                level: "",
                 name: "Project Finance & Accounting",
                 status: "Detail available",
                 available: true,
@@ -171,6 +370,7 @@ export const appsData = [
             {
                 code: "N01",
                 productCode: "ProAI",
+                level: "",
                 name: "AI & Project Intelligence",
                 status: "Detail available",
                 available: true,
@@ -180,24 +380,84 @@ export const appsData = [
             {
                 code: "N02",
                 productCode: "ProEST",
+                level: "",
                 name: "Project Estimation & Budgeting",
                 status: "Detail available",
                 available: true,
                 licenseRequired: false,
-                functionalAreas: [],
+                functionalAreas: [
+    {
+        code: "FEASIBILITY_STUDY",
+        name: "Feasibility Study",
+        description: "Open functional workspace",
+    },
+    {
+        code: "BOQ_QUANTITY_TAKEOFF",
+        name: "BOQ & Quantity Take-Off",
+        description: "Open functional workspace",
+    },
+    {
+        code: "COST_ESTIMATION",
+        name: "Cost Estimation",
+        description: "Open functional workspace",
+    },
+    {
+        code: "VALUE_ENGINEERING",
+        name: "Value Engineering",
+        description: "Open functional workspace",
+    },
+    {
+        code: "TENDER_BID_ESTIMATION",
+        name: "Tender & Bid Estimation",
+        description: "Open functional workspace",
+    },
+    {
+        code: "MIS_DASHBOARD",
+        name: "MIS – Dashboard / cross-module",
+        description: "Open functional workspace",
+    },
+],
             },
             {
                 code: "N03",
                 productCode: "ProCOST",
+                level: "",
                 name: "Project Cost Control",
                 status: "Detail available",
                 available: true,
                 licenseRequired: false,
-                functionalAreas: [],
+                functionalAreas: [
+                    {
+                        code: "COST_CONTROL_BUDGET_EXPENDITURE",
+                        name: "Cost Control - Budget & Expenditure",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "CASH_FLOW",
+                        name: "Cash Flow",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "CHANGE_ORDERS_VARIATIONS",
+                        name: "Change Orders & Variations",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "INVOICE_BILLING",
+                        name: "Invoice & Billing",
+                        description: "Open functional workspace",
+                    },
+                    {
+                        code: "SETTINGS_MASTERS",
+                        name: "Settings & Masters",
+                        description: "Open functional workspace",
+                    },
+                ],
             },
             {
                 code: "N04",
                 productCode: "ProCONTRACT",
+               level: "",
                 name: "Contract, Commercial, Claims & Compliance Management",
                 status: "Detail available",
                 available: true,
@@ -207,6 +467,7 @@ export const appsData = [
             {
                 code: "N05",
                 productCode: "ProMAN Advance",
+                level: "Advance",
                 name: "Advanced Planning & Project Controls",
                 status: "Detail available",
                 available: true,
@@ -215,16 +476,49 @@ export const appsData = [
             },
             {
                 code: "N06",
-                productCode: "ProENGG Advance",
+                productCode: "ProENGG",
+                level: "Advance",
                 name: "Advanced Engineering & Document Control",
                 status: "Detail available",
                 available: true,
                 licenseRequired: false,
-                functionalAreas: [],
+               functionalAreas: [
+    {
+        code: "PROJECT_CHARTER",
+        name: "Project Charter, Organogram & WBS",
+        description: "Open functional workspace",
+    },
+    {
+        code: "PLAN_SCHEDULE",
+        name: "Plan and Schedule",
+        description: "Open functional workspace",
+    },
+    {
+        code: "PROGRESS_MONITORING",
+        name: "Progress Monitoring",
+        description: "Open functional workspace",
+    },
+    {
+        code: "RISK_MANAGEMENT",
+        name: "Risk Management",
+        description: "Open functional workspace",
+    },
+    {
+        code: "ISSUES_CONCERNS_PHOTOS",
+        name: "Issues-Concerns, Photos",
+        description: "Open functional workspace",
+    },
+    {
+        code: "MIS_DASHBOARD",
+        name: "MIS – Dashboard / cross-module",
+        description: "Open functional workspace",
+    },
+],
             },
             {
                 code: "N07",
                 productCode: "AutoSPOOL",
+                level: "",
                 name: "Automatic Spooling & Weld Maps, Isometric",
                 status: "Detail available",
                 available: false,
@@ -234,15 +528,58 @@ export const appsData = [
             {
                 code: "N08",
                 productCode: "ProMAT",
+                level: "",
                 name: "Procurement Expediting & Materials Management",
                 status: "Detail available",
                 available: true,
                 licenseRequired: false,
-                functionalAreas: [],
+                functionalAreas: [
+    {
+        code: "PROCUREMENT_MANAGEMENT",
+        name: "Procurement Management",
+        description: "Open functional workspace",
+    },
+    {
+        code: "MATERIAL_EXPEDITING_TRACKING",
+        name: "Material Expediting & Tracking",
+        description: "Open functional workspace",
+    },
+    {
+        code: "LOGISTICS_SHIPPING",
+        name: "Logistics & Shipping",
+        description: "Open functional workspace",
+    },
+    {
+        code: "WAREHOUSE_INVENTORY_MGMT",
+        name: "Warehouse & Inventory Mgmt.",
+        description: "Open functional workspace",
+    },
+    {
+        code: "TRACK_N_TRACING",
+        name: "Track-N-Tracing",
+        description: "Open functional workspace",
+    },
+    {
+        code: "PRESERVATION",
+        name: "Preservation",
+        description: "Open functional workspace",
+    },
+    {
+        code: "STAKEHOLDERS",
+        name: "Stakeholders",
+        description: "Open functional workspace",
+    },
+    {
+        code: "SETTINGS_MASTERS",
+        name: "Settings & Masters",
+        description: "Open functional workspace",
+    },
+],
             },
             {
                 code: "N09",
                 productCode: "ProCON",
+                level: "",
                 name: "Construction & Site Management",
                 status: "Detail available",
                 available: true,
@@ -252,6 +589,7 @@ export const appsData = [
             {
                 code: "N10",
                 productCode: "ProQMS",
+                level: "",
                 name: "Quality Management System",
                 status: "Detail available",
                 available: true,
@@ -261,6 +599,7 @@ export const appsData = [
             {
                 code: "N11",
                 productCode: "ProWELD",
+                level: "",
                 name: "Welding Management",
                 status: "Detail available",
                 available: true,
@@ -270,6 +609,7 @@ export const appsData = [
             {
                 code: "N12",
                 productCode: "ProAWP",
+                level: "",
                 name: "Advanced Work Packaging & Execution",
                 status: "Detail available",
                 available: false,
@@ -279,6 +619,7 @@ export const appsData = [
             {
                 code: "N13",
                 productCode: "ProCOMM",
+                level: "",
                 name: "Pre-Commissioning & Commissioning Management",
                 status: "Detail available",
                 available: true,
