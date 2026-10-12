@@ -86,9 +86,9 @@ export default function AppDetails() {
                     <Box>
                         <Typography
                             sx={{
-                                fontSize: 10,
-                                fontWeight: 700,
-                                color: "#1769d2",
+                                fontSize: 12,
+                                fontWeight: 800,
+                                color: "var(--blue)",
                                 letterSpacing: 0.5,
                             }}
                         >
@@ -98,20 +98,19 @@ export default function AppDetails() {
                         <Typography
                             sx={{
                                 mt: 1,
-                                fontSize: 26,
-                                fontWeight: 700,
-                                // color: "var(--navy)",
+                                fontSize: 27,
+                                fontWeight: 800,
                                  color: "var(--navy)",
                             }}
                         >
-                            {app.productCode}
+                            {app.productCode.toUpperCase()}
                         </Typography>
 
                         <Typography
                             sx={{
                                 mt: 0.5,
                                 fontSize: 12,
-                                color: "#66788f",
+                                color: "var(--gray)",
                             }}
                         >
                             {app.name}
@@ -132,8 +131,7 @@ export default function AppDetails() {
                                 borderRadius: 1,
                                 fontSize: 10,
                                 fontWeight: 600,
-                                color: "#1769d2",
-                                // color: "var(--navy)",
+                                color: "var(--blue)",
                             }}
                         >
                             ▪ Dashboard
@@ -147,7 +145,7 @@ export default function AppDetails() {
                                 borderRadius: 1,
                                 fontSize: 10,
                                 fontWeight: 600,
-                                color: "#1769d2",
+                                color: "var(--blue)",
                             }}
                         >
                             ▤ Reports
@@ -171,9 +169,9 @@ export default function AppDetails() {
                     >
                         <Typography
                             sx={{
-                                fontSize: 17,
-                                fontWeight: 700,
-                                color: "#17385f",
+                                fontSize: 19,
+                                fontWeight: 800,
+                                color: "var(--navy)",
                             }}
                         >
                             Functional Areas
@@ -182,7 +180,7 @@ export default function AppDetails() {
                         <Typography
                             sx={{
                                 fontSize: 10,
-                                color: "#66788f",
+                                color: "var(--gray)",
                             }}
                         >
                             {app.functionalAreas.length} areas
@@ -218,26 +216,28 @@ export default function AppDetails() {
                                     // }
                                     sx={{
                                         minHeight: 88,
-                                        backgroundColor: "#ffffff",
-                                        border: "1px solid #dfe6ee",
+                                        backgroundColor: "var(--light-bg)",
+                                        border: "1px solid var(--lg-border)",
                                         borderRadius: 2,
                                         px: 1.5,
                                         py: 1.5,
                                         position: "relative",
                                         cursor: "pointer",
                                         transition: "all 0.2s ease",
-                                        "&:hover": {
-                                            borderColor: "#b8cce5",
+                                        "&:hover": 
+                                        {
+                                            borderColor:"#9fc2ec",
                                             boxShadow:
                                                 "0 4px 14px rgba(31, 78, 121, 0.08)",
+                                            transform: "translateY(-1px)",
                                         },
                                     }}
                                 >
                                     <Typography
                                         sx={{
-                                            fontSize: 9,
-                                            fontWeight: 700,
-                                            color: "#1769d2",
+                                            fontSize: 13,
+                                            fontWeight: 800,
+                                            color: "var(--navy)",
                                         }}
                                     >
                                         {String(index + 1).padStart(2, "0")} ·{" "}
@@ -248,6 +248,7 @@ export default function AppDetails() {
                                         sx={{
                                             mt: 1,
                                             fontSize: 9,
+                                             fontWeight: 700,
                                             color: "#8795a7",
                                         }}
                                     >

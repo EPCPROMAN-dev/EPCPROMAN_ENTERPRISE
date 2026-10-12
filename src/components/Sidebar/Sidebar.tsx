@@ -21,6 +21,7 @@ import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 
 import { appsData } from "../../data/appsData";
 import Box from "@mui/material/Box";
+import CustomTooltip from "../Common/CustomTooltip"
 
 const drawerWidth = 245;
 const closedDrawerWidth = 65;
@@ -199,32 +200,7 @@ export default function Sidebar({ open }: SidebarProps) {
                         sx={{
                             display: "block",
                         }}>
-                         <Tooltip
-                            title={item.name}
-                            placement="right"
-                            arrow
-                            slotProps={{
-                                tooltip: {
-                                    sx: {
-                                        backgroundColor: "#17385f",
-                                        color: "#ffffff",
-                                        fontSize: "11px",
-                                        fontWeight: 500,
-                                        padding: "8px 11px",
-                                        borderRadius: "6px",
-                                        maxWidth: 240,
-                                        lineHeight: 1.4,
-                                        boxShadow:
-                                            "0 4px 12px rgba(23, 56, 95, 0.18)",
-                                    },
-                                },
-                                arrow: {
-                                    sx: {
-                                        color: "#17385f",
-                                    },
-                                },
-                            }}
-                        >
+                         
                         <ListItemButton
                             onClick={() => navigate(item.path)}
                             selected={selected}
@@ -292,7 +268,6 @@ export default function Sidebar({ open }: SidebarProps) {
                                 }}
                             />
                         </ListItemButton>
-                        </Tooltip>
                     </ListItem>
                     )
             })}
@@ -362,32 +337,7 @@ export default function Sidebar({ open }: SidebarProps) {
                             display: "block",
                         }}
                     >
-                         <Tooltip
-    title={app.name}
-    placement="right"
-    arrow
-    slotProps={{
-        tooltip: {
-            sx: {
-                backgroundColor: "#17385f",
-                color: "#ffffff",
-                fontSize: "11px",
-                fontWeight: 500,
-                padding: "8px 11px",
-                borderRadius: "6px",
-                maxWidth: 240,
-                lineHeight: 1.4,
-                boxShadow:
-                    "0 4px 12px rgba(23, 56, 95, 0.18)",
-            },
-        },
-        arrow: {
-            sx: {
-                color: "#17385f",
-            },
-        },
-    }}
->
+                    <CustomTooltip title={app.name}>
                         <ListItemButton
                             onClick={() =>
                                 navigate(`/apps/${app.code}`)
@@ -458,7 +408,7 @@ export default function Sidebar({ open }: SidebarProps) {
                                 }}
                             />
                         </ListItemButton>
-                        </Tooltip>
+                        </CustomTooltip>
                     </ListItem>
                 );
             })}

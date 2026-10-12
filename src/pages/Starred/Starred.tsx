@@ -27,8 +27,12 @@ export default function Starred() {
 
     const allApps = appsData.flatMap((section) => section.apps);
 
-    const apps = allApps.filter((app) =>
-        starredApps.includes(app.code)
+   const apps = allApps
+    .filter((app) => starredApps.includes(app.code))
+    .sort(
+        (a, b) =>
+            starredApps.indexOf(b.code) -
+            starredApps.indexOf(a.code)
     );
 
     const allAreas = allApps.flatMap((app) =>
@@ -39,8 +43,14 @@ export default function Starred() {
         }))
     );
 
-    const areas = allAreas.filter((area) =>
+  const areas = allAreas
+    .filter((area) =>
         starredAreas.includes(`${area.appCode}|${area.code}`)
+    )
+    .sort(
+        (a, b) =>
+            starredAreas.indexOf(`${b.appCode}|${b.code}`) -
+            starredAreas.indexOf(`${a.appCode}|${a.code}`)
     );
 
     const removeAppStar = (code: string) => {
@@ -112,11 +122,11 @@ export default function Starred() {
                         <Box>
                             <Typography
                                 sx={{
-                                    fontSize: 9,
-                                    fontWeight: 700,
-                                    color: "#1769d2",
-                                    letterSpacing: 1,
-                                    textTransform: "uppercase",
+                                   fontSize: 12,
+                                fontWeight: 800,
+                                color: "var(--blue)",
+                                letterSpacing: 0.5,
+                                textTransform: "uppercase",
                                 }}
                             >
                                 Quick Access
@@ -125,9 +135,9 @@ export default function Starred() {
                             <Typography
                                 sx={{
                                     mt: 0.5,
-                                    fontSize: 24,
-                                    fontWeight: 700,
-                                    color: "#17385f",
+                                   fontSize: 27,
+                                fontWeight: 800,
+                                 color: "var(--navy)",
                                 }}
                             >
                                 Starred
@@ -136,8 +146,8 @@ export default function Starred() {
                             <Typography
                                 sx={{
                                     mt: 0.5,
-                                    fontSize: 11,
-                                    color: "#8795a7",
+                                    fontSize: 12,
+                                color: "var(--gray)",
                                 }}
                             >
                                 Your bookmarked applications and functional areas
@@ -157,8 +167,8 @@ export default function Starred() {
                         >
                             <Typography
                                 sx={{
-                                    fontSize: 20,
-                                    fontWeight: 700,
+                                     fontSize: 27,
+                                fontWeight: 800,
                                     color: "#1769d2",
                                 }}
                             >
@@ -167,8 +177,8 @@ export default function Starred() {
 
                             <Typography
                                 sx={{
-                                    fontSize: 9,
-                                    color: "#8795a7",
+                                    fontSize: 12,
+                                color: "var(--gray)",
                                 }}
                             >
                                 Bookmarked
@@ -188,18 +198,18 @@ export default function Starred() {
                         >
                             <Typography
                                 sx={{
-                                    fontSize: 15,
-                                    fontWeight: 700,
-                                    color: "#17385f",
+                                    fontSize: 19,
+                                fontWeight: 800,
+                                color: "var(--navy)",
                                 }}
                             >
-                                Bookmarked Apps
+                               Apps
                             </Typography>
 
                             <Typography
                                 sx={{
-                                    fontSize: 10,
-                                    color: "#8795a7",
+                                    fontSize: 12,
+                                    color: "var(--gray)",
                                 }}
                             >
                                 {apps.length} apps
@@ -253,18 +263,19 @@ export default function Starred() {
                                         key={app.code}
                                         sx={{
                                             width: "100%",
-                                            backgroundColor: "#ffffff",
-                                            border: "1px solid #dfe6ee",
-                                            borderRadius: 2,
-                                            px: 2,
-                                            py: 1.5,
+                                            backgroundColor:"#ffffff" ,
+                                            border: "1px solid var(--border)",
+                                            borderRadius: 3,
+                                            px: 1.5,
+                                            py: 1.25,
                                             display: "flex",
                                             alignItems: "center",
                                             justifyContent: "space-between",
                                             boxSizing: "border-box",
                                             transition: "all 0.2s ease",
+                                              boxShadow:"0 3px 12px rgba(10, 35, 70, .04)",
                                             "&:hover": {
-                                                borderColor: "#b8cce5",
+                                                borderColor: "#9fc2ec",
                                                 boxShadow:
                                                     "0 3px 10px rgba(31, 78, 121, 0.06)",
                                             },
@@ -283,7 +294,7 @@ export default function Starred() {
                                                 }
                                                 sx={{
                                                     fontSize: 19,
-                                                    color: "#1769d2",
+                                                    color: "var(--gold)",
                                                     cursor: "pointer",
                                                 }}
                                             />
@@ -297,22 +308,22 @@ export default function Starred() {
                                                     }
                                                     sx={{
                                                         fontSize: 12,
-                                                        fontWeight: 700,
-                                                        color: "#17385f",
+                                                        fontWeight: 800,
+                                                        color: "var(--navy)",
                                                         cursor: "pointer",
                                                         "&:hover": {
                                                             color: "#1769d2",
                                                         },
                                                     }}
                                                 >
-                                                    {app.code}
+                                                    {app.productCode}
                                                 </Typography>
 
                                                 <Typography
                                                     sx={{
                                                         mt: 0.3,
-                                                        fontSize: 10,
-                                                        color: "#8795a7",
+                                                        fontSize: 12,
+                                                        color: "var(--gray)",
                                                     }}
                                                 >
                                                     {app.name}
@@ -340,7 +351,7 @@ export default function Starred() {
                                             <Typography
                                                 sx={{
                                                     fontSize: 10,
-                                                    fontWeight: 600,
+                                                    fontWeight: 700,
                                                     color: "#1769d2",
                                                 }}
                                             >
@@ -373,8 +384,8 @@ export default function Starred() {
                             <Typography
                                 sx={{
                                     fontSize: 15,
-                                    fontWeight: 700,
-                                    color: "#17385f",
+                                    fontWeight: 800,
+                                    color: "var(--navy)",
                                 }}
                             >
                                 Functional Areas
@@ -382,8 +393,9 @@ export default function Starred() {
 
                             <Typography
                                 sx={{
-                                    fontSize: 10,
+                                    fontSize: 11,
                                     color: "#8795a7",
+                                    marginLeft: 1,
                                 }}
                             >
                                 {areas.length} areas
@@ -429,18 +441,19 @@ export default function Starred() {
                                         key={`${area.appCode}|${area.code}`}
                                         sx={{
                                             width: "100%",
-                                            backgroundColor: "#ffffff",
-                                            border: "1px solid #dfe6ee",
-                                            borderRadius: 2,
-                                            px: 2,
-                                            py: 1.5,
+                                            backgroundColor:"#ffffff" ,
+                                            border: "1px solid var(--border)",
+                                            borderRadius: 3,
+                                            px: 1.5,
+                                            py: 1.25,
                                             display: "flex",
                                             alignItems: "center",
                                             justifyContent: "space-between",
                                             boxSizing: "border-box",
                                             transition: "all 0.2s ease",
+                                              boxShadow:"0 3px 12px rgba(10, 35, 70, .04)",
                                             "&:hover": {
-                                                borderColor: "#b8cce5",
+                                                borderColor: "#9fc2ec",
                                                 boxShadow:
                                                     "0 3px 10px rgba(31, 78, 121, 0.06)",
                                             },
@@ -462,7 +475,7 @@ export default function Starred() {
                                                 }
                                                 sx={{
                                                     fontSize: 19,
-                                                    color: "#1769d2",
+                                                    color: "var(--gold)",
                                                     cursor: "pointer",
                                                 }}
                                             />
@@ -476,8 +489,8 @@ export default function Starred() {
                                                     }
                                                     sx={{
                                                         fontSize: 12,
-                                                        fontWeight: 700,
-                                                        color: "#17385f",
+                                                        fontWeight: 800,
+                                                        color: "var(--navy)",
                                                         cursor: "pointer",
                                                         "&:hover": {
                                                             color: "#1769d2",
@@ -490,8 +503,8 @@ export default function Starred() {
                                                 <Typography
                                                     sx={{
                                                         mt: 0.3,
-                                                        fontSize: 10,
-                                                        color: "#8795a7",
+                                                        fontSize: 12,
+                                                        color: "var(--gray)",
                                                     }}
                                                 >
                                                     {area.appCode}

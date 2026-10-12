@@ -200,6 +200,7 @@ export default function AppCard({
                         onLicenseRequired();
                         return;
                     }
+                    // takes to AppsDetails page
                     navigate(`/apps/${code}`);
                 }}
                 onContextMenu={handleContextMenu}

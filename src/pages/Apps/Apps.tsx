@@ -2,12 +2,14 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import AppCard from "../../components/Apps/AppCard";
 import { appsData } from "../../data/appsData";
-// import { useState } from "react";
+import { useState } from "react";
+import SubscriptionAccessModal from "../../components/Apps/SubscriptionAccessModal";
 
 export default function Apps() {
-    // const [selectedApp, setSelectedApp] = useState<any>(null);
+   const [selectedApp, setSelectedApp] = useState<(typeof appsData)[number]["apps"][number] | null>(null);
 
     return (
+        <>
         <Box
             sx={{
                 p: 2,
@@ -226,7 +228,7 @@ export default function Apps() {
                                     key={app.code}
                                     number={index + 1}
                                     code={app.code}
-                                    productCode={app.productCode}
+                                    productCode={app.productCode.toUpperCase()}
                                     level={app.level}
                                     name={app.name}
                                     status={
@@ -236,16 +238,22 @@ export default function Apps() {
                                     }
                                     available={app.available}
                                     licenseRequired={app.licenseRequired}
-                                    onLicenseRequired={() =>
-                                       null
-                                        // setSelectedApp(app)
-                                    }
+                                   onLicenseRequired={() => setSelectedApp(app)}
                                 />
                             ))}
                         </Box>
                     </Box>
                 ))}
             </Box>
+
         </Box>
+                    <SubscriptionAccessModal
+    open={Boolean(selectedApp)}
+    onClose={() => setSelectedApp(null)}
+    productCode={selectedApp?.productCode.toUpperCase() ?? ""}
+    name={selectedApp?.name ?? ""}
+    code={selectedApp?.code ?? ""}
+/>
+</>
     );
 }
