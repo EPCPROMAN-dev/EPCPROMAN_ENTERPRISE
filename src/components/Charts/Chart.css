@@ -147,11 +147,11 @@
 }
 
 .graph_fullscreen_modal_holder {
-    z-index: 1031;
+    z-index: 9999;
 }
 
 .graph_detail_modal_holder {
-    z-index: 1030;
+    z-index: 9999;
 }
 
 .graph_fullscreen_modal,

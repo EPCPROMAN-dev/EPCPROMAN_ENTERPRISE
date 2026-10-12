@@ -3,12 +3,12 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { appsData } from "../../data/appsData";
 
 export default function AppDetails() {
     const { appCode } = useParams();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const app = appsData
         .flatMap((section) => section.apps)
@@ -100,10 +100,11 @@ export default function AppDetails() {
                                 mt: 1,
                                 fontSize: 26,
                                 fontWeight: 700,
-                                color: "#17385f",
+                                // color: "var(--navy)",
+                                 color: "var(--navy)",
                             }}
                         >
-                            {app.code}
+                            {app.productCode}
                         </Typography>
 
                         <Typography
@@ -132,6 +133,7 @@ export default function AppDetails() {
                                 fontSize: 10,
                                 fontWeight: 600,
                                 color: "#1769d2",
+                                // color: "var(--navy)",
                             }}
                         >
                             ▪ Dashboard
@@ -206,11 +208,14 @@ export default function AppDetails() {
                             return (
                                 <Box
                                     key={area.code}
-                                    onClick={() =>
-                                        navigate(
-                                            `/apps/${app.code}/${area.code}`
-                                        )
-                                    }
+                                    onClick={() => {
+                                        window.open(area.url, "_blank");
+                                    }}
+                                    // onClick={() =>
+                                    //     navigate(
+                                    //         `/apps/${app.code}/${area.code}`
+                                    //     )
+                                    // }
                                     sx={{
                                         minHeight: 88,
                                         backgroundColor: "#ffffff",

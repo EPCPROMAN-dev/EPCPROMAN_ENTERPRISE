@@ -24,7 +24,7 @@ const navigationItems = [
         path: "/operational-analysis",
     },
     {
-        name: "EPCROMAN - AI",
+        name: "PROAI",
         path: "/EPCPROMAN-AI",
     },
 ];
@@ -45,6 +45,7 @@ function NavBar() {
                 overflowX: "auto",
                 overflowY: "hidden",
                 whiteSpace: "nowrap",
+                gap: 0.5,
             }}
         >
             {navigationItems.map((item) => {
@@ -56,12 +57,12 @@ function NavBar() {
                         onClick={() => navigate(item.path)}
                         sx={{
                             height: "100%",
-                            px: 2,
+                            px: 4,
                             position: "relative",
                             flexShrink: 0,
-                            fontSize: "13px",
-                            fontWeight: selected ? 700 : 500,
-                            color: selected ? "#1769d2" : "#526b86",
+                            fontSize: "14px",
+                            fontWeight: selected ? 800 : 700,
+                            color: selected ? "var(--navy)" : "var(--gray)",
                             "&:hover": {
                                 backgroundColor: "#f5f8fc",
                             },
@@ -73,7 +74,7 @@ function NavBar() {
                                 right: 12,
                                 height: 2,
                                 backgroundColor: selected
-                                    ? "#1769d2"
+                                    ? "var(--blue)"
                                     : "transparent",
                             },
                         }}

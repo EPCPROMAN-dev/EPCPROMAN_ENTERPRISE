@@ -8,10 +8,15 @@ import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
 import { useNavigate } from "react-router-dom";
 
 interface AppCardProps {
-    number: number;
+    number?: number;
     code: string;
+    productCode: string;
+    level:string;
     name: string;
     status: string;
+    available: boolean;
+    licenseRequired: boolean;
+    onLicenseRequired: () => void;
 }
 
 interface ContextMenuPosition {
@@ -20,10 +25,15 @@ interface ContextMenuPosition {
 }
 
 export default function AppCard({
-    number,
+    // number,
     code,
+    productCode,
+    level,
     name,
     status,
+    available,
+    licenseRequired,
+    onLicenseRequired,
 }: AppCardProps) {
     const navigate = useNavigate();
 
@@ -185,24 +195,29 @@ export default function AppCard({
     return (
         <>
             <Box
-                onClick={() =>
-                    navigate(`/apps/${code}`)
-                }
+               onClick={() => {
+                    if (licenseRequired || !available) {
+                        onLicenseRequired();
+                        return;
+                    }
+                    navigate(`/apps/${code}`);
+                }}
                 onContextMenu={handleContextMenu}
                 sx={{
-                    minHeight: 132,
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #dfe6ee",
-                    borderRadius: 2,
-                    px: 2,
-                    py: 1.75,
+                    minHeight: 110,
+                   backgroundColor: available ? "#ffffff" : "#f7f9fb",
+                   border: available ? "1px solid var(--border)" : "1px solid #e5e9ee",
+                    borderRadius: 3,
+                   px: 1.5,
+                    py: 1.25,
                     boxSizing: "border-box",
                     position: "relative",
                     transition: "all 0.2s ease",
                     cursor: "pointer",
+                    boxShadow:"0 3px 12px rgba(10, 35, 70, .04)",
 
                     "&:hover": {
-                        borderColor: "#b8cce5",
+                        borderColor: available ? "#9fc2ec": "#e5e9ee",
                         boxShadow:
                             "0 4px 14px rgba(31, 78, 121, 0.08)",
                         transform: "translateY(-1px)",
@@ -217,37 +232,70 @@ export default function AppCard({
                     }}
                 >
                     <Typography
-                        sx={{
-                            fontSize: 9,
-                            fontWeight: 700,
-                            color: "#8192a7",
-                            letterSpacing: 0.4,
-                        }}
+                         sx={{
+                             fontSize: 10,
+                             fontWeight: 800,
+                             color: available ? "#8192a7" : "#aeb7c2",
+                             letterSpacing: 0.4,
+                         }}
                     >
-                        {String(number).padStart(2, "0")}
+                        {code}
                     </Typography>
 
+
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 0.75,
+                        flexWrap: "wrap",
+                    }}
+                >
                     <Box
                         sx={{
                             px: 1,
                             py: 0.35,
                             borderRadius: 0.75,
                             backgroundColor: "#edf4ff",
-                            border:
-                                "1px solid #d7e7fb",
+                            border: "1px solid #d7e7fb",
                         }}
                     >
                         <Typography
                             sx={{
-                                fontSize: 9,
-                                fontWeight: 700,
-                                color: "#1769d2",
+                                fontSize: 10,
+                                fontWeight: 800,
+                                color: available ? "#1769d2" : "#aeb7c2",
                                 letterSpacing: 0.3,
                             }}
                         >
-                            {code}
+                            {productCode}
                         </Typography>
                     </Box>
+                        
+                    {level && (
+                        <Box
+                            sx={{
+                                px: 1,
+                                py: 0.35,
+                                borderRadius: 0.75,
+                                 backgroundColor: "#edf4ff",
+                                    border: "1px solid #d7e7fb",
+                            }}
+                        >
+                            <Typography
+                                sx={{
+                                    fontSize: 10,
+                                    fontWeight: 800,
+                                    // color: available ? "#1769d2" : "#aeb7c2",
+                                    color:"#e78200;"
+                                }}
+                            >
+                                {level}
+                            </Typography>
+                        </Box>
+                    )}
+                </Box>
+
                 </Box>
 
                 <Box
@@ -272,14 +320,14 @@ export default function AppCard({
                     {starred ? (
                         <StarIcon
                             sx={{
-                                fontSize: 19,
-                                color: "#1769d2",
+                                fontSize: 20,
+                                color: "#e78200;",
                             }}
                         />
                     ) : (
                         <StarBorderIcon
                             sx={{
-                                fontSize: 19,
+                                fontSize: 20,
                                 color: "#9aa8b8",
                             }}
                         />
@@ -290,9 +338,9 @@ export default function AppCard({
                     sx={{
                         mt: 1.8,
                         pr: 3,
-                        fontSize: 12,
-                        fontWeight: 700,
-                        color: "#17385f",
+                        fontSize: 13,
+                        fontWeight: 800,
+                        color: "#123565",
                         lineHeight: 1.45,
                     }}
                 >
@@ -300,14 +348,25 @@ export default function AppCard({
                 </Typography>
 
                 <Typography
-                    sx={{
-                        mt: 1.25,
-                        fontSize: 9,
-                        color: "#8795a7",
-                    }}
-                >
-                    {status}
-                </Typography>
+    sx={{
+        mt: 1,
+        fontSize: 10,
+        color: available ? "#8795a7" : "#aeb7c2",
+    }}
+>
+    {status}
+</Typography>
+
+<Typography
+    sx={{
+        mt: 0.5,
+        fontSize: 10,
+        fontWeight: 600,
+        color: available ? "#16834b" : "#b58a52",
+    }}
+>
+    {available ? "✓ Available" : "🔒 Add-on license required"}
+</Typography>
             </Box>
 
             {contextMenu && (
@@ -366,7 +425,7 @@ export default function AppCard({
                 display: "flex",
                 alignItems: "center",
                 gap: 1.5,
-                fontSize: 11,
+                fontSize: 12,
                 color: "#294b70",
                 cursor: "pointer",
 
@@ -378,14 +437,14 @@ export default function AppCard({
             {starred ? (
                 <StarIcon
                     sx={{
-                        fontSize: 18,
+                        fontSize: 19,
                         color: "#1769d2",
                     }}
                 />
             ) : (
                 <StarBorderIcon
                     sx={{
-                        fontSize: 18,
+                        fontSize: 19,
                         color: "#1769d2",
                     }}
                 />
