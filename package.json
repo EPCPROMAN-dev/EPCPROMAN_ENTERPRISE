@@ -20,9 +20,11 @@
     "@progress/kendo-react-dropdowns": "^16.1.0",
     "@progress/kendo-svg-icons": "^5.5.0",
     "@progress/kendo-theme-material": "^14.6.1",
+    "@reduxjs/toolkit": "^2.13.0",
     "@tailwindcss/vite": "^4.3.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "react-redux": "^9.3.0",
     "react-router-dom": "^7.18.4",
     "tailwindcss": "^4.3.3"
   },
