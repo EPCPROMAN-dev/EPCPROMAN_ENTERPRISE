@@ -186,6 +186,14 @@ export default function Starred() {
                         </Box>
                     </Box>
 
+                <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    // justifyContent: "space-evenly",
+                    gap: 9,
+                    flexWrap: "wrap",
+                }}>
                     {/* Bookmarked Apps */}
                     <Box>
                         <Box
@@ -219,7 +227,7 @@ export default function Starred() {
                         {apps.length === 0 ? (
                             <Box
                                 sx={{
-                                    width: 415,
+                                    width: 550,
                                     backgroundColor: "#ffffff",
                                     border: "1px solid #dfe6ee",
                                     borderRadius: 2,
@@ -252,7 +260,7 @@ export default function Starred() {
                         ) : (
                             <Box
                                 sx={{
-                                    width: 415,
+                                    width: 550,
                                     display: "flex",
                                     flexDirection: "column",
                                     gap: 1,
@@ -405,7 +413,7 @@ export default function Starred() {
                         {areas.length === 0 ? (
                             <Box
                                 sx={{
-                                    width: 415,
+                                 width: 550,
                                     minHeight: 68,
                                     backgroundColor: "#ffffff",
                                     border: "1px dashed #cbd7e5",
@@ -430,7 +438,7 @@ export default function Starred() {
                         ) : (
                             <Box
                                 sx={{
-                                    width: 415,
+                                    width: 550,
                                     display: "flex",
                                     flexDirection: "column",
                                     gap: 1,
@@ -553,6 +561,7 @@ export default function Starred() {
                             </Box>
                         )}
                     </Box>
+                </Box>
                 </Box>
             </Box>
         </Box>
