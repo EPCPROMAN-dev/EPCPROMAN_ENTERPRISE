@@ -14,6 +14,7 @@ import EPCPROMANAI from "../pages/EpcromanAI/EpcromanAI";
 import ScrumBoard from "../pages/ScrumBoard/ScrumBoard";
 import FunctionalArea from "../pages/Apps/FunctionalArea";
 import Starred from "../pages/Starred/Starred";
+import ForYou from "../pages/ForYou/forYou";
 
 
 const router = createBrowserRouter([
@@ -31,42 +32,28 @@ const router = createBrowserRouter([
                 element: <Apps />,
             },
             {
-
                 path: "portfolio-performance",
                 element: <PortfolioPerformance />
-
             },
             {
-
                 path: "project-performance",
                 element: <ProjectPerformance />
-
             },
             {
-
                 path: "commercial-performance",
                 element: <CommercialPerformance />
-
             },
             {
-
                 path: "operational-analysis",
-
-
                 element: <OperationalAnalysis />
-
             },
             {
-
                 path: "EPCPROMAN-AI",
                 element: <EPCPROMANAI />
-
             },
             {
-
                 path: "scrum-board",
                 element: <ScrumBoard />
-
             },
             {
                 path: "apps/:appCode",
@@ -80,6 +67,10 @@ const router = createBrowserRouter([
             {
                 path: "starred",
                 element: <Starred />,
+            },
+             {
+                path: "for-you",
+                element: <ForYou />,
             },
         ],
     },
