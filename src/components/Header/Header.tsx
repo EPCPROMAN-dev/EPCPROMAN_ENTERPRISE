@@ -4,8 +4,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
 import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
@@ -15,8 +13,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
+import SearchIcon from "@mui/icons-material/Search";
+
+import { useState } from "react";
+import SearchModal from "../Common/SearchModal";
 
 interface HeaderProps {
     open: boolean;
@@ -24,27 +25,9 @@ interface HeaderProps {
 }
 
 export default function Header({ open, handleDrawerToggle }: HeaderProps) {
-    const [searchValue, setSearchValue] = React.useState<string>("");
-    const [searchOpen, setSearchOpen] = React.useState<boolean>(false);
+
     const [profileOpen, setProfileOpen] = React.useState<boolean>(false);
-
-    const handleSearchChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const value = event.target.value;
-        setSearchValue(value);
-        setSearchOpen(value.length > 0);
-    };
-
-    const handleSearchFocus = () => {
-        if (searchValue.length > 0) {
-            setSearchOpen(true);
-        }
-    };
-
-    const handleSearchClose = () => {
-        setSearchOpen(false);
-    };
+    const [searchOpen, setSearchOpen] = useState(false);
 
     const handleProfileClick = () => {
         setProfileOpen((prev) => !prev);
@@ -55,6 +38,8 @@ export default function Header({ open, handleDrawerToggle }: HeaderProps) {
     };
 
     return (
+        <>
+
         <AppBar
             position="fixed"
             sx={{
@@ -139,108 +124,29 @@ export default function Header({ open, handleDrawerToggle }: HeaderProps) {
                     </Typography>
                 </Box>
                
-                {/* SEARCH */}
-                <ClickAwayListener onClickAway={handleSearchClose}>
-                    <Box
-                        sx={{
-                            position: "relative",
-                            width: {
-                                xs: 170,
-                                sm: 220,
-                                md: 300,
-                            },
-                            flexShrink: 1,
-
-                            ml:"auto",
-                            mr: {
-                                xs: 1,
-                                sm: 2,
-                            },
-                        }}
-                    >
-                        <TextField
-                            fullWidth
-                            size="small"
-                            value={searchValue}
-                            onChange={handleSearchChange}
-                            onFocus={handleSearchFocus}
-                            placeholder="Search modules or functions..."
-                            autoComplete="off"
-                           slotProps={{
-    input: {
-        startAdornment: (
-            <InputAdornment position="start">
-                <SearchIcon
+                
+                {/* SEARCH BUTTON */}
+                <IconButton
+                    onClick={() => setSearchOpen(true)}
+                    aria-label="Open search"
                     sx={{
-                        fontSize: 17,
-                        color: "#7b91a8",
+                        ml: "auto",
+                        mr: { xs: 1, sm: 2 },
+                        width: 38,
+                        height: 38,
+                        color: "#12345b",
+                        border: "1px solid #d5dfeb",
+                        borderRadius: "8px",
+                        flexShrink: 0,
+                        "&:hover": {
+                            backgroundColor: "#eef4fa",
+                            borderColor: "#b8c9db",
+                        },
                     }}
-                />
-            </InputAdornment>
-        ),
-    },
-}}
-                            sx={{
-                                "& .MuiOutlinedInput-root": {
-                                    height: 38,
-                                    borderRadius: "8px",
-                                    backgroundColor: "#ffffff",
-                                    fontSize: "10px",
-                                    "& fieldset": {
-                                        borderColor: "#d5dfeb",
-                                    },
-                                    "&:hover fieldset": {
-                                        borderColor: "#b8c9db",
-                                    },
-                                    "&.Mui-focused fieldset": {
-                                        borderColor: "#1976d2",
-                                        borderWidth: 2,
-                                    },
-                                },
-                                "& input": {
-                                    padding: "8px 8px",
-                                    fontSize: "10px",
-                                },
-                                "& input::placeholder": {
-                                    color: "#718096",
-                                    opacity: 1,
-                                },
-                            }}
-                        />
-                        {/* SEARCH DROPDOWN */}
-                        {searchOpen && (
-                            <Paper
-                                elevation={4}
-                                sx={{
-                                    position: "absolute",
-                                    top: "43px",
-                                    left: 0,
-                                    width: "100%",
-                                    borderRadius: "10px",
-                                    border: "1px solid #e1e7ef",
-                                    overflow: "hidden",
-                                    zIndex: 1500,
-                                }}
-                            >
-                                <Box
-                                    sx={{
-                                        px: 1.5,
-                                        py: 1.5,
-                                    }}
-                                >
-                                    <Typography
-                                        sx={{
-                                            fontSize: "10px",
-                                            color: "#718096",
-                                        }}
-                                    >
-                                        No matching modules or functions found.
-                                    </Typography>
-                                </Box>
-                            </Paper>
-                        )}
-                    </Box>
-                </ClickAwayListener>
+                >
+                    <SearchIcon fontSize="small" />
+                </IconButton>
+
                 {/* USER PROFILE */}
                 <ClickAwayListener onClickAway={handleProfileClose}>
                     <Box
@@ -470,6 +376,13 @@ export default function Header({ open, handleDrawerToggle }: HeaderProps) {
                 </ClickAwayListener>
             </Toolbar>
         </AppBar>
+
+         <SearchModal
+            open={searchOpen}
+            onClose={() => setSearchOpen(false)}
+        />
+                                    
+        </>
     );
 }
 
