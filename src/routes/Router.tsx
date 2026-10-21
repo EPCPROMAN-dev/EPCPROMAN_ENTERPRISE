@@ -15,6 +15,7 @@ import ScrumBoard from "../pages/ScrumBoard/ScrumBoard";
 import FunctionalArea from "../pages/Apps/FunctionalArea";
 import Starred from "../pages/Starred/Starred";
 import ForYou from "../pages/ForYou/forYou";
+import Test from "../dashboards/Test/Test"
 
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path: "portfolio-performance",
                 element: <PortfolioPerformance />
+            },
+            {
+                path: "cardTest",
+                element: <Test />
             },
             {
                 path: "project-performance",
