@@ -5,6 +5,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import { useParams } from "react-router-dom";
 import { appsData } from "../../data/appsData";
+import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
 
 export default function AppDetails() {
     const { appCode } = useParams();
@@ -17,11 +18,18 @@ export default function AppDetails() {
     const [starredAreas, setStarredAreas] = React.useState<string[]>([]);
 
     React.useEffect(() => {
-        const savedAreas = localStorage.getItem("starredAreas");
-
-        if (savedAreas) {
-            setStarredAreas(JSON.parse(savedAreas));
-        }
+        const handleOutsideClick = () => {
+            setContextMenu(null);
+        };
+    
+        document.addEventListener("click", handleOutsideClick);
+    
+        return () => {
+            document.removeEventListener(
+                "click",
+                handleOutsideClick
+            );
+        };
     }, []);
 
     if (!app) {
@@ -58,8 +66,79 @@ export default function AppDetails() {
         );
     };
 
+    
+    const [sidebarAreas, setSidebarAreas] = React.useState<string[]>(() => {
+        const saved = localStorage.getItem("sidebarAreas");
+        return saved ? JSON.parse(saved) : [];
+    });
+
+    const [contextMenu, setContextMenu] =
+        React.useState<{
+            mouseX: number;
+            mouseY: number;
+            areaCode: string;
+        } | null>(null);
+
+    // 1. Opens the menu on right-click
+    const handleAreaContextMenu = (
+        event: React.MouseEvent,
+        areaCode: string
+    ) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        setContextMenu({
+            mouseX: event.clientX,
+            mouseY: event.clientY,
+            areaCode,
+        });
+    };
+
+    // 2. Adds or removes a functional area from the sidebar
+    const handleSidebarAreaClick = () => {
+        if (!contextMenu) return;
+
+        const areaKey = `${app.code}|${contextMenu.areaCode}`;
+
+        const updatedAreas = sidebarAreas.includes(areaKey)
+            ? sidebarAreas.filter((item) => item !== areaKey)
+            : [...sidebarAreas, areaKey];
+
+        setSidebarAreas(updatedAreas);
+
+        localStorage.setItem(
+            "sidebarAreas",
+            JSON.stringify(updatedAreas)
+        );
+
+        window.dispatchEvent(new Event("sidebarAppsChanged"));
+        setContextMenu(null);
+    };
+
+    // 3. Adds or removes a functional area from Favorites
+    const handleAreaFavoriteClick = () => {
+        if (!contextMenu) return;
+
+        const areaKey = `${app.code}|${contextMenu.areaCode}`;
+
+        const updatedAreas = starredAreas.includes(areaKey)
+            ? starredAreas.filter((item) => item !== areaKey)
+            : [...starredAreas, areaKey];
+
+        setStarredAreas(updatedAreas);
+
+        localStorage.setItem(
+            "starredAreas",
+            JSON.stringify(updatedAreas)
+        );
+
+        setContextMenu(null);
+    };
+
+
     return (
-        <Box
+        <>
+        <Box         
             sx={{
                 p: 3,
                 backgroundColor: "#f4f7fb",
@@ -127,9 +206,10 @@ export default function AppDetails() {
                             sx={{
                                 px: 1.5,
                                 py: 0.75,
-                                backgroundColor: "#edf4ff",
+                                // backgroundColor: "#edf4ff",
+                                border: "1px solid #cbd9ea",
                                 borderRadius: 1,
-                                fontSize: 10,
+                                fontSize: 12,
                                 fontWeight: 600,
                                 color: "var(--blue)",
                             }}
@@ -209,6 +289,9 @@ export default function AppDetails() {
                                     onClick={() => {
                                         window.open(area.url, "_blank");
                                     }}
+                                    onContextMenu={(event) =>
+                                        handleAreaContextMenu(event, area.code)
+                                    }
                                     // onClick={() =>
                                     //     navigate(
                                     //         `/apps/${app.code}/${area.code}`
@@ -301,5 +384,98 @@ export default function AppDetails() {
                 </Box>
             </Box>
         </Box>
+
+        {contextMenu && (
+            <Box
+                onClick={(event) => event.stopPropagation()}
+                sx={{
+                    position: "fixed",
+                    top: contextMenu.mouseY,
+                    left: contextMenu.mouseX,
+                    minWidth: 200,
+                    zIndex: 1500,
+                    bgcolor: "#fff",
+                    border: "1px solid #e1e7ef",
+                    borderRadius: 1.5,
+                    boxShadow: "0 5px 18px rgba(0,0,0,0.18)",
+                    overflow: "hidden",
+                }}
+            >
+                <Box
+                    onClick={handleSidebarAreaClick}
+                    sx={{
+                        minHeight: 42,
+                        px: 1.5,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 1.5,
+                        fontSize: 12,
+                        color: "#294b70",
+                        cursor: "pointer",
+
+                        "&:hover": {
+                            backgroundColor: "#f3f7fc",
+                        },
+                    }}
+                >
+                    <PushPinOutlinedIcon
+                        sx={{
+                            fontSize: 18,
+                            color: "#1769d2",
+                        }}
+                    />
+                   
+
+                    {sidebarAreas.includes(
+                        `${app.code}|${contextMenu.areaCode}`
+                    )
+                        ? "Remove from Sidebar"
+                        : "Add to Sidebar"}
+                </Box>
+                
+                <Box
+                    onClick={handleAreaFavoriteClick}
+                    sx={{
+                        minHeight: 42,
+                        px: 1.5,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 1.5,
+                        fontSize: 11,
+                        color: "#294b70",
+                        cursor: "pointer",
+
+                        "&:hover": {
+                            backgroundColor: "#f3f7fc",
+                        },
+                    }}
+                >
+                     {starredAreas.includes(
+                        `${app.code}|${contextMenu.areaCode}`
+                    ) ? (
+                        <StarIcon
+                            sx={{
+                                fontSize: 19,
+                                color: "#1769d2",
+                            }}
+                        />
+                    ) : (
+                        <StarBorderIcon
+                            sx={{
+                                fontSize: 19,
+                                color: "#1769d2",
+                            }}
+                        />
+                    )}
+                    {starredAreas.includes(
+                        `${app.code}|${contextMenu.areaCode}`
+                    )
+                        ? "Remove from Favorite"
+                        : "Add to Favorite"}
+                </Box>
+            </Box>
+        )}             
+
+        </>
     );
 }

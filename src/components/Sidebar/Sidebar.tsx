@@ -36,6 +36,16 @@ interface MenuItem {
     path: string;
 }
 
+interface SidebarEntry {
+    id: string;
+    type: "app" | "area";
+    appCode: string;
+    code: string;
+    name: string;
+    appName?: string;
+    url?: string;
+}
+
 // sidebar when open
 const openedMixin = (theme: Theme) => ({
     width: drawerWidth,
@@ -124,15 +134,41 @@ export default function Sidebar({ open }: SidebarProps) {
     const location = useLocation();
 
     const [sidebarApps, setSidebarApps] = React.useState<string[]>([]);
+    const [sidebarAreas, setSidebarAreas] = React.useState<string[]>([]);
+    const [sidebarOrder, setSidebarOrder] = React.useState<string[]>([]);
+    const [draggedItem, setDraggedItem] = React.useState<string | null>(null);
 
     const loadSidebarApps = () => {
-        const savedApps = localStorage.getItem("sidebarApps");
+        const savedApps: string[] = JSON.parse(
+            localStorage.getItem("sidebarApps") || "[]"
+        );
 
-        if (savedApps) {
-            setSidebarApps(JSON.parse(savedApps));
-        } else {
-            setSidebarApps([]);
-        }
+        const savedAreas: string[] = JSON.parse(
+            localStorage.getItem("sidebarAreas") || "[]"
+        );
+
+        const pinnedIds = [
+            ...savedApps.map((code) => `app:${code}`),
+            ...savedAreas.map((key) => `area:${key}`),
+        ];
+
+        const savedOrder: string[] = JSON.parse(
+            localStorage.getItem("sidebarOrder") || "[]"
+        );
+
+        const updatedOrder = [
+            ...savedOrder.filter((id) => pinnedIds.includes(id)),
+            ...pinnedIds.filter((id) => !savedOrder.includes(id)),
+        ];
+
+        setSidebarApps(savedApps);
+        setSidebarAreas(savedAreas);
+        setSidebarOrder(updatedOrder);
+
+        localStorage.setItem(
+            "sidebarOrder",
+            JSON.stringify(updatedOrder)
+        );
     };
 
     React.useEffect(() => {
@@ -159,9 +195,98 @@ export default function Sidebar({ open }: SidebarProps) {
         (section) => section.apps
     );
 
-    const myApps = allApps.filter((app) =>
-        sidebarApps.includes(app.code)
-    );
+    const sidebarEntries: SidebarEntry[] = sidebarOrder
+        .map((id): SidebarEntry | null => {
+            if (id.startsWith("app:")) {
+                const code = id.slice(4);
+
+                const app = allApps.find(
+                    (item) => item.code === code
+                );
+
+                if (!app || !sidebarApps.includes(code)) {
+                    return null;
+                }
+
+                return {
+                    id,
+                    type: "app",
+                    appCode: app.code,
+                    code: app.code,
+                    name: app.name,
+                };
+            }
+
+            if (id.startsWith("area:")) {
+                const areaKey = id.slice(5);
+                const [appCode, areaCode] = areaKey.split("|");
+
+                const app = allApps.find(
+                    (item) => item.code === appCode
+                );
+
+                const area = app?.functionalAreas.find(
+                    (item) => item.code === areaCode
+                );
+
+                if (!app || !area || !sidebarAreas.includes(areaKey)) {
+                    return null;
+                }
+
+                return {
+                    id,
+                    type: "area",
+                    appCode: app.code,
+                    code: area.code,
+                    name: area.name,
+                    appName: app.name,
+                    url: area.url,
+                };
+            }
+
+            return null;
+        })
+        .filter((item): item is SidebarEntry => item !== null);
+
+    const handleDrop = (event: React.DragEvent,targetId: string) => {
+        event.preventDefault();
+
+        const sourceId =
+            event.dataTransfer.getData("text/plain") ||
+            draggedItem;
+
+        if (!sourceId || sourceId === targetId) {
+            setDraggedItem(null);
+            return;
+        }
+
+        const currentOrder = sidebarEntries.map(
+            (item) => item.id
+        );
+
+        const sourceIndex = currentOrder.indexOf(sourceId);
+        const targetIndex = currentOrder.indexOf(targetId);
+
+        if (sourceIndex === -1 || targetIndex === -1) {
+            setDraggedItem(null);
+            return;
+        }
+
+        const updatedOrder = [...currentOrder];
+
+        updatedOrder.splice(sourceIndex, 1);
+        updatedOrder.splice(targetIndex, 0, sourceId);
+
+        setSidebarOrder(updatedOrder);
+
+        localStorage.setItem(
+            "sidebarOrder",
+            JSON.stringify(updatedOrder)
+        );
+
+        setDraggedItem(null);
+    };
+
 
     return (
         <StyledDrawer
@@ -275,7 +400,7 @@ export default function Sidebar({ open }: SidebarProps) {
 
             {/* MY APPS */}
 
-    {open && myApps.length > 0 && (
+    {open && sidebarEntries.length > 0 && (
         <Typography
             sx={{
                 px: 2.5,
@@ -321,99 +446,136 @@ export default function Sidebar({ open }: SidebarProps) {
 >
     {/* MY APPS */}
 
-    {myApps.length > 0 && (
+    {sidebarEntries.length > 0 && (
         <List sx={{ pt: 0 }}>
-            {myApps.map((app) => {
-                const selected =
-                    location.pathname.startsWith(
-                        `/apps/${app.code}`
-                    );
-
+            {sidebarEntries.map((item) => {
+               const selected =
+                    item.type === "app"
+                        ? location.pathname === `/apps/${item.appCode}` || location.pathname.startsWith(`/apps/${item.appCode}/`)
+                        : location.pathname ===`/apps/${item.appCode}/${item.code}`;
                 return (
                     <ListItem
-                        key={app.code}
+                        key={item.id}
                         disablePadding
-                        sx={{
-                            display: "block",
-                        }}
+                        sx={{ display: "block" }}
                     >
-                    <CustomTooltip title={app.name}>
-                        <ListItemButton
-                            onClick={() =>
-                                navigate(`/apps/${app.code}`)
+                        <CustomTooltip
+                            title={
+                                item.type === "area"
+                                    ? `${item.appName} · ${item.name}`
+                                    : item.name
                             }
-                            selected={selected}
-                            sx={{
-                                minHeight: 42,
-                                px: open ? 2 : 0,
-                                mx: open ? 1 : 0,
-                                borderRadius: "7px",
-                                justifyContent: open
-                                    ? "initial"
-                                    : "center",
-
-                                "&:hover": {
-                                    backgroundColor: "#f3f7fc",
-                                },
-
-                                "&.Mui-selected": {
-                                    backgroundColor: "#e5effc",
-                                },
-
-                                "&.Mui-selected:hover": {
-                                    backgroundColor: "#dceafb",
-                                },
-                            }}
                         >
-                            <ListItemIcon
+                            <ListItemButton
+                                draggable
+                                onDragStart={(event) => {
+                                    setDraggedItem(item.id);
+                                
+                                    event.dataTransfer.setData(
+                                        "text/plain",
+                                        item.id
+                                    );
+                                
+                                    event.dataTransfer.effectAllowed =
+                                        "move";
+                                }}
+                                onDragOver={(event) => {
+                                    event.preventDefault();
+                                
+                                    event.dataTransfer.dropEffect =
+                                        "move";
+                                }}
+                                onDrop={(event) =>
+                                    handleDrop(event, item.id)
+                                }
+                                onDragEnd={() => setDraggedItem(null)}
+                                onClick={() => {
+                                    if (item.type === "app") {
+                                        navigate(`/apps/${item.appCode}`);
+                                    } else if (item.url) {
+                                        window.open(
+                                            item.url,
+                                            "_blank"
+                                        );
+                                    }
+                                }}
+                                selected={selected}
                                 sx={{
-                                    minWidth: 24,
-                                    width: 24,
-                                    height: 24,
-                                    mr: open ? 2 : 0,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    color: selected
-                                        ? "#1769d2"
-                                        : "#526b86",
-
-                                    "& svg": {
-                                        fontSize: 17,
+                                    minHeight: 42,
+                                    px: open ? 2 : 0,
+                                    mx: open ? 1 : 0,
+                                    borderRadius: "7px",
+                                    justifyContent: open
+                                        ? "initial"
+                                        : "center",
+                                    opacity:
+                                        draggedItem === item.id
+                                            ? 0.4
+                                            : 1,
+                                    cursor: "grab",
+                                    "&:active": {
+                                        cursor: "grabbing",
+                                    },
+                                    "&:hover": {
+                                        backgroundColor: "#f3f7fc",
+                                    },
+                                    "&.Mui-selected": {
+                                        backgroundColor: "#e5effc",
                                     },
                                 }}
                             >
-                                <AppsOutlinedIcon />
-                            </ListItemIcon>
-
-                            <ListItemText
-                                primary={app.name}
-                                sx={{
-                                    display: open
-                                        ? "block"
-                                        : "none",
-
-                                    "& .MuiTypography-root": {
-                                        fontSize: "11px",
-                                        fontWeight: selected
-                                            ? 800
-                                            : 400,
+                                <ListItemIcon
+                                    sx={{
+                                        minWidth: 24,
+                                        width: 24,
+                                        height: 24,
+                                        mr: open ? 2 : 0,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
                                         color: selected
                                             ? "#1769d2"
-                                            : "#294b70",
-                                        whiteSpace: "nowrap",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                    },
-                                }}
-                            />
-                        </ListItemButton>
+                                            : "#526b86",
+                                        "& svg": {
+                                            fontSize: 17,
+                                        },
+                                    }}
+                                >
+                                    <AppsOutlinedIcon />
+                                </ListItemIcon>
+                                
+                                <ListItemText
+                                    primary={item.name}
+                                    secondary={
+                                        open && item.type === "area"
+                                            ? item.appName
+                                            : undefined
+                                    }
+                                    sx={{
+                                        display: open ? "block" : "none",
+                                        "& .MuiTypography-root": {
+                                            fontSize: "11px",
+                                            fontWeight: selected ? 800 : 400,
+                                            color: selected
+                                                ? "#1769d2"
+                                                : "#294b70",
+                                            whiteSpace: "nowrap",
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis",
+                                        },
+                                        "& .MuiListItemText-secondary": {
+                                            fontSize: "9px",
+                                            color: "#8a9bad",
+                                        },
+                                    }}
+                                />
+                            </ListItemButton>
                         </CustomTooltip>
                     </ListItem>
                 );
             })}
         </List>
-    )} 
+    )}
 </Box>
 
             {/* WORKSPACES TITLE */}

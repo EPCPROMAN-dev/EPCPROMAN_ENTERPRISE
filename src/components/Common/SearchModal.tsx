@@ -24,6 +24,7 @@ import {
 interface SearchModalProps {
     open: boolean;
     onClose: () => void;
+    // This says onClose must be a function that takes no arguments and returns void.
 }
 
 const popularSearches = [
@@ -35,10 +36,10 @@ const popularSearches = [
     "Procurement",
 ];
 
-// This is called destructuring props. Instead of writing props.open and props.onClose, you use open and onClose directly.
 export default function SearchModal({
     open,
     onClose,
+    // This is called destructuring props. Instead of writing props.open and props.onClose, you use open and onClose directly.
 }: SearchModalProps) {
     const [query, setQuery] = useState("");
     const navigate = useNavigate();
