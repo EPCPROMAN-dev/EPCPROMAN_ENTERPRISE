@@ -2,11 +2,14 @@
 
 @import "@progress/kendo-theme-material/dist/all.css";
 
+@import "./components/Common/FilterBar/FilterBar.css";
+
 
 :root{
     --navy:#082b63;
     --blue:#1769d2;
     --gray:#5e6e83;
+    --sidetext:#294b70;
     --border:#dbe3ec;
     --navy: #082b63;
     --bg: #f5f7fa;

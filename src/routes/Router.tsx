@@ -15,7 +15,9 @@ import ScrumBoard from "../pages/ScrumBoard/ScrumBoard";
 import FunctionalArea from "../pages/Apps/FunctionalArea";
 import Starred from "../pages/Starred/Starred";
 import ForYou from "../pages/ForYou/forYou";
-import Test from "../dashboards/Test/Test"
+import Test from "../dashboards/Test/Test";
+import TimesheetLayout from "../pages/TimeSheet/TimesheetLayout";
+import TimesheetFilling from "../pages/TimeSheet/TimesheetFilling";
 
 
 const router = createBrowserRouter([
@@ -46,7 +48,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "commercial-performance",
-                element: <CommercialPerformance />
+                element: <CommercialPerformance  />
             },
             {
                 path: "operational-analysis",
@@ -82,7 +84,17 @@ const router = createBrowserRouter([
     {
         path: "/da",
         element:<PortfolioPerformance />,
-    }
+    },
+    {
+        path: "/timesheet",
+        element: <TimesheetLayout />,
+        children: [
+            {
+                index: true,
+                element: <TimesheetFilling />,
+            },
+        ],
+    },
 
 ]);
 
