@@ -39,9 +39,12 @@ function Layout() {
                     overflow: "hidden",
                 }}
             >
+
+
                 <Breadcrumb />
 
-                <NavBar />
+                <NavBar />   
+               
 
                 <div
                     style={{
