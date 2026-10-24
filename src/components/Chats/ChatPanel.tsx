@@ -16,7 +16,7 @@ const ChatPanel = () => {
         alignItems: "center",
       }}
     >
-      ChatPanel
+      Chat Panel
     </Box>
   );
 };
