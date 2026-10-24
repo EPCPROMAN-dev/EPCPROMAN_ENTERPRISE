@@ -111,7 +111,7 @@ const mainMenu: MenuItem[] = [
     {
         name: "Time Sheet",
         icon: <AccessTimeIcon />,
-        path: "/time-sheet",
+        path: "/timesheet",
     },
     {
         name: "Calendar",
@@ -391,8 +391,8 @@ export default function Sidebar({ open }: SidebarProps) {
                                             ? 800
                                             : 400,
                                         color: selected
-                                            ? "#1769d2"
-                                            : "#294b70",
+                                            ? "var(--blue)"
+                                            : "var(--sidetext)",
                                         whiteSpace: "nowrap",
                                         overflow: "hidden",
                                         textOverflow: "ellipsis",
@@ -541,8 +541,8 @@ export default function Sidebar({ open }: SidebarProps) {
                                         alignItems: "center",
                                         justifyContent: "center",
                                         color: selected
-                                            ? "#1769d2"
-                                            : "#526b86",
+                                            ? "var(--blue)"
+                                            : "var(--sidetext)",
                                         "& svg": {
                                             fontSize: 17,
                                         },
@@ -564,8 +564,8 @@ export default function Sidebar({ open }: SidebarProps) {
                                             fontSize: "11px",
                                             fontWeight: selected ? 800 : 400,
                                             color: selected
-                                                ? "#1769d2"
-                                                : "#294b70",
+                                                ? "var(--blue)"
+                                                : "var(--sidetext)",
                                             whiteSpace: "nowrap",
                                             overflow: "hidden",
                                             textOverflow: "ellipsis",

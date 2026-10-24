@@ -40,9 +40,12 @@ function Layout() {
           overflow: "hidden",
         }}
       >
+
+
         {currentNode.handle.showBreadcrumb && <Breadcrumb />}
 
-        {currentNode.handle.showNavbar && <NavBar />}
+        {currentNode.handle.showNavbar && <NavBar />}   
+               
 
         <div
           style={{
