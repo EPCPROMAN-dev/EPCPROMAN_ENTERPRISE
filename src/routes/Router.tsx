@@ -1,8 +1,7 @@
-
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layout/Layout";
 
-import Apps from "../pages/Apps/Apps";;
+import Apps from "../pages/Apps/Apps";
 // import Calendar from "../pages/Calendar/Calendar";
 
 import AppDetails from "../pages/Apps/AppDetails";
@@ -15,77 +14,133 @@ import ScrumBoard from "../pages/ScrumBoard/ScrumBoard";
 import FunctionalArea from "../pages/Apps/FunctionalArea";
 import Starred from "../pages/Starred/Starred";
 import ForYou from "../pages/ForYou/forYou";
-import Test from "../dashboards/Test/Test"
-
+import Test from "../dashboards/Test/Test";
+import ChatApp from "../pages/ChatApp/ChatApp";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Apps />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
+      {
+        path: "apps",
+        element: <Apps />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
+      {
+        path: "portfolio-performance",
+        element: <PortfolioPerformance />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
+      {
+        path: "cardTest",
+        element: <Test />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
+      {
+        path: "project-performance",
+        element: <ProjectPerformance />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
+      {
+        path: "commercial-performance",
+        element: <CommercialPerformance />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
+      {
+        path: "operational-analysis",
+        element: <OperationalAnalysis />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
+      {
+        path: "EPCPROMAN-AI",
+        element: <EPCPROMANAI />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
+      {
+        path: "scrum-board",
+        element: <ScrumBoard />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
+      {
+        path: "apps/:appCode",
+        element: <AppDetails />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
 
-    {
-        path: "/",
-        element: <Layout />,
-        children: [
-            {
-                index: true,
-                element: <Apps />,
-            },
-            {
-                path: "apps",
-                element: <Apps />,
-            },
-            {
-                path: "portfolio-performance",
-                element: <PortfolioPerformance />
-            },
-            {
-                path: "cardTest",
-                element: <Test />
-            },
-            {
-                path: "project-performance",
-                element: <ProjectPerformance />
-            },
-            {
-                path: "commercial-performance",
-                element: <CommercialPerformance />
-            },
-            {
-                path: "operational-analysis",
-                element: <OperationalAnalysis />
-            },
-            {
-                path: "EPCPROMAN-AI",
-                element: <EPCPROMANAI />
-            },
-            {
-                path: "scrum-board",
-                element: <ScrumBoard />
-            },
-            {
-                path: "apps/:appCode",
-                element: <AppDetails />,
-            },
-
-            {
-                path: "apps/:appCode/:areaCode",
-                element: <FunctionalArea />,
-            },
-            {
-                path: "starred",
-                element: <Starred />,
-            },
-             {
-                path: "for-you",
-                element: <ForYou />,
-            },
-        ],
-    },
-    {
-        path: "/da",
-        element:<PortfolioPerformance />,
-    }
-
+      {
+        path: "apps/:appCode/:areaCode",
+        element: <FunctionalArea />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
+      {
+        path: "starred",
+        element: <Starred />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
+      {
+        path: "for-you",
+        element: <ForYou />,
+        handle: {
+          showBreadcrumb: true,
+          showNavbar: true,
+        },
+      },
+      {
+        path: "chats",
+        element: <ChatApp />,
+        handle: {
+          showBreadcrumb: false,
+          showNavbar: false,
+        },
+      },
+    ],
+  },
+  {
+    path: "/da",
+    element: <PortfolioPerformance />,
+  },
 ]);
-
-
 
 export default router;
