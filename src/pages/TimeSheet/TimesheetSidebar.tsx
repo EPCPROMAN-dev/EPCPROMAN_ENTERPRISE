@@ -1,6 +1,6 @@
 
-import { useState, type ReactNode } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useEffect, useState, type ReactNode } from "react";
 
 import Collapse from "@mui/material/Collapse";
 
@@ -19,88 +19,187 @@ import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+
 interface MenuItem {
   label: string;
-//   A TypeScript type that allows React elements, such as icons, to be passed as values.
-  icon: ReactNode; 
+  icon: ReactNode;
   path?: string;
-  //   The ? means this property is optional.
+  children?: MenuItem[];
 }
 
+
 const timesheetItems: MenuItem[] = [
-  { label: "Filling", path: "/timesheet", icon: <DescriptionOutlinedIcon /> },
-  { label: "Approval", icon: <FactCheckOutlinedIcon /> },
-  { label: "View Attendance", icon: <PersonOutlineIcon /> },
-  { label: "Punch-In Details", icon: <AccessTimeOutlinedIcon /> },
-  { label: "Punch-Processing Data", icon: <StorageOutlinedIcon /> },
+  {
+    label: "Filling",
+    path: "/timesheet/filling",
+    icon: <DescriptionOutlinedIcon />,
+  },
+  {
+    label: "Approval",
+    path: "/timesheet/approval",
+    icon: <FactCheckOutlinedIcon />,
+  },
+  {
+    label: "View Attendance",
+    path: "/timesheet/attendance",
+    icon: <PersonOutlineIcon />,
+  },
+  {
+    label: "Punch-In Details",
+    path: "/timesheet/punch-in-details",
+    icon: <AccessTimeOutlinedIcon />,
+  },
+  {
+    label: "Punch-Processing Data",
+    path: "/timesheet/pre-processing",
+    icon: <StorageOutlinedIcon />,
+  },
 ];
 
 const leaveItems: MenuItem[] = [
-  { label: "New/Edit", icon: <EditOutlinedIcon /> },
-  { label: "Leave Apply", icon: <SendOutlinedIcon /> },
-  { label: "Applied History", icon: <HistoryOutlinedIcon /> },
-  { label: "Processed History", icon: <HistoryOutlinedIcon /> },
-  { label: "Approval/Disapproval", icon: <VerifiedUserOutlinedIcon /> },
+  {
+    label: "New/Edit",
+    icon: <EditOutlinedIcon />,
+    children: [
+      {
+        label: "Leave Apply",
+        path: "/leave/new-edit/leave-apply",
+        icon: <SendOutlinedIcon />,
+      },
+      {
+        label: "Applied History",
+        path: "/leave/new-edit/applied-history",
+        icon: <HistoryOutlinedIcon />,
+      },
+      {
+        label: "Processed History",
+        path: "/leave/new-edit/processed-history",
+        icon: <HistoryOutlinedIcon />,
+      },
+    ],
+  },
+  {
+    label: "Approval/Disapproval",
+    path: "/leave/approval-disapproval",
+    icon: <VerifiedUserOutlinedIcon />,
+  },
 ];
 
 const changeItems: MenuItem[] = [
-  { label: "Approver Employee", icon: <GroupsOutlinedIcon /> },
+  { label: "Approver Employee",  path: "/changes-manages/approver-employee", icon: <GroupsOutlinedIcon /> },
 ];
 
 // means a variable of type SectionKey can contain only one of these three strings
 type SectionKey = "timesheet" | "leave" | "changes";
 
 export default function TimesheetSidebar() {
-//   const [expanded, setExpanded] = useState<Record<SectionKey, boolean>>({
-//     timesheet: true,
-//     leave: true,
-//     changes: true,
-//   });
 
-const [expandedSection, setExpandedSection] = useState<SectionKey | null>("timesheet");
+    const location = useLocation();
+    const currentPath = location.pathname;  
 
-const toggleSection = (section: SectionKey) => {
-  setExpandedSection((current) =>
-    current === section ? null : section
-  );
-};
+  const [expandedSection, setExpandedSection] =
+    useState<SectionKey | null>("timesheet");
+  
+  const [expandedNestedItems, setExpandedNestedItems] =
+    useState<Record<string, boolean>>({
+      "New/Edit": false,
+    });
+  
+  const toggleSection = (section: SectionKey) => {
+    setExpandedSection((current) =>
+      current === section ? null : section
+    );
+  };
+  
+  const toggleNestedItem = (label: string) => {
+    setExpandedNestedItems((current) => ({
+      ...current,
+      [label]: !current[label],
+    }));
+  };
 
-  const renderItems = (items: MenuItem[]) =>
-    items.map((item) => {
-      const content = (
-        <>
-          <span className="timesheet-nav-icon">{item.icon}</span>
-          <span className="timesheet-nav-label">{item.label}</span>
-        </>
-      );
+   useEffect(() => {
+      if (currentPath.startsWith("/timesheet/")) {
+        setExpandedSection("timesheet");
+      } else if (currentPath.startsWith("/leave/")) {
+        setExpandedSection("leave");
+      } else if (currentPath.startsWith("/changes/")) {
+        setExpandedSection("changes");
+      }
+    
+      if (currentPath.startsWith("/leave/new-edit/")) {
+        setExpandedNestedItems((current) => ({
+          ...current,
+          "New/Edit": true,
+        }));
+      }
+    }, [currentPath]);
+ 
+const renderItems = (items: MenuItem[], level = 1) =>
+  items.map((item) => {
+    const content = (
+      <>
+        <span className="timesheet-nav-icon">{item.icon}</span>
+        <span className="timesheet-nav-label">{item.label}</span>
+      </>
+    );
 
-      if (item.path) {
-        return (
-          <NavLink
-            key={item.label}
-            to={item.path}
-            end
-            className={({ isActive }) =>
-              `timesheet-nav-item${isActive ? " active" : ""}`
-            }
+    // If the item has children, render it as an expandable parent.
+    if (item.children?.length) {
+      return (
+        <div
+          key={item.label}
+          className={`timesheet-nested-section level-${level}`}
+        >
+          <button
+            type="button"
+            className="timesheet-nav-item timesheet-nested-heading"
+            onClick={() => toggleNestedItem(item.label)}
+            aria-expanded={!!expandedNestedItems[item.label]}
           >
             {content}
-          </NavLink>
-        );
-      }
+            {expandedNestedItems[item.label] ? (
+              <ExpandLessIcon className="timesheet-section-arrow" />
+            ) : (
+              <ExpandMoreIcon className="timesheet-section-arrow" />
+            )}
+          </button>
 
+          <Collapse
+            in={!!expandedNestedItems[item.label]}
+            timeout="auto"
+            unmountOnExit
+          >
+            <nav
+              className="timesheet-nav-items timesheet-nested-items"
+              aria-label={item.label}
+            >
+              {renderItems(item.children, level + 1)}
+            </nav>
+          </Collapse>
+        </div>
+      );
+    }
+
+    // If the item has a route, render it as a link.
+    if (item.path) {
       return (
-        <button
+        <NavLink
           key={item.label}
-          type="button"
-          className="timesheet-nav-item"
-          disabled
-          title="This page has not been implemented yet"
+          to={item.path}
+          end
+          className={({ isActive }) =>
+            `timesheet-nav-item${isActive ? " active" : ""}`
+          }
         >
           {content}
-        </button>
+        </NavLink>
       );
-    });
+    }
+
+    return null;
+  });
+
 
   const renderSection = (
     label: string,
@@ -127,7 +226,7 @@ const toggleSection = (section: SectionKey) => {
         </button>
       
         <Collapse
-          in={expandedSection === section}
+         in={expandedSection === section}
           timeout="auto"
           unmountOnExit
         >

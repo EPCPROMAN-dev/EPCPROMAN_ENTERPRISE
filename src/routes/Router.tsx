@@ -1,5 +1,5 @@
 
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Layout from "../layout/Layout";
 
 import Apps from "../pages/Apps/Apps";;
@@ -16,8 +16,16 @@ import FunctionalArea from "../pages/Apps/FunctionalArea";
 import Starred from "../pages/Starred/Starred";
 import ForYou from "../pages/ForYou/forYou";
 import Test from "../dashboards/Test/Test";
-import TimesheetLayout from "../pages/TimeSheet/TimesheetLayout";
-import TimesheetFilling from "../pages/TimeSheet/TimesheetFilling";
+import TimesheetLayout from "../layout/Timesheet/TimesheetLayout";
+import TimesheetFilling from "../pages/TimeSheet/TimeSheet/TimesheetFilling";
+import LeaveApply from "../pages/TimeSheet/Leave/LeaveApply";
+import AppliedHistory from "../pages/TimeSheet/Leave/AppliedHistory";
+import ProcessedHistory from "../pages/TimeSheet/Leave/ProcessedHistory"
+import ApprovalDisapproval from "../pages/TimeSheet/Leave/ApprovalDisapproval"
+
+// interface BreadcrumbHandle {
+//     breadcrumb: string;
+// }
 
 
 const router = createBrowserRouter([
@@ -84,16 +92,90 @@ const router = createBrowserRouter([
     {
         path: "/da",
         element:<PortfolioPerformance />,
-    },
+    },   
     {
         path: "/timesheet",
         element: <TimesheetLayout />,
+        handle: {
+            breadcrumb: "Timesheet",
+        },
         children: [
             {
                 index: true,
-                element: <TimesheetFilling />,
+                element: <Navigate to="filling" replace />,
+                // replace prevents the redirect from adding an unnecessary browser-history entry.
             },
+            {
+                path: "filling",
+                element: <TimesheetFilling />,
+                handle: {
+                    breadcrumb: "Filling",
+                },
+            },
+            {
+              path: "approval",
+              element: <div>Timesheet Approval</div>,
+              handle: { breadcrumb: "Approval" },
+            },
+            {
+              path: "attendance",
+              element: <div>View Attendance</div>,
+              handle: { breadcrumb: "View Attendance" },
+            },
+            {
+              path: "punch-in-details",
+              element: <div>Punch-In Details</div>,
+              handle: { breadcrumb: "Punch-In Details" },
+            },
+            {
+              path: "pre-processing",
+              element: <div>Punch-Processing Data</div>,
+              handle: { breadcrumb: "Punch-Processing Data" },
+            },     
         ],
+    },  
+    {
+      path: "/leave",
+      element: <TimesheetLayout />,
+      handle: {
+        breadcrumb: "Leave",
+      },
+      children: [
+        {
+          path: "new-edit",
+          handle: {
+            breadcrumb: "New/Edit",
+          },
+          children: [
+            {
+              path: "leave-apply",
+              element: <LeaveApply />,
+              handle: {
+                breadcrumb: "Leave Apply",
+              },
+            },
+            {
+              path: "applied-history",
+              element: <AppliedHistory />,
+              handle: {
+                breadcrumb: "Applied History",
+              },
+            },
+            {
+              path: "processed-history",
+              element: <ProcessedHistory />,
+              handle: {
+                breadcrumb: "Processed History",
+              },
+            },
+          ],
+        },
+         {
+      path: "approval-disapproval",
+      element: <ApprovalDisapproval />,
+      handle: { breadcrumb: "Approval/Disapproval" },
+    },
+      ],
     },
 
 ]);
