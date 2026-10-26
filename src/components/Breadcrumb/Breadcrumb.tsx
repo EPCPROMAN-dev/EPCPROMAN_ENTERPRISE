@@ -66,7 +66,7 @@ export default function Breadcrumb() {
         }
     } else {
         const routeName = routeNames[parts[0]];
-
+    
         if (routeName) {
             breadcrumbs.push({
                 label: routeName,

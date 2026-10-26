@@ -4,6 +4,8 @@
 
 @import "./components/Common/FilterBar/FilterBar.css";
 
+@import "./components/Common/Styles/commonCss.css";
+
 
 :root{
     --navy:#082b63;
