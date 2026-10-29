@@ -146,7 +146,7 @@ function Dashboard01() {
     const cardData = [
         {
             title: "Total Projects",
-            value: 111,
+            value: "111",
             valueIcon: null,
             subtitle: null,
             icon: null,
@@ -192,7 +192,7 @@ function Dashboard01() {
         },
         {
             title: "Expenditure",
-            value: null,
+            value: "",
             valueIcon: null,
             subtitle: null,
             icon: null,
@@ -219,7 +219,7 @@ function Dashboard01() {
         },
         {
             title: "Overrun Projects",
-            value: 35,
+            value: "35",
             valueIcon: null,
             subtitle: null,
             icon: null,
@@ -329,7 +329,7 @@ function Dashboard01() {
             </Box>
 
             <Box sx={{ margin: "10px" }}>
-                <CardGrid data={cardData} />
+                <CardGrid cardDesign = {"cardDesign2"} data = {cardData} />
 
             </Box>
 
