@@ -1,7 +1,8 @@
 
 import { useMatches, useNavigate } from "react-router-dom";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+// import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { IoHomeOutline } from "react-icons/io5";
 
 interface BreadcrumbHandle {
   breadcrumb?: string;
@@ -37,7 +38,7 @@ export default function ModuleBreadcrumb() {
         aria-label="Go to home"
         title="Home"
       >
-        <HomeOutlinedIcon fontSize="small" />
+        <IoHomeOutline fontSize="small" />
       </button>
 
       {breadcrumbs.map((item, index) => (
