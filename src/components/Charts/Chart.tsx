@@ -1008,7 +1008,7 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
                                     minWidth: 24,
                                     width: 24,
                                     height: 24,
-                                    mr: 2,
+                                    // mr: 2,
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
