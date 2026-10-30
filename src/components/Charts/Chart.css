@@ -33,7 +33,7 @@
 
 .graph_icon_list {
     display: flex;
-    gap: 5px;
+    gap: 2px;
     align-items: center;
 }
 
@@ -77,8 +77,8 @@
 }
 
 .graph_change_cont {
-    --top: 20%;
-    --right: 20%;
+    --top: 12%;
+    --right: 12%;
     position: absolute;
     top: var(--top);
     right: var(--right);
