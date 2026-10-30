@@ -17,9 +17,9 @@ export type card1Props = {
 export type card2Props = {
   title: string,
   value: string,
-  valueIcon?: ReactNode,
+  valueIcon?: ReactNode | null,
   subtitle?: string[] | null,
-  icon?: ReactNode,
+  icon?: ReactNode | null,
   iconBackground: string,  
   subCard? : subCard[] | null,
   bTColor :string,
