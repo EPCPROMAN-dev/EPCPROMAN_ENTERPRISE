@@ -3,7 +3,6 @@ import { Menu } from '@base-ui/react/menu';
 import { Menubar as BaseMenubar } from '@base-ui/react/menubar';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import List from '@mui/material/List';
 import ListItemButton, { type ListItemButtonProps } from '@mui/material/ListItemButton';
@@ -17,7 +16,7 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import Divider, { type DividerProps } from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
-const StyledMenubar = styled('div')(({ theme }) => ({
+const StyledMenubar = styled('div')(() => ({
   display: 'flex',
   // gap: '1px',
   // p: 0.25,
