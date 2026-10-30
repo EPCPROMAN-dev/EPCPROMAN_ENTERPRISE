@@ -30,11 +30,15 @@ body,
     margin: 0;
     padding: 0;
     overflow: hidden;
-    
+    scrollbar-width: thin !important;
+    scrollbar-color: #c5cfda transparent;
 }
 
 body {
     font-family: "Segoe UI", Arial, sans-serif !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: #c5cfda transparent;
+    /* --kendo-scrollbar-width: 5px !important; */
 }
 
 

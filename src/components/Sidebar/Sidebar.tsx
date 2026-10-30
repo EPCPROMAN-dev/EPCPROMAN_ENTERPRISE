@@ -23,6 +23,8 @@ import { appsData } from "../../data/appsData";
 import Box from "@mui/material/Box";
 import CustomTooltip from "../Common/CustomTooltip"
 
+import ChatIcon from '@mui/icons-material/Chat';
+
 const drawerWidth = 245;
 const closedDrawerWidth = 65;
 
@@ -125,6 +127,11 @@ const mainMenu: MenuItem[] = [
         name: "Apps",
         icon: <AppsOutlinedIcon />,
         path: "/apps",
+    },
+    {
+        name: "Chats",
+        icon: <ChatIcon />,
+        path: "/chats",
     },
 ];
 
