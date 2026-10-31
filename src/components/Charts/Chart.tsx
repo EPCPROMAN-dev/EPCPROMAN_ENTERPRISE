@@ -16,7 +16,14 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import DataTable from "../Common/DataTable/DataTable";
 
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
-import ListItemIcon from "@mui/material/ListItemIcon";
+// import ListItemIcon from "@mui/material/ListItemIcon";
+import ViewColumnOutlinedIcon from '@mui/icons-material/ViewWeekOutlined';
+// import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import AddchartOutlinedIcon from '@mui/icons-material/AddchartOutlined';
+
+// import { FaTableColumns } from "react-icons/fa6";
+// import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import {
     prepareChartData,
@@ -36,6 +43,7 @@ import type {
 } from "./chart.types";
 
 import "./Chart.css";
+import { IconButton } from "@mui/material";
 
 type ChartInstance =
     | am4charts.PieChart
@@ -813,14 +821,29 @@ function ChartModal(props: {
                         <p className={titleClassName}>{props.title}</p>
                     </div>
                     <div className="graph_modal_icon_cont">
-                        <button
+                        {/* <button
                             type="button"
                             className="inner_icon_cont"
                             title="Close"
                             onClick={props.onClose}
                         >
                             <i className="fas fa-times" />
-                        </button>
+                        </button> */}
+
+                        <IconButton title="Close" onClick={props.onClose} sx={{
+                            width: 30,
+                            height: 30,
+                            // mr: 2,                           
+                            borderRadius: "6px",
+                            flexShrink: 0,
+                            color: "icon.color.main",
+                            "&:hover": {
+                                backgroundColor: "icon.backgroundColor.hover",
+                            }
+                        }}>
+
+                            <CloseRoundedIcon fontSize="medium" />
+                        </IconButton>
                     </div>
                 </div>
                 <div className={bodyClassName}>{props.children}</div>
@@ -970,40 +993,113 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
 
                         <div className="graph_icon_list">
                             {props.changeChartOption && (
-                                <button
-                                    type="button"
-                                    className={`graph_icon_cont outlined_btn ${isChartOptionOpen ? "active" : ""}`}
-                                    data-button-role="change chart"
-                                    title="Change Chart"
-                                    onClick={() => setIsChartOptionOpen(!isChartOptionOpen)}
-                                >
-                                    <i className="fa-chart-pie fas" />
+                                // <button
+                                //     type="button"
+                                //     className={`graph_icon_cont outlined_btn ${isChartOptionOpen ? "active" : ""}`}
+                                //     data-button-role="change chart"
+                                //     title="Change Chart"
+                                //     onClick={() => setIsChartOptionOpen(!isChartOptionOpen)}
+                                // >
+                                //     <i className="fa-chart-pie fas" />
 
-                                 
-                                </button>
+
+
+
+                                // </button>
+
+                                <IconButton
+                                    onClick={() => setIsChartOptionOpen(!isChartOptionOpen)} title="Change Chart"
+
+                                    sx={{
+                                        width: 30,
+                                        height: 30,
+                                        // mr: 2,                                        
+                                        borderRadius: "6px",
+                                        flexShrink: 0,
+                                        color: "icon.color.main",
+                                        "&:hover": {
+                                            backgroundColor: "icon.backgroundColor.hover",
+                                        }
+                                    }}
+                                >
+
+                                    < AddchartOutlinedIcon fontSize="medium" />
+
+                                </IconButton>
                             )}
 
                             {props.detailOption && (
-                                <button
-                                    type="button"
-                                    className="graph_icon_cont outlined_btn"
-                                    data-button-role="detail"
-                                    title="Detail"
-                                    onClick={() => setIsDetailOpen(true)}
+                                // <button
+                                //     type="button"
+                                //     className="graph_icon_cont outlined_btn"
+                                //     data-button-role="detail"
+                                //     title="Detail"
+                                //     onClick={() => setIsDetailOpen(true)}
+                                // >
+                                //     <i className="fas fa-columns" />
+                                // </button>
+
+                                <IconButton
+                                    onClick={() => setIsDetailOpen(true)} title="Detail"
+
+                                    sx={{
+                                        width: 30,
+                                        height: 30,
+                                        // mr: 2,
+
+                                        borderRadius: "6px",
+                                        flexShrink: 0,
+                                        color: "icon.color.main",
+                                        "&:hover": {
+                                            backgroundColor: "icon.backgroundColor.hover",
+                                        }
+                                    }}
                                 >
-                                    <i className="fas fa-columns" />
-                                </button>
+
+                                    < ViewColumnOutlinedIcon fontSize="medium" />
+
+
+
+                                    {/* < FaTableColumns  fontSize="large"/> */}
+
+                                </IconButton>
+
                             )}
 
-                            <button
+                            {/* <button
                                 type="button"
                                 className="graph_icon_cont outlined_btn"
                                 data-button-role="expand"
                                 title="Expand"
                                 onClick={() => setIsFullScreen(true)}
+                            > */}
+
+
+                            <IconButton
+                                onClick={() => setIsFullScreen(true)} title="Expand"
+
+                                sx={{
+                                    width: 30,
+                                    height: 30,
+                                    // mr: 2,
+                                    borderRadius: "6px",
+                                    flexShrink: 0,
+                                    color: "icon.color.main",
+                                    "&:hover": {
+                                        backgroundColor: "icon.backgroundColor.hover",
+                                    }
+
+
+
+                                }
+                                }
                             >
-                             
-                                   <ListItemIcon
+
+                                <FullscreenIcon fontSize="medium" />
+
+                            </IconButton>
+
+                            {/* <ListItemIcon
                                 sx={{
                                     minWidth: 24,
                                     width: 24,
@@ -1014,10 +1110,10 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
                                     justifyContent: "center",
                                    
                                 }}
-                            >
-                                <FullscreenIcon />
-                            </ListItemIcon>
-                            </button>
+                            > */}
+                            {/* <FullscreenIcon /> */}
+                            {/* </ListItemIcon> */}
+                            {/* </button> */}
                         </div>
                     </div>
                 )}
@@ -1059,7 +1155,7 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
                         ))}
                     </div>
                 )}
-            </div>
+            </div >
 
             {isFullScreen && (
                 <ChartModal
@@ -1082,7 +1178,8 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
                         />
                     </div>
                 </ChartModal>
-            )}
+            )
+            }
 
             {isDetailOpen && (
                 <ChartModal
