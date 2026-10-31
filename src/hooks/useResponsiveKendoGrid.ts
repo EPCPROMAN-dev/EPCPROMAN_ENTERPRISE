@@ -61,7 +61,7 @@ export function useResponsiveKendoGrid({
       0
     );
 
-    const availableWidth = Math.max(0, gridWidth - lockedWidth);
+    const availableWidth = Math.max(0, gridWidth - lockedWidth-20);
     const extraWidth = Math.max(0, availableWidth - totalBaseWidth);
 
     if (totalBaseWidth === 0 || extraWidth === 0) {
