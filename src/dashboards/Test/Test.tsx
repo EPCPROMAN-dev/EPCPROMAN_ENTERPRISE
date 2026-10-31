@@ -7,6 +7,13 @@ import { LiaRupeeSignSolid } from "react-icons/lia";
 // import Card from "../../components/Common/CardDesign/CardDesign1/Card";
 // import CardGrid from "../../components/Common/CardDesign/CardGrid/CardGrid";
 import CardGrid from "../../components/Common/CardDesign/CardGrid/CardGrid"
+import { useMemo, useState } from "react";
+
+
+ const user1 = {
+
+        name: "Pankaj"
+    }
 
 function Test() {
 
@@ -168,14 +175,42 @@ function Test() {
     ]
 
 
+
+    const [count, setCount] = useState<number>(0)
+    
+
+
+   
+
+
+    const search = useMemo(()=>{
+
+
+        console.log("useMemo Hit!!!!!!!!!!!!!!!!")
+
+        return `UseMemo Hit ${count}`
+
+
+
+    },[user1])
+
+     
+
+
     return (
         <div className="p-6 space-y-2">
             <h1 className="text-2xl font-bold">
                 TEST BACKGROUND
             </h1>
-            <CardGrid data={stats} cardDesign="cardDesign1" />
 
-            <CardGrid data={card2Data} cardDesign="cardDesign2" />
+            <button onClick={()=> {setCount(count + 1)}}>+</button>
+
+            <h1>{search} {count}</h1>
+
+
+            {/* <CardGrid data={stats} cardDesign="cardDesign1" /> */}
+
+            {/* <CardGrid data={card2Data} cardDesign="cardDesign2" /> */}
         </div>
     );
 }

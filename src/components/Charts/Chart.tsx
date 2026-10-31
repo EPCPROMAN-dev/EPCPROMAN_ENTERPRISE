@@ -22,7 +22,7 @@ import ViewColumnOutlinedIcon from '@mui/icons-material/ViewWeekOutlined';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AddchartOutlinedIcon from '@mui/icons-material/AddchartOutlined';
 
-  import { FaTableColumns } from "react-icons/fa6";
+import { FaTableColumns } from "react-icons/fa6";
 // import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import {
@@ -833,13 +833,13 @@ function ChartModal(props: {
                         <IconButton title="Close" onClick={props.onClose} sx={{
                             width: 30,
                             height: 30,
-                            // mr: 2,
-                            color: "#12345b",
+                            // mr: 2,                           
                             borderRadius: "6px",
                             flexShrink: 0,
+                            color: "icon.color.main",
                             "&:hover": {
-                                backgroundColor: "#eef4fa",
-                            },
+                                backgroundColor: "icon.backgroundColor.hover",
+                            }
                         }}>
 
                             <CloseRoundedIcon fontSize="medium" />
@@ -1013,13 +1013,13 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
                                     sx={{
                                         width: 30,
                                         height: 30,
-                                        // mr: 2,
-                                        color: "#12345b",
+                                        // mr: 2,                                        
                                         borderRadius: "6px",
                                         flexShrink: 0,
+                                        color: "icon.color.main",
                                         "&:hover": {
-                                            backgroundColor: "#eef4fa",
-                                        },
+                                            backgroundColor: "icon.backgroundColor.hover",
+                                        }
                                     }}
                                 >
 
@@ -1046,18 +1046,19 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
                                         width: 30,
                                         height: 30,
                                         // mr: 2,
-                                        color: "#12345b",
+
                                         borderRadius: "6px",
                                         flexShrink: 0,
+                                        color: "icon.color.main",
                                         "&:hover": {
-                                            backgroundColor: "#eef4fa",
-                                        },
+                                            backgroundColor: "icon.backgroundColor.hover",
+                                        }
                                     }}
                                 >
 
                                     < ViewColumnOutlinedIcon fontSize="medium" />
 
-                                  
+
 
                                     {/* < FaTableColumns  fontSize="large"/> */}
 
@@ -1081,13 +1082,17 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
                                     width: 30,
                                     height: 30,
                                     // mr: 2,
-                                    color: "#12345b",
                                     borderRadius: "6px",
                                     flexShrink: 0,
+                                    color: "icon.color.main",
                                     "&:hover": {
-                                        backgroundColor: "#eef4fa",
-                                    },
-                                }}
+                                        backgroundColor: "icon.backgroundColor.hover",
+                                    }
+
+
+
+                                }
+                                }
                             >
 
                                 <FullscreenIcon fontSize="medium" />
@@ -1150,7 +1155,7 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
                         ))}
                     </div>
                 )}
-            </div>
+            </div >
 
             {isFullScreen && (
                 <ChartModal
@@ -1173,7 +1178,8 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
                         />
                     </div>
                 </ChartModal>
-            )}
+            )
+            }
 
             {isDetailOpen && (
                 <ChartModal
