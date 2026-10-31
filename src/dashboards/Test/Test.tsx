@@ -208,9 +208,9 @@ function Test() {
             <h1>{search} {count}</h1>
 
 
-            {/* <CardGrid data={stats} cardDesign="cardDesign1" /> */}
+            <CardGrid data={stats} cardDesign="cardDesign1" />
 
-            {/* <CardGrid data={card2Data} cardDesign="cardDesign2" /> */}
+            <CardGrid data={card2Data} cardDesign="cardDesign2" />
         </div>
     );
 }
