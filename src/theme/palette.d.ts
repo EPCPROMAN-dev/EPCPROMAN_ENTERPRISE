@@ -14,6 +14,14 @@ declare module "@mui/material/styles" {
         active: string;
       };
     };
+    clickableChip: {
+      color: {
+        main: string,
+      },
+      backgroundColor: {
+        main: string,
+      },
+    }, 
   }
 
   interface PaletteOptions {
@@ -29,5 +37,13 @@ declare module "@mui/material/styles" {
         active?: string;
       };
     };
+    clickableChip: {
+      color: {
+        main?: string,
+      },
+      backgroundColor: {
+        main?: string,
+      },
+    },
   }
 }

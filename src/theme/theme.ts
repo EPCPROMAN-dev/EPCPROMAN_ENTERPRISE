@@ -7,8 +7,16 @@ const theme = createTheme({
         main: "#1f558f",
       },
       backgroundColor: {
-        hover: "#e6f2ff"
-      }
+        hover: "#e6f2ff",
+      },
+    },
+    clickableChip: {
+      color: {
+        main: "#e6f2ff",
+      },
+      backgroundColor: {
+        main: "#1f558f",
+      },
     },
   },
 });
