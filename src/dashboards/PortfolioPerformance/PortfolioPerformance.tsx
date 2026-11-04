@@ -240,6 +240,108 @@ function Dashboard01() {
 
     ]
 
+    const apiData = [
+        {
+            EmployeeID: 101,
+            EmployeeName: "Rahul Sharma",
+            Department: "Finance",
+            Salary: 50000
+            ,
+            Salary1: 5000,
+            salary2: 30000,
+            Saal: 5000,
+            sa1:4000,
+            Addredddasdasdadasdasdasdadasdadadasd:123,
+        },
+        {
+            EmployeeID: 102,
+            EmployeeName: "Amit Kumar",
+            Department: "IT",
+            Salary: 75000,
+
+            Salary1: 5000,
+            salary2: 30000,
+            Saal: 5000,
+            sa1:4000,
+            Addredddasdasdadasdasdasdadasdadadasd:123,
+        },
+        {
+            EmployeeID: 101,
+            EmployeeName: "Rahul Sharma",
+            Department: "Finance",
+            Salary: 50000,
+
+            Salary1: 5000,
+            salary2: 30000,
+            Saal: 5000,
+            sa1:4000,
+            Addredddasdasdadasdasdasdadasdadadasd:123,
+        },
+        {
+            EmployeeID: 102,
+            EmployeeName: "Amit Kumar",
+            Department: "IT",
+            Salary: 75000,
+
+            Salary1: 5000,
+            salary2: 30000,
+            Saal: 5000,
+            sa1:4000,
+            Addredddasdasdadasdasdasdadasdadadasd:123,
+        },
+        {
+            EmployeeID: 101,
+            EmployeeName: "Rahul Sharma",
+            Department: "Finance",
+            Salary: 50000,
+
+            Salary1: 5000,
+            salary2: 30000,
+            Saal: 5000,
+            sa1:4000,
+            Addredddasdasdadasdasdasdadasdadadasd:123,
+        },
+        {
+            EmployeeID: 102,
+            EmployeeName: "Amit Kumar",
+            Department: "IT",
+            Salary: 75000,
+            Salary1: 5000,
+            salary2: 30000,
+            Saal: 5000,
+            sa1:4000,
+            Addredddasdasdadasdasdasdadasdadadasd:123,
+
+            Manager: "Ramesh Singh"
+        },
+        {
+            EmployeeID: 101,
+            EmployeeName: "Rahul Sharma",
+            Department: "Finance",
+            Salary: 50000,
+            Salary1: 5000,
+            salary2: 30000,
+            Saal: 5000,
+            sa1:4000,
+            Addredddasdasdadasdasdasdadasdadadasd:123,
+
+            Manager: "Ramesh Singh"
+        },
+        {
+            EmployeeID: 102,
+            EmployeeName: "Amit Kumar",
+            Department: "IT",
+            Salary: 75000,
+            Salary1: 5000,
+            salary2: 30000,
+            Saal: 5000,
+            sa1:4000,
+            Addredddasdasdadasdasdasdadasdadadasd:123,
+
+            Manager: "Ramesh Singh"
+        }
+    ];
+
     function handleFilterChange(field: string, value: string | string[]) {
         setFilterValues({
             ...filterValues,
@@ -329,16 +431,19 @@ function Dashboard01() {
             </Box>
 
             <Box sx={{ margin: "10px" }}>
-                <CardGrid cardDesign = {"cardDesign2"} data = {cardData} />
+                <CardGrid cardDesign={"cardDesign2"} data={cardData} />
 
             </Box>
+
+
+
 
             <Box sx={{ margin: "10px" }}>
                 <GlobalProjectDashboard />
 
             </Box>
 
-            <Typography sx={{marginInline: "20px", marginBlock:"20px", fontWeight: "Bold"}} variant="subtitle1">
+            <Typography sx={{ marginInline: "20px", marginBlock: "20px", fontWeight: "Bold" }} variant="subtitle1">
                 DIVISION / LOCATION / PROJECT TYPE VIEW
             </Typography>
 
@@ -359,8 +464,8 @@ function Dashboard01() {
                         x: "month",
                         y: ["sales", "expense"],
                     }}
-                    detailData={detailData}
-                    detailColumns={detailColumns}
+                    detailData={apiData}
+                    // detailColumns={apiData}
                     height={350}
                     width="50%"
                     wantWrapperHeader={true}
@@ -394,7 +499,7 @@ function Dashboard01() {
             </Box>
 
 
- <Typography sx={{marginInline: "20px", marginBlock:"20px", fontWeight: "Bold"}} variant="subtitle1">
+            <Typography sx={{ marginInline: "20px", marginBlock: "20px", fontWeight: "Bold" }} variant="subtitle1">
                 DIVISION / LOCATION / PROJECT TYPE VIEW
             </Typography>
 

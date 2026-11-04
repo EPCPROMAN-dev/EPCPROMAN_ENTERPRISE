@@ -43,7 +43,9 @@ import type {
 } from "./chart.types";
 
 import "./Chart.css";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
+import DynamicDataTable from "../Common/DataTable/DynamicDataTable";
+import { FaRegFileExcel, FaRegFilePdf } from "react-icons/fa";
 
 type ChartInstance =
     | am4charts.PieChart
@@ -830,20 +832,23 @@ function ChartModal(props: {
                             <i className="fas fa-times" />
                         </button> */}
 
-                        <IconButton title="Close" onClick={props.onClose} sx={{
-                            width: 30,
-                            height: 30,
-                            // mr: 2,                           
-                            borderRadius: "6px",
-                            flexShrink: 0,
-                            color: "icon.color.main",
-                            "&:hover": {
-                                backgroundColor: "icon.backgroundColor.hover",
-                            }
-                        }}>
+                        <Tooltip title={"Close"}>
+                            <IconButton title="Close" onClick={props.onClose} sx={{
+                                width: 30,
+                                height: 30,
+                                // mr: 2,                           
+                                borderRadius: "6px",
+                                flexShrink: 0,
+                                color: "icon.color.main",
+                                "&:hover": {
+                                    backgroundColor: "icon.backgroundColor.hover",
+                                }
+                            }}>
 
-                            <CloseRoundedIcon fontSize="medium" />
-                        </IconButton>
+                                <CloseRoundedIcon fontSize="medium" />
+                            </IconButton>
+
+                        </Tooltip>
                     </div>
                 </div>
                 <div className={bodyClassName}>{props.children}</div>
@@ -1207,36 +1212,73 @@ const Chart = forwardRef<ChartHandle, ChartProps>(function Chart(props, ref): Re
                             </div>
 
                             <div className="graph_detail_nav_btn_cont">
-                                <button
+                                {/* <button
                                     type="button"
                                     className="outlined_btn"
                                     title="Excel"
                                     onClick={() => props.onExcelClick?.(activeDetailTab === "details" ? dataForDetails(props) : dataForSummary(props))}
                                 >
                                     <i className="fa-file-excel fas" />
-                                </button>
-                                <button
+                                </button> */}
+
+
+
+                                <IconButton title="Download Excel"  onClick={() => props.onExcelClick?.(activeDetailTab === "details" ? dataForDetails(props) : dataForSummary(props))} sx={{
+                                    width: 30,
+                                    height: 30,
+                                    // mr: 2,                           
+                                    borderRadius: "6px",
+                                    flexShrink: 0,
+                                    color: "icon.color.main",
+                                    "&:hover": {
+                                        backgroundColor: "icon.backgroundColor.hover",
+                                    }
+                                }}>
+
+                                    <FaRegFileExcel />
+                                </IconButton>
+
+                                <IconButton title="Download PDF"   onClick={() => props.onPdfClick?.(activeDetailTab === "details" ? dataForDetails(props) : dataForSummary(props))} sx={{
+                                    width: 30,
+                                    height: 30,
+                                    // mr: 2,                           
+                                    borderRadius: "6px",
+                                    flexShrink: 0,
+                                    color: "icon.color.main",
+                                    "&:hover": {
+                                        backgroundColor: "icon.backgroundColor.hover",
+                                    }
+                                }}>
+
+                                    <FaRegFilePdf />
+                                    
+                                </IconButton>
+
+
+                                {/* <button
                                     type="button"
                                     className="outlined_btn"
                                     title="PDF"
                                     onClick={() => props.onPdfClick?.(activeDetailTab === "details" ? dataForDetails(props) : dataForSummary(props))}
                                 >
                                     <i className="fa-file-pdf fas" />
-                                </button>
+                                </button> */}
                             </div>
                         </div>
 
                         {activeDetailTab === "details" ? (
-                            <DataTable
-                                data={props.detailData || []}
-                                columns={(props.detailColumns || []).map((column) => ({
-                                    field: column.field,
-                                    title: column.title,
-                                    width: column.width
-                                        ? Number(column.width)
-                                        : undefined,
-                                }))}
-                            />
+
+                            <DynamicDataTable data={props.detailData || []} />
+                            // <DataTable
+                            //     data={props.detailData || []}
+                            //     columns={(props.detailColumns || []).map((column) => ({
+                            //         field: column.field,
+                            //         title: column.title,
+                            //         width: column.width
+                            //             ? Number(column.width)
+                            //             : undefined,
+                            //     }))}
+                            // />
                         ) : (
                             <DataTable
                                 data={props.summaryData || []}

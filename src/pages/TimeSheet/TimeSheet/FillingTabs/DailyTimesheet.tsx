@@ -345,7 +345,7 @@ const products = [
 export default function DailyTimesheet() {
   
   // for Grid calculation
-  const { gridContainerRef, proportionalWidths } = useResponsiveKendoGrid({
+  const { gridContainerRef, proportionalWidths, gridRef, gridHeight } = useResponsiveKendoGrid({
     baseColumnWidths: [50, 250, 350, 450],
     minColumnWidth: 50,
   });
@@ -436,7 +436,8 @@ export default function DailyTimesheet() {
         id="timesheet-grid-container"
       >
         <Grid
-          style={{ height: "calc(100vh - 300px)",width:"100%"}}
+           ref = {gridRef}
+          style={{ height: `${gridHeight}px`,width:"100%"}}
           data={products}
           autoProcessData={true}
           dataItemKey="ProductID"
