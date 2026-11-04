@@ -12,12 +12,16 @@ export function useResponsiveKendoGrid({
 }: UseResponsiveKendoGridOptions) {
   const gridContainerRef = useRef<HTMLDivElement>(null);
 
+  const gridRef = useRef<any>(null);
+
   const [gridWidth, setGridWidth] = useState(0);
   const [lockedWidth, setLockedWidth] = useState(0);
+  const [gridHeight, setGridHeight] = useState(0);
 
   const measureGrid = useCallback(() => {
     const container = gridContainerRef.current;
-    if (!container) return;
+    const gridElement = gridRef.current?.element;
+    if (!container || !gridElement) return;
 
     const currentWidth = Math.round(
       container.getBoundingClientRect().width
@@ -35,9 +39,25 @@ export function useResponsiveKendoGrid({
       )
     );
 
+    const measuredGridHeight = Math.round(
+      gridElement.getBoundingClientRect().top
+
+
+    );
+
+    const availableHeight = Math.max(
+      0,
+      document.documentElement.clientHeight - measuredGridHeight - 20
+    );
+
+
+
     setGridWidth(currentWidth);
     setLockedWidth(measuredLockedWidth);
+    setGridHeight(availableHeight);
   }, []);
+
+  
 
   useEffect(() => {
     const container = gridContainerRef.current;
@@ -82,5 +102,7 @@ export function useResponsiveKendoGrid({
     gridWidth,
     lockedWidth,
     measureGrid,
+    gridHeight,
+    gridRef
   };
 }
