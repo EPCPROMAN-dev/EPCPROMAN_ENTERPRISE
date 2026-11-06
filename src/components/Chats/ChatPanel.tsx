@@ -6,6 +6,9 @@ import {
   Tooltip,
   Stack,
   Chip,
+  TextField,
+  Collapse,
+  Avatar,
 } from "@mui/material";
 import {
   MoreHoriz as MoreHorizIcon,
@@ -54,16 +57,16 @@ const ChatPanel = () => {
     },
     {
       id: 2,
-      category: "Team",
+      category: "Group",
       items: [
         {
           id: 2,
-          name: "Join team",
+          name: "Join group",
           icon: <PersonAddIcon fontSize="small" />,
         },
         {
           id: 1,
-          name: "New team",
+          name: "New group",
           icon: <GroupAddIcon fontSize="small" />,
         },
       ],
@@ -93,7 +96,7 @@ const ChatPanel = () => {
     },
     {
       id: 3,
-      filterTitle: "Teams",
+      filterTitle: "Groups",
     },
     {
       id: 4,
@@ -122,6 +125,231 @@ const ChatPanel = () => {
       filterTitle: "Teams",
     },
   ]);
+
+  const [userList, setUserList] = useState([
+    {
+      id: 1,
+      category: "Favorites",
+      profilePic: "",
+      name: "Nikhil Gholap",
+      isGroup: false,
+      lastMessage: "I'll share the updated code shortly.",
+      lastMessageDate: 1793942100000,
+      unreadCount: 3,
+      active: true,
+    },
+    {
+      id: 2,
+      category: "",
+      profilePic: "",
+      name: "Developers",
+      isGroup: true,
+      lastMessage: "Rahul: Has the latest build been deployed?",
+      lastMessageDate: 1793941200000,
+      unreadCount: 12,
+      active: true,
+    },
+    {
+      id: 3,
+      category: "Work",
+      profilePic: "",
+      name: "Rahul Sharma",
+      isGroup: false,
+      lastMessage: "Please check the API response.",
+      lastMessageDate: 1793938800000,
+      unreadCount: 0,
+      active: false,
+    },
+    {
+      id: 4,
+      category: "Favorites",
+      profilePic: "",
+      name: "Project Discussion",
+      isGroup: true,
+      lastMessage: "Snehal: Meeting scheduled for 3 PM.",
+      lastMessageDate: 1793937900000,
+      unreadCount: 5,
+      active: false,
+    },
+    {
+      id: 5,
+      category: "Personal",
+      profilePic: "",
+      name: "Amit Patil",
+      isGroup: false,
+      lastMessage: "Thanks for your help!",
+      lastMessageDate: 1793933400000,
+      unreadCount: 0,
+      active: true,
+    },
+    {
+      id: 6,
+      category: "",
+      profilePic: "",
+      name: "Frontend Team",
+      isGroup: true,
+      lastMessage: "Nikhil: The UI changes are ready.",
+      lastMessageDate: 1793884500000,
+      unreadCount: 8,
+      active: true,
+    },
+    {
+      id: 7,
+      category: "Work",
+      profilePic: "",
+      name: "Snehal Joshi",
+      isGroup: false,
+      lastMessage: "Can you review this component?",
+      lastMessageDate: 1793880000000,
+      unreadCount: 1,
+      active: false,
+    },
+    {
+      id: 8,
+      category: "Personal",
+      profilePic: "",
+      name: "Pratik Deshmukh",
+      isGroup: false,
+      lastMessage: "Let's catch up tomorrow.",
+      lastMessageDate: 1793875500000,
+      unreadCount: 0,
+      active: false,
+    },
+    {
+      id: 9,
+      category: "Favorites",
+      profilePic: "",
+      name: "EPCPROMAN Team",
+      isGroup: true,
+      lastMessage: "Manav: Changes have been pushed to dev.",
+      lastMessageDate: 1793873400000,
+      unreadCount: 15,
+      active: false,
+    },
+    {
+      id: 10,
+      category: "",
+      profilePic: "",
+      name: "Database Team",
+      isGroup: true,
+      lastMessage: "Amit: Database backup completed.",
+      lastMessageDate: 1793868900000,
+      unreadCount: 2,
+      active: true,
+    },
+    {
+      id: 11,
+      category: "Work",
+      profilePic: "",
+      name: "Anjali Kulkarni",
+      isGroup: false,
+      lastMessage: "I've updated the documentation.",
+      lastMessageDate: 1793860800000,
+      unreadCount: 0,
+      active: false,
+    },
+    {
+      id: 12,
+      category: "Personal",
+      profilePic: "",
+      name: "Sanket More",
+      isGroup: false,
+      lastMessage: "Okay, see you soon.",
+      lastMessageDate: 1793804400000,
+      unreadCount: 0,
+      active: true,
+    },
+    {
+      id: 13,
+      category: "",
+      profilePic: "",
+      name: "Backend Developers",
+      isGroup: true,
+      lastMessage: "Rahul: Authentication API is completed.",
+      lastMessageDate: 1793798400000,
+      unreadCount: 6,
+      active: false,
+    },
+    {
+      id: 14,
+      category: "Favorites",
+      profilePic: "",
+      name: "Vikas Pawar",
+      isGroup: false,
+      lastMessage: "Please send me the SQL query.",
+      lastMessageDate: 1793790300000,
+      unreadCount: 0,
+      active: true,
+    },
+    {
+      id: 15,
+      category: "Work",
+      profilePic: "",
+      name: "UI/UX Discussion",
+      isGroup: true,
+      lastMessage: "Anjali: I've shared the new design.",
+      lastMessageDate: 1793782200000,
+      unreadCount: 4,
+      active: false,
+    },
+    {
+      id: 16,
+      category: "",
+      profilePic: "",
+      name: "Rohit Jadhav",
+      isGroup: false,
+      lastMessage: "Got it, I'll check.",
+      lastMessageDate: 1793713500000,
+      unreadCount: 0,
+      active: true,
+    },
+    {
+      id: 17,
+      category: "Personal",
+      profilePic: "",
+      name: "Akash Shinde",
+      isGroup: false,
+      lastMessage: "Did you reach home?",
+      lastMessageDate: 1793709000000,
+      unreadCount: 2,
+      active: true,
+    },
+    {
+      id: 18,
+      category: "Work",
+      profilePic: "",
+      name: "React Development",
+      isGroup: true,
+      lastMessage: "Manav: React hooks discussion tomorrow.",
+      lastMessageDate: 1793700900000,
+      unreadCount: 9,
+      active: false,
+    },
+    {
+      id: 19,
+      category: "",
+      profilePic: "",
+      name: "Testing Team",
+      isGroup: true,
+      lastMessage: "QA: Regression testing is completed.",
+      lastMessageDate: 1793620800000,
+      unreadCount: 0,
+      active: false,
+    },
+    {
+      id: 20,
+      category: "Favorites",
+      profilePic: "",
+      name: "Manoj Chavan",
+      isGroup: false,
+      lastMessage: "I'll call you in the evening.",
+      lastMessageDate: 1793512200000,
+      unreadCount: 1,
+      active: false,
+    },
+  ]);
+
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
   const filterHelpers = {
     leftFilterOptionsIcon: () => {
@@ -185,6 +413,17 @@ const ChatPanel = () => {
           return opt;
         });
       });
+    },
+  };
+
+  const profColors = ["#bfe2ff", "#bfc1ff", "#ffbfe2", "#ffddbf", "#deffbf"];
+
+  const listHelpers = {
+    createAbbrFromString: (name: string) => {
+      if (name.split(" ").length == 1) {
+        return `${name.split(" ")[0].charAt(0)}`;
+      }
+      return `${name.split(" ")[0].charAt(0)}${name.split(" ")[1].charAt(0)}`;
     },
   };
 
@@ -254,10 +493,14 @@ const ChatPanel = () => {
               aria-label="search"
               sx={{
                 color: "icon.color.main",
+                backgroundColor: showSearchBar
+                  ? "icon.backgroundColor.hover"
+                  : "",
                 "&:hover": {
                   backgroundColor: "icon.backgroundColor.hover",
                 },
               }}
+              onClick={() => setShowSearchBar((prev) => !prev)}
             >
               <SearchIcon fontSize="small" />
             </IconButton>
@@ -337,106 +580,273 @@ const ChatPanel = () => {
           borderBottom: "1px solid var(--border)",
           padding: "8px 10px",
           width: "100%",
-          position: "relative",
+          gap: showSearchBar ? "10px" : "0px",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <Stack
-          direction="row"
-          useFlexGap
+        <Box
           sx={{
-            flexWrap: "nowrap",
-            gap: "10px",
-            maxWidth: "100%",
-            overflowX: "auto",
-            scrollbarWidth: "none",
+            width: "100%",
+            height: "fit-content",
           }}
-          onScroll={filterHelpers.examineFilterOptionVisibility}
-          ref={filterOptionElementRef}
         >
-          {filterOptions.map((option) => (
-            <Chip
-              key={option.id}
-              label={option.filterTitle}
-              variant={option.active ? "filled" : "outlined"}
+          <Collapse in={showSearchBar} timeout={150} unmountOnExit>
+            <TextField
               size="small"
-              onClick={() =>
-                filterHelpers.activateFilter(option.id, option.active)
-              }
+              label="Filter by person, chat or group name"
+              fullWidth
+              variant="filled"
               sx={{
-                backgroundColor: option.active
-                  ? "clickableChip.backgroundColor.main"
-                  : "unset",
-                color: option.active ? "clickableChip.color.main" : "unset",
-                "&:hover": (() => {
-                  if (option.active) {
-                    return {
-                      backgroundColor: "clickableChip.backgroundColor.main",
-                      color: "clickableChip.color.main",
-                    };
-                  }
-                  return "";
-                })(),
+                fontSize: "10px",
+                "& .MuiInputBase-input": {
+                  fontSize: "12px",
+                  color: "#333",
+                },
+                "& .MuiInputLabel-root": {
+                  fontSize: "12px",
+                },
               }}
             />
-          ))}
-        </Stack>
-        <IconButton
-          size="small"
+          </Collapse>
+        </Box>
+        <Box
           sx={{
-            position: "absolute",
-            top: "50%",
-            transform: "translateY(-50%)",
-            left: "3px",
-            backgroundColor: "rgb(255, 255, 255)",
-            color: "rgb(147, 147, 147)",
-            border: "0.2px solid rgb(0 0 0 / 11%)",
-            backdropFilter: "blur(2px)",
-            padding: "3px",
-            "boxShadow": "0 5px 15px rgba(0, 0, 0, 0.1)",
-            "&:hover": {
+            position: "relative",
+            width: "100%",
+          }}
+        >
+          <Stack
+            direction="row"
+            useFlexGap
+            sx={{
+              flexWrap: "nowrap",
+              gap: "10px",
+              maxWidth: "100%",
+              overflowX: "auto",
+              scrollbarWidth: "none",
+            }}
+            onScroll={filterHelpers.examineFilterOptionVisibility}
+            ref={filterOptionElementRef}
+          >
+            {filterOptions.map((option) => (
+              <Chip
+                key={option.id}
+                label={option.filterTitle}
+                variant={option.active ? "filled" : "outlined"}
+                size="small"
+                onClick={() =>
+                  filterHelpers.activateFilter(option.id, option.active)
+                }
+                sx={{
+                  backgroundColor: option.active
+                    ? "clickableChip.backgroundColor.main"
+                    : "unset",
+                  color: option.active ? "clickableChip.color.main" : "unset",
+                  "&:hover": (() => {
+                    if (option.active) {
+                      return {
+                        backgroundColor: "clickableChip.backgroundColor.main",
+                        color: "clickableChip.color.main",
+                      };
+                    }
+                    return "";
+                  })(),
+                }}
+              />
+            ))}
+          </Stack>
+          <IconButton
+            size="small"
+            sx={{
+              position: "absolute",
+              top: "50%",
+              transform: "translateY(-50%)",
+              left: "-6px",
               backgroundColor: "rgb(255, 255, 255)",
               color: "rgb(147, 147, 147)",
-              "boxShadow": "0 5px 15px rgba(0, 0, 0, 0.3)",
-            },
-          }}
-          onClick={filterHelpers.leftFilterOptionsIcon}
-          ref={filterOptionLeftBtnElementRef}
-        >
-          <ChevronLeftIcon
-            sx={{
-              fontSize: "14px",
+              border: "0.2px solid rgb(0 0 0 / 11%)",
+              backdropFilter: "blur(2px)",
+              padding: "3px",
+              boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
+              "&:hover": {
+                backgroundColor: "rgb(255, 255, 255)",
+                color: "rgb(147, 147, 147)",
+                boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+              },
             }}
-          />
-        </IconButton>
-        <IconButton
-          size="small"
-          sx={{
-            position: "absolute",
-            top: "50%",
-            transform: "translateY(-50%)",
-            right: "3px",
-            backgroundColor: "rgb(255, 255, 255)",
-            color: "rgb(147, 147, 147)",
-            border: "0.2px solid rgb(0 0 0 / 11%)",
-            backdropFilter: "blur(2px)",
-            padding: "3px",
-            "boxShadow": "0 5px 15px rgba(0, 0, 0, 0.1)",
-            "&:hover": {
+            onClick={filterHelpers.leftFilterOptionsIcon}
+            ref={filterOptionLeftBtnElementRef}
+          >
+            <ChevronLeftIcon
+              sx={{
+                fontSize: "14px",
+              }}
+            />
+          </IconButton>
+          <IconButton
+            size="small"
+            sx={{
+              position: "absolute",
+              top: "50%",
+              transform: "translateY(-50%)",
+              right: "-6px",
               backgroundColor: "rgb(255, 255, 255)",
               color: "rgb(147, 147, 147)",
-              "boxShadow": "0 5px 15px rgba(0, 0, 0, 0.3)",
-            },
-          }}
-          onClick={filterHelpers.rightFilterOptionsIcon}
-          ref={filterOptionRightBtnElementRef}
-        >
-          <ChevronRightIcon
-            sx={{
-              fontSize: "14px",
+              border: "0.2px solid rgb(0 0 0 / 11%)",
+              backdropFilter: "blur(2px)",
+              padding: "3px",
+              boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
+              "&:hover": {
+                backgroundColor: "rgb(255, 255, 255)",
+                color: "rgb(147, 147, 147)",
+                boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+              },
             }}
-          />
-        </IconButton>
+            onClick={filterHelpers.rightFilterOptionsIcon}
+            ref={filterOptionRightBtnElementRef}
+          >
+            <ChevronRightIcon
+              sx={{
+                fontSize: "14px",
+              }}
+            />
+          </IconButton>
+        </Box>
       </Box>
+      <Stack
+        useFlexGap
+        sx={{
+          gap: 0,
+          width: "100%",
+          height: "calc(100% - 97px)",
+          overflowY: "auto",
+          scrollbarWidth: "thin",
+        }}
+      >
+        {userList.map((user, i) => {
+          return (
+            <Box
+              sx={{
+                display: "flex",
+                gap: "10px",
+                padding: "10px",
+                width: "100%",
+                cursor: "pointer",
+                transition: "all 0.2s ease-in-out",
+                "&:hover": {
+                  backgroundColor: "aliceblue",
+                },
+              }}
+            >
+              <Avatar
+                alt={user.name}
+                src="/static/images/avatar/1.jpg"
+                sx={{
+                  backgroundColor:
+                    profColors[Math.floor(i % profColors.length)],
+                  color: "#454545",
+                  fontWeight: "bold",
+                  fontSize: "15px",
+                  border: "1px solid rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                {listHelpers.createAbbrFromString(user.name)}
+              </Avatar>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  flex: 1,
+                  maxWidth: "calc(100% - 103px)",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: "5px",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: "15px",
+                      color: "chat.text.color",
+                    }}
+                  >
+                    {user.name}
+                  </Typography>
+                  {user.active && (
+                    <Box
+                      component="span"
+                      sx={{
+                        height: "6px",
+                        width: "6px",
+                        borderRadius: "50%",
+                        display: "block",
+                        backgroundColor: "#33b933",
+                      }}
+                    ></Box>
+                  )}
+                </Box>
+                <Typography
+                  sx={{
+                    fontSize: "11px",
+                    color: "chat.text.low",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                    maxWidth: "100%",
+                  }}
+                >
+                  {user.lastMessage}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "5px",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "10px",
+                    color: "chat.text.low",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {new Date(user.lastMessageDate).toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
+                </Typography>
+                {user.unreadCount !== 0 && (
+                  <Box
+                    className="rounded-full w-3 h-3"
+                    component="span"
+                    sx={{
+                      backgroundColor: "clickableChip.backgroundColor.main",
+                      color: "#fff",
+                      width: "18px",
+                      height: "18px",
+                      fontSize: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    {user.unreadCount}
+                  </Box>
+                )}
+              </Box>
+            </Box>
+          );
+        })}
+      </Stack>
     </Box>
   );
 };

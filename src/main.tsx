@@ -4,7 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import { store } from "./app/store.ts";
 import theme from "./theme/index.ts"
-// import './index.css'
+import './index.css'
 
 import router from "./routes/Router.tsx";
 import { ThemeProvider } from "@mui/material";

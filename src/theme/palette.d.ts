@@ -22,6 +22,14 @@ declare module "@mui/material/styles" {
         main: string,
       },
     }, 
+    chat: {
+      text: {
+        color: string,
+        semi: string,
+        low: string
+      },
+      primary: string,
+    },
   }
 
   interface PaletteOptions {
@@ -44,6 +52,14 @@ declare module "@mui/material/styles" {
       backgroundColor: {
         main?: string,
       },
+    },
+    chat: {
+      text?: {
+        color?: string,
+        semi?: string,
+        low?: string
+      },
+      primary?: string,
     },
   }
 }
