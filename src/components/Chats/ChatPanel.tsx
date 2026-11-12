@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import {
   Box,
   Typography,
@@ -19,6 +19,7 @@ import {
   LibraryAdd as LibraryAddIcon,
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
+  ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
 import { BiSolidEdit } from "react-icons/bi";
 import {
@@ -126,7 +127,19 @@ const ChatPanel = () => {
     },
   ]);
 
-  const [userList, setUserList] = useState([
+  interface userListType {
+    id: number;
+    category: string;
+    profilePic: string;
+    name: string;
+    isGroup: boolean;
+    lastMessage: string;
+    lastMessageDate: number;
+    unreadCount: number;
+    active: boolean;
+  }
+
+  const [userList, setUserList] = useState<userListType[] | [] | null>([
     {
       id: 1,
       category: "Favorites",
@@ -427,6 +440,29 @@ const ChatPanel = () => {
     },
   };
 
+  const groupUsers = useMemo(
+    function () {
+      return userList?.reduce(
+        (store, user) => {
+          if (store[user.category]) {
+            store[user.category].push(user);
+          } else if (user.category == "") {
+            if (store.Chats) {
+              store.Chats.push(user);
+            } else {
+              store.Chats = [user];
+            }
+          } else {
+            store[user.category] = [user];
+          }
+          return store;
+        },
+        {} as Record<string, userListType[]>,
+      );
+    },
+    [userList],
+  );
+
   useEffect(filterHelpers.examineFilterOptionVisibility, []);
 
   return (
@@ -724,128 +760,183 @@ const ChatPanel = () => {
           scrollbarWidth: "thin",
         }}
       >
-        {userList.map((user, i) => {
-          return (
-            <Box
-              sx={{
-                display: "flex",
-                gap: "10px",
-                padding: "10px",
-                width: "100%",
-                cursor: "pointer",
-                transition: "all 0.2s ease-in-out",
-                "&:hover": {
-                  backgroundColor: "aliceblue",
-                },
-              }}
-            >
-              <Avatar
-                alt={user.name}
-                src="/static/images/avatar/1.jpg"
-                sx={{
-                  backgroundColor:
-                    profColors[Math.floor(i % profColors.length)],
-                  color: "#454545",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                  border: "1px solid rgba(0, 0, 0, 0.1)",
-                }}
-              >
-                {listHelpers.createAbbrFromString(user.name)}
-              </Avatar>
+        {groupUsers &&
+          Object.entries(groupUsers).map(([prop, list], categoryIndex) => {
+            return (
               <Box
+                key={categoryIndex}
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  flex: 1,
-                  maxWidth: "calc(100% - 103px)",
+                  width: "100%",
                 }}
               >
                 <Box
                   sx={{
+                    width: "100%",
                     display: "flex",
-                    gap: "5px",
+                    cursor: "pointer",
+                    padding: "2px",
+                    gap: "2px",
                     alignItems: "center",
+                    transition: "all 0.2s ease-in-out",
                   }}
                 >
-                  <Typography
-                    sx={{
-                      fontWeight: "bold",
-                      fontSize: "15px",
-                      color: "chat.text.color",
-                    }}
-                  >
-                    {user.name}
-                  </Typography>
-                  {user.active && (
-                    <Box
-                      component="span"
-                      sx={{
-                        height: "6px",
-                        width: "6px",
-                        borderRadius: "50%",
-                        display: "block",
-                        backgroundColor: "#33b933",
-                      }}
-                    ></Box>
-                  )}
-                </Box>
-                <Typography
-                  sx={{
-                    fontSize: "11px",
-                    color: "chat.text.low",
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                    textOverflow: "ellipsis",
-                    maxWidth: "100%",
-                  }}
-                >
-                  {user.lastMessage}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "5px",
-                  alignItems: "flex-end",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: "10px",
-                    color: "chat.text.low",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {new Date(user.lastMessageDate).toLocaleTimeString("en-US", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    hour12: true,
-                  })}
-                </Typography>
-                {user.unreadCount !== 0 && (
                   <Box
-                    className="rounded-full w-3 h-3"
                     component="span"
                     sx={{
-                      backgroundColor: "clickableChip.backgroundColor.main",
-                      color: "#fff",
-                      width: "18px",
-                      height: "18px",
-                      fontSize: "10px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
+                      lineHeight: 0,
                     }}
                   >
-                    {user.unreadCount}
+                    <ExpandMoreIcon
+                      sx={{
+                        fontSize: "16px",
+                        color: "chat.text.semi",
+                      }}
+                    />
                   </Box>
-                )}
+                  <Typography
+                    component="p"
+                    sx={{
+                      fontSize: "12px",
+                      color: "chat.text.semi",
+                    }}
+                  >
+                    {prop}
+                  </Typography>
+                </Box>
+                {list.map((user, userIndex) => {
+                  return (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: "10px",
+                        padding: "10px",
+                        width: "100%",
+                        cursor: "pointer",
+                        transition: "all 0.2s ease-in-out",
+                        "&:hover": {
+                          backgroundColor: "aliceblue",
+                        },
+                        "&:active": {
+                          backgroundColor: "#dff0ff",
+                        },
+                      }}
+                    >
+                      <Avatar
+                        alt={user.name}
+                        src="/static/images/avatar/1.jpg"
+                        sx={{
+                          backgroundColor:
+                            profColors[
+                              Math.floor(userIndex % profColors.length)
+                            ],
+                          color: "#454545",
+                          fontWeight: "bold",
+                          fontSize: "15px",
+                          border: "1px solid rgba(0, 0, 0, 0.1)",
+                        }}
+                      >
+                        {listHelpers.createAbbrFromString(user.name)}
+                      </Avatar>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          flex: 1,
+                          maxWidth: "calc(100% - 103px)",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            gap: "5px",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              fontWeight: "bold",
+                              fontSize: "15px",
+                              color: "chat.text.color",
+                            }}
+                          >
+                            {user.name}
+                          </Typography>
+                          {user.active && (
+                            <Box
+                              component="span"
+                              sx={{
+                                height: "6px",
+                                width: "6px",
+                                borderRadius: "50%",
+                                display: "block",
+                                backgroundColor: "#33b933",
+                              }}
+                            ></Box>
+                          )}
+                        </Box>
+                        <Typography
+                          sx={{
+                            fontSize: "11px",
+                            color: "chat.text.low",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis",
+                            maxWidth: "100%",
+                          }}
+                        >
+                          {user.lastMessage}
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "5px",
+                          alignItems: "flex-end",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontSize: "10px",
+                            color: "chat.text.low",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {new Date(user.lastMessageDate).toLocaleTimeString(
+                            "en-US",
+                            {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              hour12: true,
+                            },
+                          )}
+                        </Typography>
+                        {user.unreadCount !== 0 && (
+                          <Box
+                            className="rounded-full w-3 h-3"
+                            component="span"
+                            sx={{
+                              backgroundColor:
+                                "clickableChip.backgroundColor.main",
+                              color: "#fff",
+                              width: "18px",
+                              height: "18px",
+                              fontSize: "10px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            {user.unreadCount}
+                          </Box>
+                        )}
+                      </Box>
+                    </Box>
+                  );
+                })}
               </Box>
-            </Box>
-          );
-        })}
+            );
+          })}
       </Stack>
     </Box>
   );
