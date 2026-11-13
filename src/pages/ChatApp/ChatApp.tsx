@@ -1,4 +1,3 @@
-import React from "react";
 import ConversationalPanel from "../../components/Chats/ConversationalPanel";
 import ChatPanel from "../../components/Chats/ChatPanel";
 import { Box } from "@mui/material";

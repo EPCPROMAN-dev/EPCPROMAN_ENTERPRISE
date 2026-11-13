@@ -1,0 +1,147 @@
+
+/* =====================================================
+   SHARED DATE & TIME PICKER
+   ===================================================== */
+
+.app-date-picker,
+.app-time-picker {
+    width: 100%;
+}
+
+/* Labels */
+
+.app-date-picker-label,
+.app-time-picker-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+}
+
+/* Required indicator */
+
+.app-date-picker-required,
+.app-time-picker-required {
+    margin-left: 4px;
+    color: #ef4444;
+}
+
+/* Picker control */
+
+.app-date-picker .k-datepicker,
+.app-time-picker .k-timepicker {
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+
+    background-color: #f8f9fc;
+    border: 1px solid #e2e5eb;
+    border-bottom: 2px solid #4263eb;
+    border-radius: 6px 6px 3px 3px;
+
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+    box-sizing: border-box;
+
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+/* Input text */
+
+.app-date-picker .k-input-inner,
+.app-time-picker .k-input-inner {
+    height: 38px;
+    padding: 0 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #273142;
+}
+
+/* Calendar and clock buttons */
+
+.app-date-picker .k-input-button,
+.app-time-picker .k-input-button {
+    width: 38px;
+    height: 38px;
+    border: 0;
+    background: transparent;
+}
+
+/* Hover */
+
+.app-date-picker .k-datepicker:hover,
+.app-time-picker .k-timepicker:hover {
+    background-color: #f5f7fb;
+    border-color: #cfd4dc;
+    border-bottom-color: #4263eb;
+    box-shadow: 0 2px 5px rgba(16, 24, 40, 0.06);
+}
+
+/* Focus */
+
+.app-date-picker .k-datepicker.k-focus,
+.app-time-picker .k-timepicker.k-focus {
+    background-color: #ffffff;
+    border-color: #b9c4ff;
+    border-bottom-color: #4263eb;
+    box-shadow: 0 0 0 3px rgba(66, 99, 235, 0.10);
+}
+
+/* Disabled */
+
+.app-date-picker .k-datepicker.k-disabled,
+.app-time-picker .k-timepicker.k-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+
+/* =====================================================
+   DATE PICKER CALENDAR SIZE
+   ===================================================== */
+/* Keep the calendar popup compact */
+.k-calendar-container {
+     width: 336px;
+    height: 360px;
+    max-width: calc(100vw - 100px);
+}
+
+.k-calendar .k-calendar-navigation{
+    display: none;
+}
+
+/* ------------start Common Grid styling---------------------- */
+.common-grid {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.common-grid-empty {
+  padding: 24px 16px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.common-grid-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 500;
+}
+/* ------------End Common Grid styling---------------------- */
+

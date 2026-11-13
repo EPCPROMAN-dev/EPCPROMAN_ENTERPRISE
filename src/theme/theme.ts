@@ -1,0 +1,32 @@
+import { createTheme } from "@mui/material";
+
+const theme = createTheme({
+  palette: {
+    icon: {
+      color: {
+        main: "#1f558f",
+      },
+      backgroundColor: {
+        hover: "#e6f2ff",
+      },
+    },
+    clickableChip: {
+      color: {
+        main: "#e6f2ff",
+      },
+      backgroundColor: {
+        main: "#1f558f",
+      },
+    },
+    chat: {
+      text: {
+        color: "#35404f",
+        semi: "#333",
+        low: "#3d6085"
+      },
+      primary: "#1f558f",
+    },
+  },
+});
+
+export default theme;
