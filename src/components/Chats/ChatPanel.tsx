@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import {
   Box,
   Typography,
@@ -139,7 +139,7 @@ const ChatPanel = () => {
     active: boolean;
   }
 
-  const [userList, setUserList] = useState<userListType[] | [] | null>([
+  const [userList] = useState<userListType[] | [] | null>([
     {
       id: 1,
       category: "Favorites",
