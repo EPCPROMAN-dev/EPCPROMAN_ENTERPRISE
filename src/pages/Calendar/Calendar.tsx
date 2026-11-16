@@ -1,10 +1,16 @@
 import { useState } from "react";
-
 import { DropDownList } from "@progress/kendo-react-dropdowns";
-
 import { EventCalendar } from "@mui/x-scheduler/event-calendar";
 import type { SchedulerEvent } from "@mui/x-scheduler/models";
-import EditCalendarIcon from "@mui/icons-material/EditCalendar";
+import Button from "@mui/material/Button";
+
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import { useOutletContext } from "react-router-dom";
+import type { LayoutContextType } from "../../types/LayoutContext";
+import AddIcon from "@mui/icons-material/Add";
 
 import "./Calendar.css";
 // import "../FilterBar/FilterBar.css";
@@ -60,10 +66,7 @@ function Calendar() {
     setSelectedFilter(event.value.value);
   };
 
-  // New Meeting button
-  const handleNewMeeting = () => {
-    console.log("New Meeting clicked");
-  };
+  const { isExpanded, setIsExpanded } = useOutletContext<LayoutContextType>();
 
   return (
     <div className="calendar-page h-100">
@@ -71,30 +74,43 @@ function Calendar() {
 
       <div className="calendar-filter-toolbar rounded-lg border border-gray-200 bg-white px-5 py-2 shadow-sm flex justify-between items-end gap-4">
         {/* Filter Dropdown */}
-        <div className="calendar-filter-field w-50">
-          <label className="mb-2">Filter :</label>
-
-          <DropDownList
-            className="filter-control"
-            data={filterOptions}
-            textField="label"
-            dataItemKey="value"
-            value={filterOptions.find(
-              (option) => option.value === selectedFilter,
-            )}
-            onChange={handleFilterChange}
-          />
+        <div className="flex gap-5">
+          <div className="calendar-filter-field flex items-center  gap-3 w-80">
+            <label className="mb-2">Reporting Group :</label>
+            <DropDownList
+              className="filter-control flex-1 w-32"
+              data={filterOptions}
+              textField="label"
+              dataItemKey="value"
+              value={filterOptions.find(
+                (option) => option.value === selectedFilter,
+              )}
+              onChange={handleFilterChange}
+            />
+          </div>
+          <div className="calendar-filter-field flex items-center  gap-3 w-80">
+            <label className="mb-2">Employee :</label>
+            <DropDownList
+              className="filter-control flex-1 w-32"
+              data={filterOptions}
+              textField="label"
+              dataItemKey="value"
+              value={filterOptions.find(
+                (option) => option.value === selectedFilter,
+              )}
+              onChange={handleFilterChange}
+            />
+          </div>
         </div>
 
-        {/* New Meeting Button */}
-        <button
-          type="button"
-          className="calendar-new-meeting-btn rounded bg-blue-600 px-4 py-2 text-white"
-          onClick={handleNewMeeting}
-        >
-          <EditCalendarIcon />
-          New Meeting
-        </button>
+        <Box>
+          <IconButton
+            onClick={() => setIsExpanded(!isExpanded)}
+            color="primary"
+          >
+            {isExpanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
+          </IconButton>
+        </Box>
       </div>
 
       {/* MUI Scheduler Calendar */}
@@ -102,20 +118,22 @@ function Calendar() {
       <div className="calendar-grid">
         <div className="calendar-scheduler-container-main">
           <div className="calendar-view-switcher">
-            {(["day", "week", "month"] as const).map((view) => (
-              <button
+            {(["week", "month"] as const).map((view) => (
+              <Button
+                variant={calendarView === view ? "contained" : "outlined"}
                 key={view}
-                type="button"
-                className={`calendar-view-button ${
-                  calendarView === view ? "active" : ""
-                }`}
                 onClick={() => setCalendarView(view)}
               >
                 {view.charAt(0).toUpperCase() + view.slice(1)}
-              </button>
+              </Button>
             ))}
+            {/* New Meeting Button */}
+
+            <Button variant="outlined" startIcon={<AddIcon />}>
+              New
+            </Button>
           </div>
-          <div className="calendar-scheduler-container">
+          <div className="calendar-scheduler-container p-3">
             <EventCalendar
               events={events}
               onEventsChange={setEvents}

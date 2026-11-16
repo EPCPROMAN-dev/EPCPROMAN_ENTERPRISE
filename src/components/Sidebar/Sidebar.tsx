@@ -118,6 +118,11 @@ const mainMenu: MenuItem[] = [
         icon: <CalendarMonthIcon />,
         path: "/calendar",
     },
+     {
+        name: "Teams",
+        icon: <ChatIcon />,
+        path: "/chats",
+    },
     {
         name: "Starred",
         icon: <StarBorderIcon />,
@@ -128,11 +133,7 @@ const mainMenu: MenuItem[] = [
         icon: <AppsOutlinedIcon />,
         path: "/apps",
     },
-    {
-        name: "Chats",
-        icon: <ChatIcon />,
-        path: "/chats",
-    },
+   
 ];
 
 
