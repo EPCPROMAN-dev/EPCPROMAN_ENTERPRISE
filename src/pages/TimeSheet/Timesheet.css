@@ -187,6 +187,44 @@ body {
   overflow: auto;
 }
 
+
+/* ///Timesheet calendar styling/// */
+
+.css-no5wbk-MuiModal-root-MuiDialog-root-MuiEventDialog-root .MuiDialog-container{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    opacity: 1;
+    background: rgba(0, 0, 0, .25);
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation24.MuiDialog-paper.MuiDialog-paperWidthSm.MuiEventCalendar-eventDialogPaper.css-1yehkgp-MuiPaper-root-MuiEventDialog-paper-MuiDialog-paper
+{
+    top: unset !important;
+    left: unset !important;
+}
+
+/* hiding unwanted calender props  start*/
+.MuiCollapse-root.MuiCollapse-horizontal{
+  display: none;
+}
+
+.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.MuiEventCalendar-headerToolbarSidePanelToggle{
+  display: none;
+}
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-sizeMedium.MuiButton-colorPrimary.MuiEventCalendar-headerToolbarTodayButton{
+  display: none;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-sizeMedium.MuiButton-colorPrimary.MuiEventCalendar-viewSwitcherButton{
+  display: none;
+}
+
+.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.MuiEventCalendar-preferencesMenuButton{
+  display: none;
+}
+/* hiding unwanted calender props  end*/
+
 @media (max-width: 600px) {
   .timesheet-sidebar {
     flex-basis: 220px;
