@@ -38,21 +38,23 @@ function Layout() {
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
+          padding:"10px",
         }}
       >
 
 
-        {currentNode.handle.showBreadcrumb && <Breadcrumb />}
+        {currentNode.handle?.showBreadcrumb && <Breadcrumb />}
 
-        {currentNode.handle.showNavbar && <NavBar />}   
+        {currentNode.handle?.showNavbar && <NavBar />}   
                
 
         <div
           style={{
             flex: 1,
-            minHeight: 0,
+            // minHeight: 0,
             overflowY: "auto",
             overflowX: "hidden",
+            height:"100%"
           }}
         >
           <Outlet />

@@ -1,18 +1,16 @@
 
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import {StandaloneWeekView} from '@mui/x-scheduler/week-view';
 
 export default function WeeklyTimesheet() {
   return (
-    <Box sx={{ pt: 3 }}>
-      <Typography
-        variant="h6"
-        sx={{ fontWeight: 600, color: "#334155", mb: 2 }}
-      >
-        Monthly Timesheet
-      </Typography>
-
-      {/* Daily form and Kendo Grid will go here */}
-    </Box>
+     <div style={{ display: "flex", height: "calc(100vh - 199px)" }}>
+      <StandaloneWeekView
+        // events={events}
+        // resources={resources}
+        // defaultVisibleDate={defaultVisibleDate}
+        // onEventsChange={setEvents}
+        // viewConfig={{ week: { startTime: 6, endTime: 22, initialScrollTime: 9 } }}
+      />
+    </div>
   );
 }
