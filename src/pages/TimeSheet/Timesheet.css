@@ -212,9 +212,9 @@ body {
 .MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.MuiEventCalendar-headerToolbarSidePanelToggle{
   display: none;
 }
-.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-sizeMedium.MuiButton-colorPrimary.MuiEventCalendar-headerToolbarTodayButton{
+/* .MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-sizeMedium.MuiButton-colorPrimary.MuiEventCalendar-headerToolbarTodayButton{
   display: none;
-}
+} */
 
 .MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-sizeMedium.MuiButton-colorPrimary.MuiEventCalendar-viewSwitcherButton{
   display: none;
