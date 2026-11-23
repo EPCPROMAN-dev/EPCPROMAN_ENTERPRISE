@@ -14,9 +14,15 @@ import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import type { ChatUser } from "../../types/chat";
 
 const ChatApp = () => {
   const [value, setValue] = useState(0);
+  const [selectedUser, setSelectedUser] = useState<ChatUser | null>(null);
+
+  const handleClick  = (user: ChatUser) => {
+  setSelectedUser(user);
+};
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -105,8 +111,10 @@ const ChatApp = () => {
         {/* Tab Content */}
         {value === 0 && (
           <Box sx={{ display: "flex", gap: 2, flex: 1, height: "92%", p: 1 }}>
-            <ChatPanel />
-            <ConversationalPanel />
+            <ChatPanel 
+            onSelectUser={handleClick}
+            selectedUserId={selectedUser?.id ?? null}/>
+            <ConversationalPanel selectedUser={selectedUser}/>
           </Box>
         )}
 

@@ -7,30 +7,44 @@ import MessageInput from "./conversation/MessageInput";
 
 import { messages as initialMessages } from "../../data/messages";
 import type { Message } from "../../types/chat";
+import type { ChatUser } from "../../types/chat";
 
-const ConversationalPanel = () => {
+interface ConversationalPanelProps {
+   selectedUser: ChatUser | null
+}
 
- 
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+const ConversationalPanel = ({selectedUser,
+  }:ConversationalPanelProps) => {
 
+  const [messagesByUser, setMessagesByUser] = useState<
+  Record<number, Message[]>
+>({1: initialMessages,});
 
-  const handleSendMessage = (text: string) => {
-    const newMessage: Message = {
-      id: Date.now(),
-      text: text,
-      sender: "me",
-      time: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-    };
- 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      newMessage,
-    ]);
+const currentMessages = selectedUser
+  ? messagesByUser[selectedUser.id] ?? []
+  : [];
+
+const handleSendMessage = (text: string) => {
+  if (!selectedUser) return;
+
+  const newMessage: Message = {
+    id: Date.now(),
+    text: text,
+    sender: "me",
+    time: new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
   };
 
+  setMessagesByUser((prevMessages) => ({
+    ...prevMessages,
+    [selectedUser.id]: [
+      ...(prevMessages[selectedUser.id] ?? []),
+      newMessage,
+    ],
+  }));
+};
 
   return (
     <Box sx={{ flex: "1 1 80%",
@@ -43,11 +57,27 @@ const ConversationalPanel = () => {
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "stretch", }}>
-      <ChatHeader />
-      
-      <MessageList messages={messages} />
 
-      <MessageInput onSend={handleSendMessage} />
+          {selectedUser ? (
+  <>
+    <ChatHeader user={selectedUser} />
+    <MessageList messages={currentMessages} />
+    <MessageInput onSend={handleSendMessage} />
+  </>
+) : (
+  <Box
+    sx={{
+      flex: 1,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      color: "#64748b",
+    }}
+  >
+    Select a chat to start a conversation
+  </Box>
+)}
+     
     </Box>
   );
 };

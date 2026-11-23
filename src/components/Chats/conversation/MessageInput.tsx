@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Box,
   TextField,
@@ -7,6 +7,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
+import AttachFileRoundedIcon from "@mui/icons-material/AttachFileRounded";
 
 interface MessageInputProps {
   onSend: (text: string) => void;
@@ -14,6 +15,8 @@ interface MessageInputProps {
 
 const MessageInput = ({ onSend }: MessageInputProps) => {
   const [text, setText] = useState("");
+
+const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const handleSend = () => {
     if (!text.trim()) return;
@@ -42,6 +45,20 @@ const MessageInput = ({ onSend }: MessageInputProps) => {
         boxSizing: "border-box",
       }}
     >
+      <input
+  type="file"
+  ref={fileInputRef}
+  hidden
+  onChange={(event) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      console.log("Selected file:", file);
+    }
+
+    event.target.value = "";
+  }}
+/>
       <TextField
         fullWidth
         multiline
@@ -76,6 +93,12 @@ const MessageInput = ({ onSend }: MessageInputProps) => {
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton
+                 onClick={() => fileInputRef.current?.click()}
+                 aria-label="Attach file"
+                >
+              <AttachFileRoundedIcon />
+             </IconButton>
+                <IconButton
                   onClick={handleSend}
                   disabled={!text.trim()}
                   aria-label="Send message"
@@ -90,7 +113,7 @@ const MessageInput = ({ onSend }: MessageInputProps) => {
                     },
                     "&.Mui-disabled": {
                       bgcolor: "#e2e8f0",
-                      color: "#78a9ec",
+                      color: "#1d4ed8",
                     },
                   }}
                 >

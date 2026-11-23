@@ -2,8 +2,13 @@ import { Box, Avatar, Typography, IconButton } from "@mui/material";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import type { ChatUser } from "../../../types/chat";
 
-const ChatHeader = () => {
+interface ChatHeaderProps {
+  user: ChatUser
+}
+
+const ChatHeader = ({user}: ChatHeaderProps) => {
      return (
          <Box
       sx={{
@@ -16,17 +21,17 @@ const ChatHeader = () => {
     >
       {/* User details */}
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-        <Avatar sx={{ bgcolor: "#dbeafe", color: "#1d4ed8" }}>
-          SP
+        <Avatar src={user.profilePic || undefined}>
+          {user.name.split(" ").slice(0,2).map((word)=>word[0]).join("").toUpperCase()}
         </Avatar>
 
         <Box>
           <Typography sx={{ fontSize: 15, fontWeight: 600 }}>
-            Smitali Patil
+            {user.name}
           </Typography>
 
           <Typography sx={{ fontSize: 12, color: "#16a34a" }}>
-            Online
+            {user.isGroup ? "Group chat" : user.active? "Online" : "Offline"}
           </Typography>
         </Box>
       </Box>
