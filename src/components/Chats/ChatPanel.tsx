@@ -42,7 +42,7 @@ interface ChatPanelProps {
 
 const ChatPanel = ({
   onSelectUser,
-  selectedUserId,
+  // selectedUserId,
 }: ChatPanelProps) => {
   const filterOptionElementRef = useRef<HTMLDivElement | null>(null);
   const filterOptionLeftBtnElementRef = useRef<HTMLButtonElement | null>(null);

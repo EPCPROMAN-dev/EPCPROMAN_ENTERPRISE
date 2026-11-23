@@ -1,6 +1,6 @@
 export interface Message{
     id: number,
-    userId: number,
+    userId?: number,
     text: string,
     sender: "me" | "other",
     time: string,
