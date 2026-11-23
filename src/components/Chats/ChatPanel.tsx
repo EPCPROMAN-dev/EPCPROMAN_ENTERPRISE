@@ -32,8 +32,18 @@ import {
   MenuItem,
   MenuSeparator,
 } from "../MUIComponents/Menubar/Menubar";
+import type { ChatUser } from "../../types/chat";
 
-const ChatPanel = () => {
+interface ChatPanelProps {
+    onSelectUser: (user: ChatUser) => void;
+  selectedUserId: number | null;
+
+}
+
+const ChatPanel = ({
+  onSelectUser,
+  // selectedUserId,
+}: ChatPanelProps) => {
   const filterOptionElementRef = useRef<HTMLDivElement | null>(null);
   const filterOptionLeftBtnElementRef = useRef<HTMLButtonElement | null>(null);
   const filterOptionRightBtnElementRef = useRef<HTMLButtonElement | null>(null);
@@ -806,6 +816,8 @@ const ChatPanel = () => {
                 {list.map((user, userIndex) => {
                   return (
                     <Box
+                    key={user.id}
+                    onClick={()=> onSelectUser(user)}
                       sx={{
                         display: "flex",
                         gap: "10px",
