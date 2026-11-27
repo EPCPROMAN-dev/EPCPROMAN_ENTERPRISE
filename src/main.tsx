@@ -9,10 +9,15 @@ import "./index.css";
 import router from "./routes/Router.tsx";
 import { ThemeProvider } from "@mui/material";
 
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
 createRoot(document.getElementById("root")!).render(
   <ThemeProvider theme={theme}>
-    <ReduxProvider store={store}>
-      <RouterProvider router={router} />
-    </ReduxProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <ReduxProvider store={store}>
+        <RouterProvider router={router} />
+      </ReduxProvider>
+    </LocalizationProvider>
   </ThemeProvider>,
 );

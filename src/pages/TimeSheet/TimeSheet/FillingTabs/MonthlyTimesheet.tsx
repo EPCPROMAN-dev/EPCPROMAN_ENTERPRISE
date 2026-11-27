@@ -1,8 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { MouseEvent } from "react";
+
 import { EventCalendar } from "@mui/x-scheduler/event-calendar";
-import { Grid, GridColumn } from "@progress/kendo-react-grid";
-import { TimePicker } from "@progress/kendo-react-dateinputs";
-import { DropDownList } from "@progress/kendo-react-dropdowns";
+
+import {
+  Box,
+  TextField,
+  FormControl,
+  Select,
+  MenuItem,
+  Button,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Checkbox,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+} from "@mui/material";
+
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import type { Dayjs } from "dayjs";
+
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import CloseIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+interface TimesheetTableProps {
+  entries: TimesheetEntry[];
+  selectedRows: number[];
+  onSelectRow: (id: number) => void;
+  onSelectAll: () => void;
+  onDeleteSelected: () => void;
+}
 
 interface MonthlyTimesheetProps {
   view: "day" | "week" | "month";
@@ -23,6 +59,107 @@ interface TimesheetEntry {
 
 const projectList = ["APEXMIS", "EPCPROMAN", "Timesheet Module"];
 
+// Format date
+const formatEntryDate = (date: string) => {
+  const [year, month, day] = date.split("-").map(Number);
+
+  return new Date(year, month - 1, day).toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+};
+
+// Reusable Timesheet Table
+function TimesheetTable({
+  entries,
+  selectedRows,
+  onSelectRow,
+  onSelectAll,
+}: TimesheetTableProps) {
+  const allSelected =
+    entries.length > 0 &&
+    entries.every((entry) => selectedRows.includes(entry.id));
+
+  const someSelected = entries.some((entry) => selectedRows.includes(entry.id));
+
+  return (
+    <Box>
+      {/* TABLE HEADER */}
+
+      {/* TABLE */}
+      <TableContainer
+        component={Paper}
+        elevation={0}
+        sx={{
+          maxHeight: 350,
+          border: "1px solid #e2e8f0",
+          // borderRadius: 2,
+        }}
+      >
+        <Table stickyHeader size="small">
+          {/* TABLE HEAD */}
+          <TableHead>
+            <TableRow>
+              <TableCell padding="checkbox" width="90px">
+                <Checkbox
+                  size="small"
+                  checked={allSelected}
+                  indeterminate={someSelected && !allSelected}
+                  onChange={onSelectAll}
+                />
+              </TableCell>
+
+              <TableCell width="150px" >Date</TableCell>
+              <TableCell width="150px">Start Time</TableCell>
+              <TableCell width="150px">End Time</TableCell>
+              <TableCell width="150px">Project</TableCell>
+              <TableCell align="center">Description</TableCell>
+            </TableRow>
+          </TableHead>
+
+          {/* TABLE BODY */}
+          <TableBody>
+            {entries.length > 0 ? (
+              entries.map((entry) => (
+                <TableRow key={entry.id} hover>
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      size="small"
+                      checked={selectedRows.includes(entry.id)}
+                      onChange={() => onSelectRow(entry.id)}
+                    />
+                  </TableCell>
+
+                  <TableCell>{formatEntryDate(entry.date)}</TableCell>
+
+                  <TableCell>{entry.startTime}</TableCell>
+
+                  <TableCell>{entry.endTime}</TableCell>
+
+                  <TableCell>{entry.project}</TableCell>
+
+                  <TableCell align="center">{entry.description}</TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={6}
+                  align="center"
+                  sx={{ py: 3, color: "text.secondary" }}
+                >
+                  No timesheet entries found.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
+  );
+}
+
 export default function MonthlyTimesheet({
   view,
   visibleDate,
@@ -30,35 +167,52 @@ export default function MonthlyTimesheet({
   onVisibleDateChange,
   onSelectedDateChange,
 }: MonthlyTimesheetProps) {
-  // Form states
-  const [startTime, setStartTime] = useState<Date | null>(null);
-  const [endTime, setEndTime] = useState<Date | null>(null);
+  // FORM STATES
+  const [startTime, setStartTime] = useState<Dayjs | null>(null);
+  const [endTime, setEndTime] = useState<Dayjs | null>(null);
+
   const [project, setProject] = useState("");
   const [description, setDescription] = useState("");
 
-  // Store all timesheet entries
-  const [entries, setEntries] = useState<TimesheetEntry[]>([]);
+  // LOAD DATA FROM LOCAL STORAGE
+  const [entries, setEntries] = useState<TimesheetEntry[]>(() => {
+    const savedEntries = localStorage.getItem("timesheetEntries");
 
-  // Format selected date
+    if (!savedEntries) return [];
+
+    try {
+      return JSON.parse(savedEntries);
+    } catch {
+      return [];
+    }
+  });
+
+  // SAVE DATA TO LOCAL STORAGE
+  useEffect(() => {
+    localStorage.setItem("timesheetEntries", JSON.stringify(entries));
+  }, [entries]);
+
+  // TABLE STATES
+  const [isTableExpanded, setIsTableExpanded] = useState(false);
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+
+  // SELECTED DATE
   const formattedDate = selectedDate.toLocaleDateString("en-IN", {
     day: "2-digit",
     month: "short",
     year: "numeric",
   });
 
-  // Get selected date in YYYY-MM-DD format
   const dateKey = [
     selectedDate.getFullYear(),
     String(selectedDate.getMonth() + 1).padStart(2, "0"),
     String(selectedDate.getDate()).padStart(2, "0"),
   ].join("-");
 
-  // Filter entries for selected date
-  const filteredEntries = entries.filter((entry) => {
-    return entry.date === dateKey;
-  });
+  // FILTER ENTRIES
+  const filteredEntries = entries.filter((entry) => entry.date === dateKey);
 
-  // Clear form
+  // CLEAR FORM
   const handleClear = () => {
     setStartTime(null);
     setEndTime(null);
@@ -66,18 +220,17 @@ export default function MonthlyTimesheet({
     setDescription("");
   };
 
-  // Save timesheet entry
+  // SAVE ENTRY
   const handleSaveEntry = () => {
     if (!startTime || !endTime || !project || !description.trim()) {
       alert("Please fill all the fields.");
       return;
     }
 
-    const startMinutes = startTime.getHours() * 60 + startTime.getMinutes();
-
-    const endMinutes = endTime.getHours() * 60 + endTime.getMinutes();
-
-    if (endMinutes <= startMinutes) {
+    if (
+      endTime.hour() * 60 + endTime.minute() <=
+      startTime.hour() * 60 + startTime.minute()
+    ) {
       alert("End time must be later than start time.");
       return;
     }
@@ -85,31 +238,21 @@ export default function MonthlyTimesheet({
     const newEntry: TimesheetEntry = {
       id: Date.now(),
       date: dateKey,
-
-      startTime: startTime.toLocaleTimeString("en-IN", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-
-      endTime: endTime.toLocaleTimeString("en-IN", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-
-      project: project,
-      description: description,
+      startTime: startTime.format("hh:mm A"),
+      endTime: endTime.format("hh:mm A"),
+      project,
+      description,
     };
 
-    setEntries((previousEntries) => [...previousEntries, newEntry]);
+    setEntries((previous) => [...previous, newEntry]);
 
     handleClear();
   };
 
-  // Handle calendar clicks
-  const handleCalendarClick = (event: any) => {
+  // CALENDAR CLICK
+  const handleCalendarClick = (event: MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
 
-    // MONTHLY VIEW
     if (view === "month") {
       const dateCell = target.closest(".MuiEventCalendar-monthViewCell");
 
@@ -125,16 +268,11 @@ export default function MonthlyTimesheet({
 
       if (!day) return;
 
-      const clickedDate = new Date(
-        visibleDate.getFullYear(),
-        visibleDate.getMonth(),
-        day,
+      onSelectedDateChange(
+        new Date(visibleDate.getFullYear(), visibleDate.getMonth(), day),
       );
-
-      onSelectedDateChange(clickedDate);
     }
 
-    // WEEKLY VIEW
     if (view === "week") {
       const headerButton = target.closest(
         ".MuiEventCalendar-dayTimeGridHeaderButton",
@@ -146,40 +284,80 @@ export default function MonthlyTimesheet({
         ".MuiEventCalendar-dayTimeGridHeaderCell",
       );
 
-      if (!headerCell) return;
-
-      const dateLabel = headerCell.getAttribute("aria-label");
+      const dateLabel = headerCell?.getAttribute("aria-label");
 
       if (!dateLabel) return;
 
-      // Example: Monday, November 9, 2026
       const clickedDate = new Date(
         dateLabel + ", " + visibleDate.getFullYear(),
       );
 
-      if (isNaN(clickedDate.getTime())) return;
-
-      onSelectedDateChange(clickedDate);
+      if (!isNaN(clickedDate.getTime())) {
+        onSelectedDateChange(clickedDate);
+      }
     }
   };
 
+  // SELECT / DESELECT INDIVIDUAL ROW
+  const handleSelectRow = (id: number) => {
+    setSelectedRows((previous) =>
+      previous.includes(id)
+        ? previous.filter((item) => item !== id)
+        : [...previous, id],
+    );
+  };
+
+  // SELECT / DESELECT ALL VISIBLE ROWS
+  const handleSelectAll = () => {
+    const visibleIds = filteredEntries.map((entry) => entry.id);
+
+    const allSelected = visibleIds.every((id) => selectedRows.includes(id));
+
+    if (allSelected) {
+      setSelectedRows((previous) =>
+        previous.filter((id) => !visibleIds.includes(id)),
+      );
+    } else {
+      setSelectedRows((previous) => [...new Set([...previous, ...visibleIds])]);
+    }
+  };
+
+  // DELETE SELECTED ENTRIES
+  const handleDeleteSelected = () => {
+    if (selectedRows.length === 0) return;
+
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete ${selectedRows.length} selected entries?`,
+    );
+
+    if (!confirmDelete) return;
+
+    setEntries((previous) =>
+      previous.filter((entry) => !selectedRows.includes(entry.id)),
+    );
+
+    setSelectedRows([]);
+  };
+
+  // CLEAR SELECTION WHEN DATE CHANGES
+  useEffect(() => {
+    setSelectedRows([]);
+  }, [dateKey]);
+
   return (
-    <div
+    <Box
       className="pt-2"
-      style={{
+      sx={{
         display: "flex",
         height: "calc(100vh - 199px)",
         gap: "10px",
       }}
     >
       {/* LEFT: CALENDAR */}
-      <div className="pt-2 w-3/5 ">
-        <div
+      <Box className="pt-2 w-3/5">
+        <Box
           onClick={handleCalendarClick}
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
+          sx={{ width: "100%", height: "100%" }}
         >
           <EventCalendar
             view={view}
@@ -189,121 +367,204 @@ export default function MonthlyTimesheet({
             showCurrentTimeIndicator={view === "day" || view === "week"}
             eventCreation={false}
           />
-        </div>
-      </div>
+        </Box>
+      </Box>
 
-      {/* RIGHT: TIMESHEET ENTRY FORM */}
-      <div className="pt-2 w-2/5 min-w-0">
-        <div className="h-full w-full bg-gray-100 rounded-lg shadow-md p-4 overflow-y-auto ">
+      {/* RIGHT: TIMESHEET FORM */}
+      <Box className="pt-2 w-2/5 min-w-0">
+        <Box className="h-full w-full bg-gray-100 rounded-lg shadow-md p-4 overflow-y-auto">
           {/* SELECTED DATE */}
-          <div className="mb-2">
-            <label className="block text-sm font-medium text-gray-600 mb-1">
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="body2" color="text.secondary">
               Selected Date
-            </label>
+            </Typography>
 
-            <div className="font-semibold text-gray-800">{formattedDate}</div>
-          </div>
+            <Typography>{formattedDate}</Typography>
+          </Box>
 
-          {/* START TIME AND END TIME */}
-          <div className="grid grid-cols-2 gap-3 mb-2">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Start Time *
-              </label>
-
-              <TimePicker
-                value={startTime}
-                onChange={(event) => setStartTime(event.value)}
-                format="hh:mm a"
-                placeholder="Start Time"
-                width="100%"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                End Time *
-              </label>
-
-              <TimePicker
-                value={endTime}
-                onChange={(event) => setEndTime(event.value)}
-                format="hh:mm a"
-                placeholder="End Time"
-                width="100%"
-              />
-            </div>
-          </div>
-
-          {/* PROJECT NAME */}
-          <div className="mb-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Project Name *
-            </label>
-
-            <DropDownList
-              data={projectList}
-              value={project}
-              onChange={(event) => setProject(event.value)}
-              defaultItem="Select Project"
-              style={{ width: "100%" }}
+          {/* TIME PICKERS */}
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 2,
+              mb: 2,
+            }}
+          >
+            <TimePicker
+              label="Start Time *"
+              value={startTime}
+              onChange={setStartTime}
+              slotProps={{
+                textField: {
+                  size: "small",
+                  fullWidth: true,
+                },
+              }}
             />
-          </div>
+
+            <TimePicker
+              label="End Time *"
+              value={endTime}
+              onChange={setEndTime}
+              slotProps={{
+                textField: {
+                  size: "small",
+                  fullWidth: true,
+                },
+              }}
+            />
+          </Box>
+
+          {/* PROJECT */}
+          <FormControl fullWidth size="small" sx={{ mb: 2 }}>
+            <Select
+              displayEmpty
+              value={project}
+              onChange={(event) => setProject(event.target.value)}
+              renderValue={(value) => value || "Select Project *"}
+            >
+              {projectList.map((item) => (
+                <MenuItem key={item} value={item}>
+                  {item}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
           {/* DESCRIPTION */}
-          <div className="mb-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Description *
-            </label>
-
-            <textarea
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
-              placeholder="Describe the work completed..."
-              rows={3}
-              className="w-full border border-gray-300 rounded-md p-2 text-sm resize-none outline-none focus:border-blue-500"
-            />
-          </div>
+          <TextField
+            fullWidth
+            multiline
+            rows={3}
+            size="small"
+            label="Description *"
+            placeholder="Describe the work completed..."
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+            sx={{ mb: 2 }}
+          />
 
           {/* FORM BUTTONS */}
-          <div className="flex justify-end gap-2 mb-2">
-            <button
-              type="button"
-              onClick={handleClear}
-              className="px-4 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-200"
-            >
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              gap: 1,
+              mb: 2,
+            }}
+          >
+            <Button variant="outlined" color="inherit" onClick={handleClear}>
               Clear
-            </button>
+            </Button>
 
-            <button
-              type="button"
-              onClick={handleSaveEntry}
-              className="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
-            >
+            <Button variant="contained" onClick={handleSaveEntry}>
               Save Entry
-            </button>
-          </div>
+            </Button>
+          </Box>
 
           <hr className="border-gray-300 mb-4" />
 
-          {/* TIMESHEET ENTRIES GRID */}
-          <div className="mb-3">
-            <h3 className="font-semibold text-gray-800 mb-3">
-              Timesheet Entries
-            </h3>
+          {/* TABLE HEADING */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mb: "2",
+            }}
+          >
+            <Typography>Timesheet Entries</Typography>
 
-            <Grid data={filteredEntries} style={{ maxHeight: "350px" }}>
-              <GridColumn field="startTime" title="Start Time" width="105px" />
+            <Box className="flex Items-center justify-between">
+              {/* DELETE */}
+              <IconButton
+                size="small"
+                color="error"
+                disabled={selectedRows.length === 0}
+                onClick={handleDeleteSelected}
+                title="Delete Selected"
+              >
+                <DeleteIcon />
+              </IconButton>
 
-              <GridColumn field="endTime" title="End Time" width="105px" />
+              {/* EXPAND */}
+              <IconButton
+                size="small"
+                color="primary"
+                onClick={() => setIsTableExpanded(true)}
+                title="Expand Table"
+              >
+                <FullscreenIcon />
+              </IconButton>
+            </Box>
+          </Box>
+          {/* NORMAL TABLE */}
+          <TimesheetTable
+            entries={filteredEntries}
+            selectedRows={selectedRows}
+            onSelectRow={handleSelectRow}
+            onSelectAll={handleSelectAll}
+            onDeleteSelected={handleDeleteSelected}
+          />
+        </Box>
+      </Box>
 
-              <GridColumn field="project" title="Project" width="130px" />
+      {/* EXPANDED TABLE DIALOG */}
+      <Dialog
+        open={isTableExpanded}
+        onClose={() => setIsTableExpanded(false)}
+        maxWidth={false}
+        slotProps={{
+          paper: {
+            sx: {
+              width: "90vw",
+              height: "90vh",
+              borderRadius: 3,
+            },
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          Timesheet Entries
+          <Box className="flex justify-between items-center">
+            <IconButton
+            color="error"
+              disabled={selectedRows.length === 0}
+              onClick={handleDeleteSelected}
+              // sx={{ color:"error"}}
+              
+              title="Delete Selected"
+            >
+              <DeleteIcon />
+            </IconButton>
 
-              <GridColumn field="description" title="Description" />
-            </Grid>
-          </div>
-        </div>
-      </div>
-    </div>
+            <IconButton
+              onClick={() => setIsTableExpanded(false)}
+              // sx={{ color: "white" }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Box>
+        </DialogTitle>
+
+        <DialogContent sx={{ p: 2}}>
+          {/* EXPANDED TABLE */}
+          <TimesheetTable
+            entries={filteredEntries}
+            selectedRows={selectedRows}
+            onSelectRow={handleSelectRow}
+            onSelectAll={handleSelectAll}
+            onDeleteSelected={handleDeleteSelected}
+          />
+        </DialogContent>
+      </Dialog>
+    </Box>
   );
 }

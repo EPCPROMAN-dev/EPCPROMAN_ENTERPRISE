@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { DropDownList } from "@progress/kendo-react-dropdowns";
-import { EventCalendar } from "@mui/x-scheduler/event-calendar";
-import type { SchedulerEvent } from "@mui/x-scheduler/models";
+import { EventCalendar, } from "@mui/x-scheduler/event-calendar";
+import type { SchedulerEvent, SchedulerEventColor, } from "@mui/x-scheduler/models";
 import Button from "@mui/material/Button";
 
 import Box from "@mui/material/Box";
@@ -29,6 +29,7 @@ interface CalendarEvent extends SchedulerEvent {
   notes: string;
   allDay: boolean;
   meetingLink: string;
+  color?: SchedulerEventColor;
 }
 
 // Sample calendar events
@@ -119,6 +120,17 @@ const eventTypes = [
   "Milestone",
   "Training",
 ];
+
+// colors for events
+const eventColors: Record<string, SchedulerEventColor> = {
+  Meeting: "blue",
+  "Site Visit": "green",
+  Inspection: "purple",
+  Review: "amber",
+  Leave: "red",
+  Milestone: "teal",
+  Training: "grey",
+};
 
 function Calendar() {
   // Calendar events
@@ -217,14 +229,15 @@ function Calendar() {
     const newEvent: CalendarEvent = {
       id: editingEventId ?? String(Date.now()),
       title: eventTitle,
-      start: `${eventDate}T${startTime}:00`,
-      end: `${eventDate}T${endTime}:00`,
+      start: allDay ? `${eventDate}T00:00:00` : `${eventDate}T${startTime}:00`,
+      end: allDay ? `${eventDate}T23:59:59` : `${eventDate}T${endTime}:00`,
       eventType,
       employeeIds: selectedEmployees,
       location,
       meetingLink,
       notes,
       allDay,
+      color: eventColors[eventType],
     };
     if (editingEventId !== null) {
       // Update existing event
@@ -286,6 +299,18 @@ function Calendar() {
     setSelectedEmployees([]);
     setActiveButton("");
   };
+
+  const handleDeleteEvent=()=>{
+    if(editingEventId===null) return;
+
+    const confirmDelete=window.confirm("Are you sure you want to delte this event ?");
+
+    if(!confirmDelete) return;
+
+    setEvents((prev)=>prev.filter((event)=>event.id!==editingEventId));
+    setOpenDialog(false);
+    resetEventForm();
+  }
 
   useEffect(() => {
     localStorage.setItem("calendarEvents", JSON.stringify(events));
@@ -563,6 +588,12 @@ function Calendar() {
           </Box>
         </DialogContent>
         <DialogActions>
+          {editingEventId !==null &&(
+            <Button color="error" onClick={handleDeleteEvent}>
+              Delete Event
+            </Button>
+          )}
+
           <Button
             onClick={() => {
               setOpenDialog(false);
@@ -578,7 +609,7 @@ function Calendar() {
               resetEventForm();
             }}
           >
-            Create Event
+            {editingEventId!==null ? "Update Event":"Create Event"}
           </Button>
         </DialogActions>
       </Dialog>
