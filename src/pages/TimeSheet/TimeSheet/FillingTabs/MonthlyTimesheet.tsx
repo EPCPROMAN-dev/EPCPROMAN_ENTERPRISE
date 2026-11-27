@@ -76,7 +76,6 @@ function TimesheetTable({
   selectedRows,
   onSelectRow,
   onSelectAll,
-  onDeleteSelected,
 }: TimesheetTableProps) {
   const allSelected =
     entries.length > 0 &&

@@ -25,11 +25,11 @@ export default function TimesheetFilling() {
     setSelectedDate(date);
   };
 
-  const viewLabels: Record<CalendarView, string> = {
-    day: "Daily",
-    week: "Weekly",
-    month: "Monthly",
-  };
+  // const viewLabels: Record<CalendarView, string> = {
+  //   day: "Daily",
+  //   week: "Weekly",
+  //   month: "Monthly",
+  // };
 
   return (
     <Box
