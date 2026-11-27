@@ -440,7 +440,6 @@ const ChatPanel = ({
   };
 
   const profColors = ["#bfe2ff", "#bfc1ff", "#ffbfe2", "#ffddbf", "#deffbf"];
-
   const listHelpers = {
     createAbbrFromString: (name: string) => {
       if (name.split(" ").length == 1) {
